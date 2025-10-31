@@ -113,8 +113,8 @@ Enumeration of supported output formats.
 - `XML`: Valid sitemap XML with filtered entries
 
 **Validation Rules**:
-- Enforced by argparse choices: `['json', 'txt', 'xml']`
-- Default value: `JSON`
+- Enforced by typer/argparse choices: `['text', 'json', 'xml']`
+- Default value: `text`
 
 ---
 

@@ -59,7 +59,7 @@ A developer wants to apply both language and product filters simultaneously to e
 
 ### User Story 4 - Output Format Options (Priority: P4)
 
-A developer wants to output filtered results in different formats (default JSON, plain text list, or filtered XML) to integrate with various downstream processing tools.
+A developer wants to output filtered results in different formats (default text, JSON, or filtered XML) to integrate with various downstream processing tools.
 
 **Why this priority**: Format flexibility improves script utility across different workflows, but core filtering functionality is more critical.
 
@@ -67,11 +67,11 @@ A developer wants to output filtered results in different formats (default JSON,
 
 **Acceptance Scenarios**:
 
-1. **Given** filtered URLs, **When** user doesn't specify a format flag, **Then** output is valid JSON array with URL and lastmod data
-2. **Given** filtered URLs, **When** user specifies `--format json` flag(default), **Then** output is valid JSON array with URL and lastmod data
-3. **Given** filtered URLs, **When** user specifies `--format txt` flag, **Then** output is plain text with one URL per line
+1. **Given** filtered URLs, **When** user doesn't specify a format flag, **Then** output is plain text with one URL per line (default)
+2. **Given** filtered URLs, **When** user specifies `--format json` flag, **Then** output is valid JSON with URL and lastmod data
+3. **Given** filtered URLs, **When** user specifies `--format text` flag, **Then** output is plain text with one URL per line
 4. **Given** filtered URLs, **When** user specifies `--format xml` flag, **Then** output is valid sitemap XML containing only filtered URLs
-5. **Given** filtered URLs, **When** user outputs to file with `--output result.json`, **Then** results are written to specified file instead of stdout
+5. **Given** filtered URLs, **When** user outputs to file with `--output result.txt`, **Then** results are written to specified file instead of stdout
 
 ---
 
@@ -94,7 +94,7 @@ A developer wants to output filtered results in different formats (default JSON,
 - **FR-004**: Script MUST allow multiple `--product` flags to filter for multiple products (OR logic)
 - **FR-005**: Script MUST combine multiple filter types using AND logic (e.g., language AND product)
 - **FR-006**: Script MUST validate XML structure and provide clear error messages for malformed input
-- **FR-007**: Script MUST support output format options via `--format` flag: `txt` (default), `json`, `xml`
+- **FR-007**: Script MUST support output format options via `--format` flag: `text` (default), `json`, `xml`
 - **FR-008**: Script MUST preserve `lastmod` timestamps from original sitemap in all output formats
 - **FR-009**: Script MUST write output to stdout by default or to file specified with `--output` flag
 - **FR-010**: Script MUST display help information with `--help` flag showing all available options

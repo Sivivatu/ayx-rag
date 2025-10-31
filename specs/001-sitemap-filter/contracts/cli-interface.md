@@ -115,7 +115,16 @@ uv run python src/sitemap_filter.py <sitemap_file> [OPTIONS]
 
 ## Output Formats
 
-### JSON Format (default)
+### Text Format (default)
+
+Plain text output with one URL per line, ideal for piping:
+
+```
+https://help.alteryx.com/current/en/designer.html
+https://help.alteryx.com/current/en/designer/tools.html
+```
+
+### JSON Format
 
 ```json
 {
