@@ -7,7 +7,7 @@ This is a RAG (Retrieval Augmented Generation) system for Alteryx help documenta
 
 ### Package Management
 - Uses **uv** (fast Python package manager) exclusively - never use pip
-- Project uses **uv workspaces** - root manages workspace, packages have isolated deps
+- Project uses **uv workspaces** - root manages workspace and global dependencies, packages have isolated deps
 - Root `pyproject.toml` declares workspace members with `[tool.uv.workspace]`
 - Commands: `uv add <package>`, `uv run <script>`, `uv sync`
 
