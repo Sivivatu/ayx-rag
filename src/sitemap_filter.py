@@ -8,8 +8,7 @@ import typer
 from loguru import logger
 
 from src.filters.parser import parse_sitemap
-from src.filters.language import filter_by_language
-from src.filters.product import filter_by_product
+from src.filters import FilterCriteria, apply_filters
 
 # Configure loguru for the application
 logger.remove()  # Remove default handler
@@ -71,18 +70,18 @@ def main(
         entries = parse_sitemap(sitemap_file)
         total_count = len(entries)
         
-        # Apply language filter
-        if language and 'all' in language:
-            logger.info("Returning all languages ('all' specified)")
-            entries = filter_by_language(entries, [])  # Empty list returns all
-        elif language:
-            logger.info(f"Applying language filter: {language}")
-            entries = filter_by_language(entries, language)
+        # Build filter criteria
+        filter_languages = [] if (language and 'all' in language) else (language or [])
+        filter_products = product or []
         
-        # Apply product filter if specified
-        if product:
-            logger.info(f"Applying product filter: {product}")
-            entries = filter_by_product(entries, product)
+        criteria = FilterCriteria(languages=filter_languages, products=filter_products)
+        
+        # Apply combined filters
+        if filter_languages or filter_products:
+            logger.info(f"Applying filters: languages={filter_languages or 'all'}, products={filter_products or 'all'}")
+            entries = apply_filters(entries, criteria)
+        else:
+            logger.info("No filters specified - returning all entries")
         
         filtered_count = len(entries)
         
