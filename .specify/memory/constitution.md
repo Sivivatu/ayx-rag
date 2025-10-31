@@ -124,7 +124,7 @@ All commits MUST follow Conventional Commits format: `<type>(<scope>): <descript
 
 ## Technology Stack
 
-**Language**: Python 3.14+  
+**Language**: Python 3.10+  
 **Package Manager**: uv (exclusively)  
 **Development Environment**: Dev container (Debian-based)  
 **Primary Data Source**: `alteryx-help-current-sitemap.xml` (35,460 URLs)  
