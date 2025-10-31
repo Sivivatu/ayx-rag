@@ -28,23 +28,28 @@ def detect_language(url: str) -> str:
     """Detect language from URL path.
     
     Pattern: help.alteryx.com/current/{locale}/path
-    If no locale found, default to 'en'
+    Handles both 2-letter codes (en, de) and multi-character codes (zh-CHS).
     
     Args:
         url: The URL to analyze
         
     Returns:
-        Language code (e.g., 'en', 'de')
+        Language code (e.g., 'en', 'de', 'zh-CHS')
     """
-    match = re.search(r'/current/([a-z]{2})/', url)
-    return match.group(1) if match else 'en'
+    match = re.search(r'/current/([a-z]{2}(?:-[A-Z]{3})?)/', url)
+    if match:
+        return match.group(1)
+    
+    # If no locale pattern found, log warning and return empty string
+    logger.warning(f"Could not detect language from URL: {url}")
+    return ""
 
 
 def extract_products(url: str) -> List[str]:
     """Extract product path segments from URL.
     
-    Pattern: help.alteryx.com/current/{locale?}/{product}/{sub-product?}/...
-    Returns list of product segments.
+    Pattern: help.alteryx.com/current/{locale}/{product}/{sub-pages...}
+    The first segment after locale is the main product.
     
     Args:
         url: The URL to analyze
@@ -55,23 +60,25 @@ def extract_products(url: str) -> List[str]:
     # Known product names from Alteryx documentation structure
     KNOWN_PRODUCTS = {
         'designer', 'server', 'connect', 'predictive-tools',
-        'gallery', 'schedules', 'admin', 'data-sources'
+        'gallery', 'schedules', 'admin', 'data-sources',
+        'intelligence', 'auto-insights', 'promote', 'cloud'
     }
     
-    # Remove base URL and extract path
-    path = url.split('/current/')[-1]
+    # Extract path after /current/{locale}/
+    match = re.search(r'/current/[a-z]{2}/(.+)', url)
+    if not match:
+        return []
     
-    # Split into segments and filter
-    segments = [s for s in path.split('/') if s and s.endswith('.html') == False]
+    path = match.group(1)
     
-    # Remove known locale codes
-    KNOWN_LOCALES = {'en', 'de', 'fr', 'es', 'ja', 'pt'}
-    segments = [s for s in segments if s not in KNOWN_LOCALES]
+    # Split into segments and remove .html extension
+    segments = [s.replace('.html', '') for s in path.split('/') if s]
     
-    # Filter to known product names
-    products = [s for s in segments if s in KNOWN_PRODUCTS]
+    # First segment is typically the main product
+    if segments and segments[0] in KNOWN_PRODUCTS:
+        return [segments[0]]
     
-    return products
+    return []
 
 
 def parse_sitemap(file_path: Path) -> List[URLEntry]:

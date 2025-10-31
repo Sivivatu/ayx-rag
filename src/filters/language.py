@@ -10,25 +10,31 @@ def detect_language(url: str) -> str:
     """Detect language from URL path.
     
     Pattern: help.alteryx.com/current/{locale}/path
-    If no locale found, default to 'en'
+    Handles both 2-letter codes (en, de) and multi-character codes (zh-CHS).
     
     Args:
         url: The URL to analyze
         
     Returns:
-        Language code (e.g., 'en', 'de')
+        Language code (e.g., 'en', 'de', 'zh-CHS')
         
     Examples:
-        >>> detect_language("https://help.alteryx.com/current/designer.html")
+        >>> detect_language("https://help.alteryx.com/current/en/designer.html")
         'en'
         >>> detect_language("https://help.alteryx.com/current/de/designer.html")
         'de'
+        >>> detect_language("https://help.alteryx.com/current/zh-CHS/designer.html")
+        'zh-CHS'
     """
-    match = re.search(r'/current/([a-z]{2})/', url)
-    language = match.group(1) if match else 'en'
+    match = re.search(r'/current/([a-z]{2}(?:-[A-Z]{3})?)/', url)
+    if match:
+        language = match.group(1)
+        logger.debug(f"Detected language '{language}' from URL: {url}")
+        return language
     
-    logger.debug(f"Detected language '{language}' from URL: {url}")
-    return language
+    # If no locale pattern found, log warning and return empty string
+    logger.warning(f"Could not detect language from URL: {url}")
+    return ""
 
 
 def filter_by_language(entries: List[URLEntry], languages: List[str]) -> List[URLEntry]:
