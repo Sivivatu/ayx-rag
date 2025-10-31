@@ -3,12 +3,14 @@
 from pathlib import Path
 from typing import List, Optional
 import sys
+import json
 
 import typer
 from loguru import logger
 
 from src.filters.parser import parse_sitemap
 from src.filters import FilterCriteria, apply_filters
+from src.filters.output import format_json, format_txt, format_xml
 
 # Configure loguru for the application
 logger.remove()  # Remove default handler
@@ -47,9 +49,9 @@ def main(
         help="Filter by product path segment. Can specify multiple times."
     ),
     format: str = typer.Option(
-        "json",
+        "text",
         "--format", "-f",
-        help="Output format: json, txt, or xml"
+        help="Output format: json, text, or xml"
     ),
     output: Optional[Path] = typer.Option(
         None,
@@ -100,14 +102,24 @@ def main(
             logger.info("Dry run complete - no output generated")
             return
         
-        # For now, just print URLs (basic txt format)
-        if not output:
-            for entry in entries:
-                print(entry.loc)
+        # Format output based on selected format
+        if format == "json":
+            output_data = format_json(entries, total_count)
+            output_str = json.dumps(output_data, indent=2)
+        elif format == "text":
+            output_str = format_txt(entries)
+        elif format == "xml":
+            output_str = format_xml(entries)
         else:
-            with open(output, 'w') as f:
-                for entry in entries:
-                    f.write(entry.loc + '\n')
+            logger.error(f"Unknown format: {format}")
+            raise typer.Exit(code=1)
+        
+        # Write to file or stdout
+        if not output:
+            print(output_str, end='' if format == "text" else '\n')
+        else:
+            with open(output, 'w', encoding='utf-8') as f:
+                f.write(output_str)
             logger.info(f"Output written to: {output}")
         
     except FileNotFoundError as e:
