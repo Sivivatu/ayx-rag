@@ -89,3 +89,10 @@ uv sync
     ```
 
 When implementing features, prioritize incremental development with clear separation of concerns between scraping, processing, storage, and query components.
+
+## Active Technologies
+- Python 3.10+ with xml.etree.ElementTree (XML parsing), typer (CLI framework), loguru (logging) (001-sitemap-filter)
+- N/A (stateless script, no persistence) (001-sitemap-filter)
+
+## Recent Changes
+- 001-sitemap-filter: Updated to Python 3.10+, using typer for CLI and loguru for logging
