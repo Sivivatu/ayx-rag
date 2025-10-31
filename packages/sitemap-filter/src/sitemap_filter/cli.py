@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import List, Optional
 import sys
 import json
+import time
 
 import typer
 from loguru import logger
@@ -28,6 +29,7 @@ app = typer.Typer(
 )
 
 
+@app.command()
 def filter_sitemap(
     sitemap_file: Path = typer.Argument(
         ...,
@@ -65,10 +67,21 @@ def filter_sitemap(
 ):
     """Filter sitemap URLs by language and product."""
     try:
+        start_time = time.time()
+        
         logger.info(f"Processing sitemap: {sitemap_file}")
         
-        # Parse sitemap
+        # Check file size and warn if large (T071)
+        file_size_mb = sitemap_file.stat().st_size / (1024 * 1024)
+        if file_size_mb > 10:
+            logger.warning(f"Large sitemap file detected: {file_size_mb:.2f} MB (>10 MB)")
+        
+        # Parse sitemap (T072 - performance logging)
+        parse_start = time.time()
         entries = parse_sitemap(sitemap_file)
+        parse_time = time.time() - parse_start
+        logger.debug(f"Parsing completed in {parse_time:.3f} seconds")
+        
         total_count = len(entries)
         
         # Build filter criteria
@@ -77,12 +90,15 @@ def filter_sitemap(
         
         criteria = FilterCriteria(languages=filter_languages, products=filter_products)
         
-        # Apply combined filters
+        # Apply combined filters (T072 - performance logging)
+        filter_start = time.time()
         if filter_languages or filter_products:
             logger.info(f"Applying filters: languages={filter_languages or 'all'}, products={filter_products or 'all'}")
             entries = apply_filters(entries, criteria)
         else:
             logger.info("No filters specified - returning all entries")
+        filter_time = time.time() - filter_start
+        logger.debug(f"Filtering completed in {filter_time:.3f} seconds")
         
         filtered_count = len(entries)
         
@@ -99,9 +115,12 @@ def filter_sitemap(
         # Output formatting will be added in Phase 6
         if dry_run:
             logger.info("Dry run complete - no output generated")
+            total_time = time.time() - start_time
+            logger.info(f"Total execution time: {total_time:.3f} seconds")
             return
         
-        # Format output based on selected format
+        # Format output based on selected format (T072 - performance logging)
+        output_start = time.time()
         if format == "json":
             output_data = format_json(entries, total_count)
             output_str = json.dumps(output_data, indent=2)
@@ -112,6 +131,8 @@ def filter_sitemap(
         else:
             logger.error(f"Unknown format: {format}")
             raise typer.Exit(code=1)
+        output_time = time.time() - output_start
+        logger.debug(f"Output formatting completed in {output_time:.3f} seconds")
         
         # Write to file or stdout
         if not output:
@@ -120,6 +141,9 @@ def filter_sitemap(
             with open(output, 'w', encoding='utf-8') as f:
                 f.write(output_str)
             logger.info(f"Output written to: {output}")
+        
+        total_time = time.time() - start_time
+        logger.info(f"Total execution time: {total_time:.3f} seconds")
         
     except FileNotFoundError as e:
         logger.error(f"Error: {e}")
