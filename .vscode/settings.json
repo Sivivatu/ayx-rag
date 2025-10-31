@@ -1,6 +1,17 @@
 {
     "cSpell.words": [
-        "lastmod"
+        "checkpointed",
+        "checkpointing",
+        "defusedxml",
+        "docopt",
+        "iterparse",
+        "langdetect",
+        "lastmod",
+        "lxml",
+        "minidom",
+        "noout",
+        "structlog",
+        "urlset"
     ],
     "cSpell.ignorePaths": [
         "alteryx-help-current-sitemap.xml",

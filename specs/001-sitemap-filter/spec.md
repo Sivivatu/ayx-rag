@@ -67,7 +67,7 @@ A developer wants to output filtered results in different formats (default JSON,
 
 **Acceptance Scenarios**:
 
-1. **Given** filtered URLs, **When** user doesnt specify a format flag, **Then** output is valid JSON array with URL and lastmod data
+1. **Given** filtered URLs, **When** user doesn't specify a format flag, **Then** output is valid JSON array with URL and lastmod data
 2. **Given** filtered URLs, **When** user specifies `--format json` flag(default), **Then** output is valid JSON array with URL and lastmod data
 3. **Given** filtered URLs, **When** user specifies `--format txt` flag, **Then** output is plain text with one URL per line
 4. **Given** filtered URLs, **When** user specifies `--format xml` flag, **Then** output is valid sitemap XML containing only filtered URLs
@@ -129,7 +129,7 @@ A developer wants to output filtered results in different formats (default JSON,
 
 - **SC-001**: Users can filter 35,460-URL sitemap and receive results in under 3 seconds on standard hardware
 - **SC-002**: Script correctly identifies and filters at least 99% of URLs based on language and product criteria
-- **SC-003**: 100% of output formats (txt, json, xml) produce valid, parseable results
+- **SC-003**: 100% of output formats (txt, json, xml) produce valid, parsable results
 - **SC-004**: Script processes sitemap files up to 10MB in size without memory errors
 - **SC-005**: Users can successfully combine language and product filters in a single command without errors
 - **SC-006**: Error messages are clear and actionable - users can identify and fix issues within 1 minute
