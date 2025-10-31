@@ -6,9 +6,28 @@ This is the main entry point for all CLI commands. Individual features are
 organized as workspace packages with isolated dependencies.
 """
 
+import sys
 from pathlib import Path
 from typing import List, Optional
 import typer
+
+# Version from pyproject.toml
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+
+def _get_version() -> str:
+    """Read version from pyproject.toml."""
+    try:
+        pyproject_path = Path(__file__).parent / "pyproject.toml"
+        with open(pyproject_path, "rb") as f:
+            data = tomllib.load(f)
+        return data["project"]["version"]
+    except Exception:
+        return "unknown"
+
+__version__ = _get_version()
 
 # Create main CLI application
 app = typer.Typer(
@@ -17,6 +36,28 @@ app = typer.Typer(
     no_args_is_help=True,
     add_completion=False,
 )
+
+
+def version_callback(value: bool):
+    """Callback for --version flag."""
+    if value:
+        typer.echo(f"uv-ayx-rag version {__version__}")
+        raise typer.Exit()
+
+
+@app.callback()
+def main(
+    version: Optional[bool] = typer.Option(
+        None,
+        "--version",
+        "-v",
+        help="Show version and exit.",
+        callback=version_callback,
+        is_eager=True,
+    ),
+):
+    """RAG system for Alteryx help documentation."""
+    pass
 
 
 @app.command("sitemap-filter")

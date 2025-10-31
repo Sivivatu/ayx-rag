@@ -22,6 +22,18 @@ class TestMainCLI:
         assert result.returncode == 0
         # When there's only one command, typer shows that command's help directly
         assert "Filter Alteryx sitemap URLs by language and product" in result.stdout
+    
+    def test_main_version_flag(self):
+        """Test that main.py --version shows the version."""
+        result = subprocess.run(
+            [sys.executable, "main.py", "--version"],
+            capture_output=True,
+            text=True,
+            cwd=Path(__file__).parent.parent
+        )
+        
+        assert result.returncode == 0
+        assert "0.1.0" in result.stdout
 
     def test_main_no_args_shows_help(self):
         """Test that main.py with no arguments shows error due to missing argument."""
