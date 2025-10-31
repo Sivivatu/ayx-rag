@@ -7,7 +7,7 @@
 
 ## Summary
 
-Build a CLI tool to filter the Alteryx sitemap (35,460 URLs) by language and product paths. The tool enables developers to extract focused subsets of documentation URLs for incremental RAG system development. Primary requirements: filter by language (en/de), filter by product path segments (designer/server/etc), combine filters, and output in multiple formats (JSON/txt/xml).
+Build a CLI tool to filter the Alteryx sitemap (8,864 URLs) by language and product paths. The tool enables developers to extract focused subsets of documentation URLs for incremental RAG system development. Primary requirements: filter by language (en/de/es/fr/it/ja/pt/zh-CHS/all with en as default), filter by product path segments (designer/server/etc), combine filters, and output in multiple formats (JSON/txt/xml).
 
 ## Technical Context
 

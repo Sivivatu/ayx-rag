@@ -37,9 +37,9 @@ def main(
         help="Path to XML sitemap file to filter"
     ),
     language: Optional[List[str]] = typer.Option(
-        None,
+        ["en"],
         "--language", "-l",
-        help="Filter by language code (en, de). Can specify multiple times."
+        help="Filter by language code (en, de, es, fr, it, ja, pt, zh-CHS, all). Defaults to 'en'. Use 'all' for all languages."
     ),
     product: Optional[List[str]] = typer.Option(
         None,
@@ -70,8 +70,11 @@ def main(
         entries = parse_sitemap(sitemap_file)
         total_count = len(entries)
         
-        # Apply language filter if specified
-        if language:
+        # Apply language filter
+        if language and 'all' in language:
+            logger.info("Returning all languages ('all' specified)")
+            entries = filter_by_language(entries, [])  # Empty list returns all
+        elif language:
             logger.info(f"Applying language filter: {language}")
             entries = filter_by_language(entries, language)
         
@@ -84,7 +87,9 @@ def main(
         # Display statistics to stderr
         logger.info(f"Total URLs: {total_count}")
         logger.info(f"Filtered URLs: {filtered_count}")
-        if language:
+        if language and 'all' in language:
+            logger.info("Language: all")
+        elif language:
             logger.info(f"Language: {', '.join(language)}")
         
         # Output formatting will be added in Phase 6

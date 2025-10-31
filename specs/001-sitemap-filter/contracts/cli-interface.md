@@ -33,14 +33,19 @@ uv run python src/sitemap_filter.py <sitemap_file> [OPTIONS]
 - **Type**: String (choice)
 - **Required**: No
 - **Multiple**: Yes (can specify multiple times)
-- **Choices**: `en`, `de`
-- **Description**: Filter URLs by language locale
-- **Default**: None (all languages included)
+- **Choices**: `en`, `de`, `es`, `fr`, `it`, `ja`, `pt`, `zh-CHS`, `all`
+- **Description**: Filter URLs by language locale. Use 'all' to include all languages.
+- **Default**: `en` (English only)
 - **Examples**:
   ```bash
-  --language en            # English only
+  # No flag specified - defaults to English
+  sitemap_filter.py sitemap.xml
+  
+  --language en            # English only (explicit)
   -l de                    # German only
   --language en -l de      # Both English and German
+  --language all           # All languages
+  -l all                   # All languages (short form)
   ```
 
 ### `--product PRODUCT` / `-p PRODUCT`
@@ -211,22 +216,38 @@ Products: designer, server
 
 ## Usage Examples
 
-### Example 1: Filter English URLs
+### Example 1: Default English Filter
 
 ```bash
-uv run python src/sitemap_filter.py alteryx-help-current-sitemap.xml --language en
+# No language flag - defaults to English
+uv run python src/sitemap_filter.py alteryx-help-current-sitemap.xml
 ```
 
 **Output** (stdout):
 ```json
 {
-  "total_urls": 35460,
-  "filtered_urls": 17823,
+  "total_urls": 8864,
+  "filtered_urls": 1108,
   "results": [...]
 }
 ```
 
-### Example 2: Filter Designer Docs in Text Format
+### Example 2: All Languages
+
+```bash
+uv run python src/sitemap_filter.py alteryx-help-current-sitemap.xml --language all
+```
+
+**Output** (stdout):
+```json
+{
+  "total_urls": 8864,
+  "filtered_urls": 8864,
+  "results": [...]
+}
+```
+
+### Example 3: Filter Designer Docs in Text Format
 
 ```bash
 uv run python src/sitemap_filter.py alteryx-help-current-sitemap.xml \
@@ -393,5 +414,6 @@ Warning: No URLs matched filter criteria
 
 ## Version History
 
+- **1.2.0** (2025-10-31): Added 'all' language option and English default for --language
 - **1.1.0** (2025-10-31): Updated to use typer CLI framework with type hints
 - **1.0.0** (2025-10-30): Initial contract specification
