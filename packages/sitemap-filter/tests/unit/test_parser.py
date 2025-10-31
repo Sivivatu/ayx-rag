@@ -30,9 +30,9 @@ class TestXMLParser:
         """Test that parser correctly extracts loc and lastmod from XML."""
         entries = parse_sitemap(sample_sitemap_path)
         
-        # Check first entry
+        # Check first entry (now has explicit /en/ in URL)
         first_entry = entries[0]
-        assert first_entry.loc == "https://help.alteryx.com/current/designer.html"
+        assert first_entry.loc == "https://help.alteryx.com/current/en/designer.html"
         assert first_entry.lastmod == "2025-10-23"
     
     def test_parse_sitemap_handles_missing_file(self):
