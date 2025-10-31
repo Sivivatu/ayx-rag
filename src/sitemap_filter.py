@@ -9,6 +9,7 @@ from loguru import logger
 
 from src.filters.parser import parse_sitemap
 from src.filters.language import filter_by_language
+from src.filters.product import filter_by_product
 
 # Configure loguru for the application
 logger.remove()  # Remove default handler
@@ -78,9 +79,10 @@ def main(
             logger.info(f"Applying language filter: {language}")
             entries = filter_by_language(entries, language)
         
-        # Product filter will be added in Phase 4
+        # Apply product filter if specified
         if product:
-            logger.warning("Product filtering not yet implemented")
+            logger.info(f"Applying product filter: {product}")
+            entries = filter_by_product(entries, product)
         
         filtered_count = len(entries)
         
@@ -91,6 +93,8 @@ def main(
             logger.info("Language: all")
         elif language:
             logger.info(f"Language: {', '.join(language)}")
+        if product:
+            logger.info(f"Products: {', '.join(product)}")
         
         # Output formatting will be added in Phase 6
         if dry_run:
