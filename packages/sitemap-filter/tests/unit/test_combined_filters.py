@@ -9,7 +9,7 @@ class TestFilterCriteria:
     
     def test_filter_criteria_creation(self):
         """Test creating FilterCriteria with languages and products."""
-        from src.filters import FilterCriteria
+        from sitemap_filter.filters import FilterCriteria
         
         criteria = FilterCriteria(languages=["en", "de"], products=["designer"])
         
@@ -18,7 +18,7 @@ class TestFilterCriteria:
     
     def test_filter_criteria_empty_lists(self):
         """Test FilterCriteria with empty lists."""
-        from src.filters import FilterCriteria
+        from sitemap_filter.filters import FilterCriteria
         
         criteria = FilterCriteria(languages=[], products=[])
         
@@ -27,7 +27,7 @@ class TestFilterCriteria:
     
     def test_filter_criteria_only_languages(self):
         """Test FilterCriteria with only languages specified."""
-        from src.filters import FilterCriteria
+        from sitemap_filter.filters import FilterCriteria
         
         criteria = FilterCriteria(languages=["en"], products=[])
         
@@ -36,7 +36,7 @@ class TestFilterCriteria:
     
     def test_filter_criteria_only_products(self):
         """Test FilterCriteria with only products specified."""
-        from src.filters import FilterCriteria
+        from sitemap_filter.filters import FilterCriteria
         
         criteria = FilterCriteria(languages=[], products=["designer", "server"])
         
@@ -91,7 +91,7 @@ class TestApplyFilters:
     
     def test_apply_filters_language_only(self, mixed_entries):
         """Test filtering with only language criteria (no products)."""
-        from src.filters import FilterCriteria, apply_filters
+        from sitemap_filter.filters import FilterCriteria, apply_filters
         
         criteria = FilterCriteria(languages=["en"], products=[])
         result = apply_filters(mixed_entries, criteria)
@@ -101,7 +101,7 @@ class TestApplyFilters:
     
     def test_apply_filters_product_only(self, mixed_entries):
         """Test filtering with only product criteria (no languages)."""
-        from src.filters import FilterCriteria, apply_filters
+        from sitemap_filter.filters import FilterCriteria, apply_filters
         
         criteria = FilterCriteria(languages=[], products=["designer"])
         result = apply_filters(mixed_entries, criteria)
@@ -111,7 +111,7 @@ class TestApplyFilters:
     
     def test_apply_filters_language_and_product(self, mixed_entries):
         """Test AND logic: language AND product must both match."""
-        from src.filters import FilterCriteria, apply_filters
+        from sitemap_filter.filters import FilterCriteria, apply_filters
         
         criteria = FilterCriteria(languages=["en"], products=["designer"])
         result = apply_filters(mixed_entries, criteria)
@@ -123,7 +123,7 @@ class TestApplyFilters:
     
     def test_apply_filters_multiple_languages_and_products(self, mixed_entries):
         """Test OR within type, AND across types."""
-        from src.filters import FilterCriteria, apply_filters
+        from sitemap_filter.filters import FilterCriteria, apply_filters
         
         # (en OR de) AND (designer OR server)
         criteria = FilterCriteria(languages=["en", "de"], products=["designer", "server"])
@@ -137,7 +137,7 @@ class TestApplyFilters:
     
     def test_apply_filters_no_matches(self, mixed_entries):
         """Test that conflicting filters return empty list."""
-        from src.filters import FilterCriteria, apply_filters
+        from sitemap_filter.filters import FilterCriteria, apply_filters
         
         # Spanish designer - no such entries exist
         criteria = FilterCriteria(languages=["es"], products=["designer"])
@@ -147,7 +147,7 @@ class TestApplyFilters:
     
     def test_apply_filters_empty_criteria_returns_all(self, mixed_entries):
         """Test that empty criteria returns all entries."""
-        from src.filters import FilterCriteria, apply_filters
+        from sitemap_filter.filters import FilterCriteria, apply_filters
         
         criteria = FilterCriteria(languages=[], products=[])
         result = apply_filters(mixed_entries, criteria)
@@ -157,7 +157,7 @@ class TestApplyFilters:
     
     def test_apply_filters_preserves_entry_data(self, mixed_entries):
         """Test that filtering preserves all entry attributes."""
-        from src.filters import FilterCriteria, apply_filters
+        from sitemap_filter.filters import FilterCriteria, apply_filters
         
         criteria = FilterCriteria(languages=["de"], products=["server"])
         result = apply_filters(mixed_entries, criteria)
@@ -171,7 +171,7 @@ class TestApplyFilters:
     
     def test_apply_filters_three_languages_one_product(self, mixed_entries):
         """Test OR logic with multiple languages, single product."""
-        from src.filters import FilterCriteria, apply_filters
+        from sitemap_filter.filters import FilterCriteria, apply_filters
         
         # (en OR de OR fr) AND designer
         criteria = FilterCriteria(languages=["en", "de", "fr"], products=["designer"])

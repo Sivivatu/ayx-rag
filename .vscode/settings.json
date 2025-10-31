@@ -28,10 +28,11 @@
         ".specify/scripts/bash/": true,
         ".specify/scripts/powershell/": true
     },
+    // Python Testing Configuration
+    // Add new package test paths here as you create them:
+    // "packages/<package-name>/tests"
     "python.testing.pytestArgs": [
-        "tests",
-        "src",
-        "packages"
+        "packages/sitemap-filter/tests"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true

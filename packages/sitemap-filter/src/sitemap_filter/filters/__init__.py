@@ -8,9 +8,9 @@ from dataclasses import dataclass
 from typing import List
 from loguru import logger
 
-from src.filters.parser import URLEntry
-from src.filters.language import filter_by_language
-from src.filters.product import filter_by_product
+from sitemap_filter.filters.parser import URLEntry
+from sitemap_filter.filters.language import filter_by_language
+from sitemap_filter.filters.product import filter_by_product
 
 
 @dataclass

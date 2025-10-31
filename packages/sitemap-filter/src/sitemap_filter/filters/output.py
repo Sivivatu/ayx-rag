@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 from typing import List, Dict, Any
 from loguru import logger
 
-from src.filters.parser import URLEntry
+from sitemap_filter.filters.parser import URLEntry
 
 
 def format_json(entries: List[URLEntry], total_count: int) -> Dict[str, Any]:
