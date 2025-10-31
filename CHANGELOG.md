@@ -7,11 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-10-31
+
 ### Added
-- Initial project structure with dev container setup
-- Speckit workflow for structured feature development
-- Project constitution with 7 core principles
-- Comprehensive project documentation
+- **Sitemap Filter CLI** - Filter Alteryx help documentation sitemap URLs by language and product
+  - Language filtering for 8 languages (en, de, es, fr, it, ja, pt, zh-CHS)
+  - Product filtering for 12+ Alteryx products (designer, server, connect, etc.)
+  - Combined filters with AND/OR logic (language AND product, multiple values OR within type)
+  - Multiple output formats: JSON (with metadata), plain text, XML sitemap
+  - File output support with `--output` flag
+  - Dry-run mode for previewing statistics without generating output
+  - Performance logging for parsing, filtering, and output phases
+  - File size validation with warnings for large sitemaps (>10MB)
+  - Comprehensive error handling with clear messages
+- Test infrastructure with 96% coverage
+  - 77 tests (56 unit, 16 integration, 5 performance)
+  - Test fixtures for various scenarios
+  - Performance validation (<3s for large sitemaps)
+- CLI accessible via workspace main entry point
+- Comprehensive documentation in feature README
+
+### Performance
+- Processes 8,864 URLs in ~0.1 seconds
+- Filters 1,200 URLs in 0.014 seconds
+- Memory efficient (<50MB for typical workloads)
+
+### Documentation
+- Feature README with complete usage guide
+- Architecture documentation
+- API examples for all use cases
+- Updated root README with feature summary
 
 ## [0.1.0] - 2025-10-31
 

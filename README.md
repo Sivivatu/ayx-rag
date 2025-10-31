@@ -12,20 +12,32 @@ A modular RAG system designed to process and query ~35,000 Alteryx help document
 
 ### Current Status
 
-**Phase**: Feature development  
-**Active Feature**: 001-sitemap-filter (CLI tool for filtering sitemap by language and product)  
-**Stage**: Planning complete, implementation pending
+**Phase**: Feature complete, documentation updated  
+**Active Feature**: sitemap-filter v0.2.0  
+**Stage**: Ready for release
 
 ## Features
 
-### In Development
+### ✅ Sitemap Filter (v0.2.0)
 
-- **Sitemap Filter CLI** (`001-sitemap-filter`): Filter XML sitemap by language (en/de) and product paths
-  - Language-based filtering (English/German)
-  - Product path filtering (designer, server, connect, etc.)
-  - Multiple output formats (JSON, plain text, XML)
-  - Combine filters with AND/OR logic
-  - Performance: <3s for 35,460 URLs
+**Status**: Complete | **Branch**: `001-sitemap-filter`
+
+Filter Alteryx help documentation sitemap URLs by language and product. CLI tool with 8 language support, 12+ products, and multiple output formats.
+
+- 🌍 Filter by language (en, de, es, fr, it, ja, pt, zh-CHS)
+- 📦 Filter by product (designer, server, connect, etc.)
+- 🔀 Combined filters with AND/OR logic
+- 📄 Output formats: JSON, text, XML
+- ⚡ High performance: 8,864 URLs in ~0.1s
+- ✅ 96% test coverage, 77 tests passing
+
+**[View Full Documentation →](packages/sitemap-filter/README.md)**
+
+**Quick Example:**
+```bash
+# Get English Designer documentation URLs
+uv run main.py sitemap.xml --language en --product designer
+```
 
 ### Planned
 
