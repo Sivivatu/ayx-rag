@@ -120,7 +120,7 @@ Research technical decisions for implementing a CLI tool that filters XML sitema
 
 **Alternatives Considered**:
 - **List comprehensions with nested conditions**: Less efficient, harder to read
-- **Database-style queries**: Overengineering for in-memory filtering
+- **Database-style queries**: Over-engineering for in-memory filtering
 - **Pandas DataFrame**: Adds large dependency for simple filtering
 
 **Implementation Notes**:

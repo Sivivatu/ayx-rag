@@ -25,12 +25,12 @@ Single project structure (from plan.md):
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project directory structure: src/, src/filters/, tests/unit/, tests/integration/, tests/fixtures/
-- [ ] T002 Install runtime dependencies: uv add typer loguru
-- [ ] T003 Install dev dependencies: uv add --dev pytest pytest-cov
-- [ ] T004 [P] Create empty __init__.py files in src/filters/ and tests/unit/
-- [ ] T005 [P] Create pytest.ini configuration file at repository root
-- [ ] T006 [P] Create .gitignore entries for Python cache files and test artifacts
+- [X] T001 Create project directory structure: src/, src/filters/, tests/unit/, tests/integration/, tests/fixtures/
+- [X] T002 Install runtime dependencies: uv add typer loguru
+- [X] T003 Install dev dependencies: uv add --dev pytest pytest-cov
+- [X] T004 [P] Create empty __init__.py files in src/filters/ and tests/unit/
+- [X] T005 [P] Create pytest.ini configuration file at repository root
+- [X] T006 [P] Create .gitignore entries for Python cache files and test artifacts
 
 ---
 
