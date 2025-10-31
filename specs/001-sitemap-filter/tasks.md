@@ -192,6 +192,21 @@ Single project structure (from plan.md):
 
 ---
 
+## Phase 8: Documentation & Release
+
+**Purpose**: Update project documentation and prepare release notes (REQUIRED for feature completion)
+
+- [ ] T081 Update README.md Features section with sitemap-filter capabilities and usage examples
+- [ ] T082 Update README.md Quick Start section with sitemap-filter installation commands
+- [ ] T083 [P] Create CHANGELOG.md entry for version 0.2.0 (sitemap-filter feature)
+- [ ] T084 [P] Generate release notes from conventional commits using git log
+- [ ] T085 Update project version in relevant files (if pyproject.toml exists)
+- [ ] T086 Create feature demo examples in README.md showing real sitemap filtering use cases
+- [ ] T087 Final review: Verify README accuracy, links work, examples tested
+- [ ] T088 Final commit: docs(sitemap-filter): update README and create release notes for v0.2.0
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
@@ -202,6 +217,7 @@ Single project structure (from plan.md):
   - User stories CAN proceed in parallel (if staffed) after Phase 2
   - OR sequentially in priority order: US1 (P1) → US2 (P2) → US3 (P3) → US4 (P4)
 - **Polish (Phase 7)**: Depends on all user stories being complete
+- **Documentation & Release (Phase 8)**: Depends on Polish completion - REQUIRED before feature considered complete
 
 ### User Story Dependencies
 
@@ -247,6 +263,10 @@ Single project structure (from plan.md):
 
 **Phase 7 (Polish)**: Many tasks are independent
 - T069, T070, T071, T075, T076, T079 all modify different areas/files
+
+**Phase 8 (Documentation & Release)**: Most tasks are independent
+- T081, T082, T083, T084, T086 all modify different files and can run in parallel
+- T087, T088 must be sequential (review before final commit)
 
 ---
 
@@ -317,8 +337,9 @@ Task T059: "Implement format_xml() in src/filters/output.py"
 4. **Combined Filters** (Phase 5): Enable filter combinations → +25 minutes = 145 minutes total
 5. **Output Formats** (Phase 6): Add JSON/txt/xml output → +40 minutes = 185 minutes total
 6. **Polish** (Phase 7): Error handling, docs, performance → +30 minutes = 215 minutes total
+7. **Documentation & Release** (Phase 8): Update README, create release notes → +20 minutes = 235 minutes total
 
-**Total Implementation Time**: ~3.5 hours for complete feature with all 4 user stories
+**Total Implementation Time**: ~4 hours for complete feature with all 4 user stories and documentation
 
 ### Parallel Team Strategy
 
@@ -332,8 +353,13 @@ With 2-3 developers working simultaneously:
 3. **Sync point**: After US1 and US2 complete
    - Developer A or B: User Story 3 (Combined filters) → Phase 5
 4. **Together**: Phase 7 (Polish & validation)
+5. **Split documentation** (Phase 8):
+   - Developer A: README updates (T081, T082, T086)
+   - Developer B: CHANGELOG and release notes (T083, T084)
+   - Developer C: Version updates (T085)
+6. **Together**: Final review and commit (T087, T088)
 
-**Parallel Completion Time**: ~2 hours total with 3 developers
+**Parallel Completion Time**: ~2.5 hours total with 3 developers (including documentation)
 
 ---
 
@@ -380,3 +406,6 @@ Upon completion of all tasks, the feature should meet these criteria:
 - ✅ Error messages are clear and actionable
 - ✅ All commits follow Conventional Commits format
 - ✅ Documentation in quickstart.md matches implementation
+- ✅ README.md updated with feature capabilities and examples
+- ✅ Release notes generated from conventional commits
+- ✅ CHANGELOG.md entry created for feature version

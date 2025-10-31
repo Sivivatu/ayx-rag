@@ -88,6 +88,15 @@ uv sync
     - Add unit tests for each component
     ```
 
+## Feature Completion Requirements
+Every feature MUST complete these documentation steps before being considered done:
+1. **Update README.md**: Add feature capabilities, usage examples, installation instructions
+2. **Update CHANGELOG.md**: Add entry for the new version with categorized changes
+3. **Generate Release Notes**: Create release notes from conventional commits using `.github/RELEASE_NOTES_TEMPLATE.md`
+4. **Final Commit**: Use format `docs(<feature>): update README and create release notes for vX.Y.Z`
+
+These steps ensure the project documentation stays current and users can discover new capabilities.
+
 When implementing features, prioritize incremental development with clear separation of concerns between scraping, processing, storage, and query components.
 
 ## Active Technologies

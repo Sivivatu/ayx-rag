@@ -1,29 +1,32 @@
 <!--
 Sync Impact Report:
-- Version change: [INITIAL] → 1.0.0
-- New constitution created with 7 core principles
+- Version change: 1.0.0 → 1.1.0
+- Updated constitution with new principle
 - Principles defined:
-  1. Modular Architecture (NEW)
-  2. Data Pipeline Integrity (NEW)
-  3. Test-Driven Development (NEW)
-  4. Incremental Processing (NEW)
-  5. Observability & Monitoring (NEW)
-  6. Package Management (NEW)
-  7. Git Commit Standards (NEW)
-- Added sections:
-  - Technology Stack (NEW)
-  - Development Workflow (NEW)
-  - Governance (NEW)
+  1. Modular Architecture (existing)
+  2. Data Pipeline Integrity (existing)
+  3. Test-Driven Development (existing)
+  4. Incremental Processing (existing)
+  5. Observability & Monitoring (existing)
+  6. Package Management (existing)
+  7. Git Commit Standards (existing)
+  8. Release Documentation (NEW - NON-NEGOTIABLE)
+- Changes:
+  - Added Principle VIII: Release Documentation (mandatory README, CHANGELOG, release notes)
+  - Updated Governance section to reference 8 principles
+  - Version bump: MINOR (new principle added)
 - Templates status:
-  - ✅ plan-template.md (reviewed - constitution gates aligned)
-  - ✅ spec-template.md (reviewed - requirements alignment confirmed)
-  - ✅ tasks-template.md (reviewed - task categorization aligned)
+  - ✅ plan-template.md (aligned - includes constitution checks)
+  - ✅ spec-template.md (aligned - requirements include documentation)
+  - ✅ tasks-template.md (aligned - Phase 8 includes documentation tasks)
 - Follow-up items: None
 -->
 
 # uv-ayx-rag Constitution
 
 ## Core Principles
+
+The uv-ayx-rag project is governed by **8 core principles**, three of which are NON-NEGOTIABLE and cannot be violated under any circumstances.
 
 ### I. Modular Architecture
 
@@ -122,6 +125,35 @@ All commits MUST follow Conventional Commits format: `<type>(<scope>): <descript
   - Add unit tests for each component
   ```
 
+### VIII. Release Documentation (NON-NEGOTIABLE)
+
+Every feature MUST complete comprehensive documentation updates before being considered complete. No feature is ready for merge without updated user-facing documentation.
+
+**Rationale**: Documentation drift creates confusion, prevents feature discovery, and wastes time as users cannot find or understand capabilities. Mandatory documentation ensures the project remains accessible and maintainable.
+
+**Requirements**:
+- **README.md** MUST be updated with:
+  - Feature capabilities and overview
+  - Installation/setup instructions for new dependencies
+  - Usage examples demonstrating key functionality
+  - Updated feature list showing current status
+- **CHANGELOG.md** MUST include entry for the feature version:
+  - Categorized changes (Added/Changed/Fixed/etc.)
+  - Version number following semantic versioning
+  - Release date in YYYY-MM-DD format
+- **Release Notes** MUST be generated from conventional commits:
+  - Use `.github/RELEASE_NOTES_TEMPLATE.md` as guide
+  - Group by feature/fix/performance/documentation
+  - Include usage examples and migration notes if applicable
+- **Final Documentation Commit** MUST use format:
+  - `docs(<feature>): update README and create release notes for vX.Y.Z`
+
+**Enforcement**:
+- Documentation tasks are final phase in every feature workflow
+- Pull requests without documentation updates will be rejected
+- Code review checklist includes documentation verification
+- CI pipeline checks for CHANGELOG entry (when implemented)
+
 ## Technology Stack
 
 **Language**: Python 3.10+  
@@ -192,9 +224,10 @@ This constitution supersedes all other development practices and coding conventi
 
 **Compliance Review**:
 - Design reviews verify architectural principles (I, II, IV)
-- Code reviews verify TDD, commit standards (III, VII)
+- Code reviews verify TDD, commit standards, documentation (III, VII, VIII)
 - PR checklists verify package management (VI)
 - Monitoring dashboards verify observability (V)
+- Documentation review verifies release documentation (VIII)
 
 **Complexity Justification**:
 Any violation of these principles (e.g., skipping tests, tight coupling, manual pip usage) MUST be explicitly justified in code review with:
@@ -204,4 +237,4 @@ Any violation of these principles (e.g., skipping tests, tight coupling, manual 
 
 **Runtime Guidance**: See `.github/copilot-instructions.md` for AI coding agent guidance aligned with this constitution.
 
-**Version**: 1.0.0 | **Ratified**: 2025-10-30 | **Last Amended**: 2025-10-30
+**Version**: 1.1.0 | **Ratified**: 2025-10-30 | **Last Amended**: 2025-10-31
