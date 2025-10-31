@@ -1,15 +1,17 @@
 [project]
 name = "uv-ayx-rag"
 version = "0.1.0"
-description = "Add your description here"
-requires-python = ">=3.14"
+description = "RAG (Retrieval Augmented Generation) system for Alteryx help documentation"
+requires-python = ">=3.10"
 dependencies = [
-    "loguru>=0.7.3",
-    "typer>=0.20.0",
+    "sitemap-filter",
 ]
 
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+sitemap-filter = { workspace = true, editable = true }
+
 [dependency-groups]
-dev = [
-    "pytest>=8.4.2",
-    "pytest-cov>=7.0.0",
-]
+dev = []

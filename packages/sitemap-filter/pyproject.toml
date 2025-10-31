@@ -1,0 +1,19 @@
+[project]
+name = "sitemap-filter"
+version = "0.2.0"
+description = "Filter Alteryx help documentation sitemap by language and product"
+requires-python = ">=3.10"
+dependencies = [
+    "loguru>=0.7.3",
+    "typer>=0.20.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

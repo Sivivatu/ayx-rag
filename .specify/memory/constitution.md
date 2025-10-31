@@ -1,44 +1,65 @@
 <!--
 Sync Impact Report:
-- Version change: 1.0.0 → 1.1.0
+- Version change: 1.1.0 → 1.2.0
 - Updated constitution with new principle
 - Principles defined:
-  1. Modular Architecture (existing)
+  1. Modular Architecture (updated - workspace structure)
   2. Data Pipeline Integrity (existing)
   3. Test-Driven Development (existing)
   4. Incremental Processing (existing)
   5. Observability & Monitoring (existing)
   6. Package Management (existing)
   7. Git Commit Standards (existing)
-  8. Release Documentation (NEW - NON-NEGOTIABLE)
+  8. Release Documentation (existing - NON-NEGOTIABLE)
+  9. Main Entry Point (NEW - NON-NEGOTIABLE)
 - Changes:
-  - Added Principle VIII: Release Documentation (mandatory README, CHANGELOG, release notes)
-  - Updated Governance section to reference 8 principles
+  - Added Principle IX: Main Entry Point (mandatory main.py dispatcher)
+  - Updated Principle I: Modular Architecture (workspace structure requirements)
+  - Updated Governance section to reference 9 principles
   - Version bump: MINOR (new principle added)
 - Templates status:
   - ✅ plan-template.md (aligned - includes constitution checks)
   - ✅ spec-template.md (aligned - requirements include documentation)
   - ✅ tasks-template.md (aligned - Phase 8 includes documentation tasks)
-- Follow-up items: None
+- Follow-up items: Update any documentation that references principle count
 -->
 
 # uv-ayx-rag Constitution
 
 ## Core Principles
 
-The uv-ayx-rag project is governed by **8 core principles**, three of which are NON-NEGOTIABLE and cannot be violated under any circumstances.
+The uv-ayx-rag project is governed by **9 core principles**, four of which are NON-NEGOTIABLE and cannot be violated under any circumstances.
 
 ### I. Modular Architecture
 
-All components MUST be organized as independently testable modules with clear separation of concerns. Each module (scraper, processor, embeddings, storage, query) MUST have well-defined interfaces and minimal coupling.
+All components MUST be organized as independently testable modules with clear separation of concerns. Each feature MUST be organized as a uv workspace package with isolated dependencies. The project uses uv workspaces to manage multiple packages within a monorepo structure.
 
-**Rationale**: RAG systems involve complex data pipelines. Modular design enables parallel development, easier testing, and component replacement without system-wide refactoring.
+**Rationale**: RAG systems involve complex data pipelines. Modular design with workspace isolation enables parallel development, easier testing, component replacement without system-wide refactoring, and clean dependency management.
 
 **Requirements**:
-- Each module resides in its own directory under `src/`
-- Modules expose clear interfaces (protocols/abstract base classes)
-- Cross-module dependencies are explicit and documented
-- Each module has independent unit tests
+- Each feature is a separate workspace package under `packages/`
+- Each package has its own `pyproject.toml` with isolated dependencies
+- Workspace root `pyproject.toml` declares workspace members
+- Packages expose clear interfaces (protocols/abstract base classes)
+- Cross-package dependencies are explicit and documented
+- Each package has its own test directory with independent unit tests
+- Workspace structure:
+  ```
+  /workspaces/uv-ayx-rag/
+  ├── main.py (entry point dispatcher)
+  ├── pyproject.toml (workspace root)
+  └── packages/
+      ├── feature-name/
+      │   ├── pyproject.toml (feature dependencies)
+      │   ├── src/
+      │   │   └── feature_name/
+      │   │       ├── __init__.py
+      │   │       ├── cli.py
+      │   │       └── modules/
+      │   └── tests/
+      └── another-feature/
+          └── ...
+  ```
 
 ### II. Data Pipeline Integrity
 
@@ -154,6 +175,45 @@ Every feature MUST complete comprehensive documentation updates before being con
 - Code review checklist includes documentation verification
 - CI pipeline checks for CHANGELOG entry (when implemented)
 
+### IX. Main Entry Point (NON-NEGOTIABLE)
+
+The project MUST have a single main entry point at `main.py` in the repository root. All CLI functionality MUST be accessed through this entry point. Individual features MUST register their CLI commands with the main dispatcher.
+
+**Rationale**: A single entry point provides users with a consistent interface to all project capabilities. As the RAG system grows to include scrapers, processors, embeddings, and query interfaces, a unified CLI prevents confusion and enables feature discovery through built-in help.
+
+**Requirements**:
+- `main.py` MUST be located at repository root
+- `main.py` MUST use typer to create a main CLI application
+- Feature packages MUST export their typer app in `__init__.py`
+- `main.py` MUST register feature apps as subcommands using `app.add_typer()`
+- Running `python main.py --help` MUST list all available subcommands
+- Each subcommand MUST have clear help text describing its purpose
+- Feature CLI modules MUST be named `cli.py` within their package
+- Example structure:
+  ```python
+  # main.py
+  import typer
+  from feature_name import app as feature_app
+  
+  app = typer.Typer(name="uv-ayx-rag", help="...")
+  app.add_typer(feature_app, name="feature-name", help="...")
+  
+  if __name__ == "__main__":
+      app()
+  ```
+
+**User Experience**:
+```bash
+# Discover all features
+python main.py --help
+
+# Access specific feature
+python main.py sitemap-filter --help
+
+# Run feature command
+python main.py sitemap-filter sitemap.xml --language en
+```
+
 ## Technology Stack
 
 **Language**: Python 3.10+  
@@ -228,13 +288,14 @@ This constitution supersedes all other development practices and coding conventi
 - PR checklists verify package management (VI)
 - Monitoring dashboards verify observability (V)
 - Documentation review verifies release documentation (VIII)
+- Entry point review verifies main.py dispatcher pattern (IX)
 
 **Complexity Justification**:
-Any violation of these principles (e.g., skipping tests, tight coupling, manual pip usage) MUST be explicitly justified in code review with:
+Any violation of these principles (e.g., skipping tests, tight coupling, manual pip usage, bypassing main.py) MUST be explicitly justified in code review with:
 - Why the principle cannot be followed
 - What simpler alternatives were considered and rejected
 - What technical debt is created and plan to address it
 
 **Runtime Guidance**: See `.github/copilot-instructions.md` for AI coding agent guidance aligned with this constitution.
 
-**Version**: 1.1.0 | **Ratified**: 2025-10-30 | **Last Amended**: 2025-10-31
+**Version**: 1.2.0 | **Ratified**: 2025-10-30 | **Last Amended**: 2025-10-31

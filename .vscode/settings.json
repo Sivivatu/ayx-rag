@@ -29,7 +29,9 @@
         ".specify/scripts/powershell/": true
     },
     "python.testing.pytestArgs": [
-        "tests"
+        "tests",
+        "src",
+        "packages"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true
