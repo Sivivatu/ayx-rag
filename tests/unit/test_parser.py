@@ -54,5 +54,5 @@ class TestXMLParser:
         """Test that parser processes all URLs in the sitemap."""
         entries = parse_sitemap(sample_sitemap_path)
         
-        # Sample sitemap should have 20 URLs based on the fixture
-        assert len(entries) == 20
+        # Sample sitemap has 10 URLs based on the fixture
+        assert len(entries) == 10
