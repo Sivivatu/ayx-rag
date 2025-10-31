@@ -1,0 +1,9 @@
+{
+    "version": "0.2",
+    "ignorePaths": ["/workspaces/uv-ayx-rag/*.ini"],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [],
+    "ignoreWords": [],
+    "import": []
+}

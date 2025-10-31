@@ -32,6 +32,7 @@
     // Add new package test paths here as you create them:
     // "packages/<package-name>/tests"
     "python.testing.pytestArgs": [
+        "tests",
         "packages/sitemap-filter/tests"
     ],
     "python.testing.unittestEnabled": false,
