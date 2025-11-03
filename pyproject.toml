@@ -5,7 +5,6 @@ description = "RAG (Retrieval Augmented Generation) system for Alteryx help docu
 requires-python = ">=3.10"
 dependencies = [
     "sitemap-filter",
-    "tomli>=2.0.0; python_version < '3.11'",
 ]
 
 [tool.uv.workspace]
