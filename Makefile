@@ -1,10 +1,10 @@
 .PHONY: help lint format test test-cov check install clean
 
 help:  ## Show this help message
-@echo "Usage: make [target]"
-@echo ""
-@echo "Available targets:"
-@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-15s %s\n", $$1, $$2}'
+	@echo "Usage: make [target]"
+	@echo ""
+	@echo "Available targets:"
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-15s %s\n", $$1, $$2}'
 
 install:  ## Install all dependencies
 	uv sync
