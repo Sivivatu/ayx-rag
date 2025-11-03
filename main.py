@@ -8,7 +8,7 @@ organized as workspace packages with isolated dependencies.
 
 import sys
 from pathlib import Path
-from typing import List, Optional
+
 import typer
 
 # Version from pyproject.toml
@@ -16,6 +16,7 @@ if sys.version_info >= (3, 11):
     import tomllib
 else:
     import tomli as tomllib
+
 
 def _get_version() -> str:
     """Read version from pyproject.toml."""
@@ -26,6 +27,7 @@ def _get_version() -> str:
         return data["project"]["version"]
     except Exception:
         return "unknown"
+
 
 __version__ = _get_version()
 
@@ -47,7 +49,7 @@ def version_callback(value: bool):
 
 @app.callback()
 def main(
-    version: Optional[bool] = typer.Option(
+    version: bool | None = typer.Option(
         None,
         "--version",
         "-v",
@@ -68,37 +70,29 @@ def sitemap_filter(
         file_okay=True,
         dir_okay=False,
         readable=True,
-        help="Path to XML sitemap file to filter"
+        help="Path to XML sitemap file to filter",
     ),
-    language: Optional[List[str]] = typer.Option(
+    language: list[str] | None = typer.Option(
         ["en"],
-        "--language", "-l",
-        help="Filter by language code (en, de, es, fr, it, ja, pt, zh-CHS, all). Defaults to 'en'. Use 'all' for all languages."
+        "--language",
+        "-l",
+        help="Filter by language code (en, de, es, fr, it, ja, pt, zh-CHS, all). Defaults to 'en'. Use 'all' for all languages.",
     ),
-    product: Optional[List[str]] = typer.Option(
-        None,
-        "--product", "-p",
-        help="Filter by product path segment. Can specify multiple times."
+    product: list[str] | None = typer.Option(
+        None, "--product", "-p", help="Filter by product path segment. Can specify multiple times."
     ),
-    format: str = typer.Option(
-        "text",
-        "--format", "-f",
-        help="Output format: json, text, or xml"
-    ),
-    output: Optional[Path] = typer.Option(
-        None,
-        "--output", "-o",
-        help="Write output to file instead of stdout"
+    format: str = typer.Option("text", "--format", "-f", help="Output format: json, text, or xml"),
+    output: Path | None = typer.Option(
+        None, "--output", "-o", help="Write output to file instead of stdout"
     ),
     dry_run: bool = typer.Option(
-        False,
-        "--dry-run",
-        help="Show statistics without outputting URLs"
+        False, "--dry-run", help="Show statistics without outputting URLs"
     ),
 ):
     """Filter Alteryx sitemap URLs by language and product."""
     # Import here to avoid circular imports and execution issues
     from sitemap_filter.cli import filter_sitemap as do_filter
+
     do_filter(sitemap_file, language, product, format, output, dry_run)
 
 

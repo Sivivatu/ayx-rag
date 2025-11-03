@@ -26,7 +26,11 @@
     },
     "chat.tools.terminal.autoApprove": {
         ".specify/scripts/bash/": true,
-        ".specify/scripts/powershell/": true
+        ".specify/scripts/powershell/": true,
+        "/^cd /workspaces/uv-ayx-rag && uv run pytest.*": true,
+        "/^cd /workspaces/uv-ayx-rag && uv add.*": true,
+        "/^cd /workspaces/uv-ayx-rag/packages/.* && uv run pytest.*": true,
+        "/^cd /workspaces/uv-ayx-rag/packages/.* && uv add.*": true
     },
     // Python Testing Configuration
     // Add new package test paths here as you create them:

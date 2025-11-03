@@ -41,6 +41,7 @@ uv run main.py sitemap.xml --language en --product designer
 
 ### Planned
 
+- Sitemap downloader
 - Web scraper for content extraction
 - Document processor (HTML cleaning, text chunking)
 - Embedding service (vector generation)
