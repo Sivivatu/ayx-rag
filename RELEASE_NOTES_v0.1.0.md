@@ -1,6 +1,6 @@
-# Release Notes - v0.2.0
+# Release Notes - v0.1.0
 
-**Release Date**: October 31, 2025  
+**Release Date**: 3 November 2025  
 **Branch**: `001-sitemap-filter`
 
 ## 🎉 Sitemap Filter CLI - Initial Release

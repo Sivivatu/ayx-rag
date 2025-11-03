@@ -8,7 +8,9 @@
         "ms-python.python",
         "streetsidesoftware.code-spell-checker",
         "esbenp.prettier-vscode",
-        "patbenatar.advanced-new-file"
+        "patbenatar.advanced-new-file",
+        "github.vscode-github-actions",
+        "ms-vscode.makefile-tools"
       ]
     }
   }

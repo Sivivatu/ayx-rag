@@ -18,7 +18,7 @@ git log v0.1.0..v0.2.0 --pretty=format:"- %s (%h)" --reverse > release-notes-v0.
 
 Review the generated commits and organize into sections:
 
-## Version X.Y.Z - YYYY-MM-DD
+## Version X.Y.Z - D Month YYYY
 
 ### ✨ Features
 - List all `feat:` commits
@@ -59,7 +59,7 @@ Review the generated commits and organize into sections:
 
 # Release v0.2.0 - Sitemap Filter CLI
 
-**Released**: 2025-10-31
+**Released**: 31 October 2025
 
 ## ✨ Features
 

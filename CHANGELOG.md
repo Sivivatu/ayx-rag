@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.0] - 2025-10-31
+## [0.1.0] - 2025-11-03
 
 ### Added
 - **Sitemap Filter CLI** - Filter Alteryx help documentation sitemap URLs by language and product
@@ -38,9 +38,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - API examples for all use cases
 - Updated root README with feature summary
 
-## [0.1.0] - 2025-10-31
+## Version History
 
-### Added
+- **0.1.0** (2025-11-03): Initial release with sitemap-filter feature
+- **Unreleased**: Active development
+
+---
+
+## Previous Template Entries
+
+### [Initial Setup] - 2025-10-31
+
+#### Added
 - Project initialization
 - Dev container with Debian-based environment
 - Oh My Zsh with spaceship prompt

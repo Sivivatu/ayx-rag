@@ -1,0 +1,11 @@
+# Custom Dictionary Words
+addopts
+isort
+pycache
+pycodestyle
+pyflakes
+pythonpath
+pyupgrade
+testpaths
+tomli
+venv

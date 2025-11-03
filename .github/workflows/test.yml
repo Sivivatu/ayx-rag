@@ -1,0 +1,42 @@
+name: Test
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ${{ github.event_name == 'pull_request' && fromJson('["3.10", "3.11", "3.12", "3.13", "3.14", "3.15"]') || fromJson('["3.14"]') }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v5
+    
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+      with:
+        version: "latest"
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      run: uv python install ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: uv sync
+    
+    - name: Run tests with coverage
+      run: |
+        cd packages/sitemap-filter
+        uv run pytest tests/ --cov=src/sitemap_filter --cov-report=term-missing --cov-fail-under=80
+    
+    - name: Run main entry point tests
+      run: uv run pytest tests/
+    
+    - name: Verify CLI works
+      run: |
+        uv run main.py --help
+        uv run main.py --version
