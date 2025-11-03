@@ -11,7 +11,7 @@ class TestMainCLI:
     """Test the main.py CLI entry point."""
 
     def test_main_help_shows_description(self):
-        """Test that main.py --help shows the sitemap filter description."""
+        """Test that main.py --help shows the CLI description."""
         result = subprocess.run(
             [sys.executable, "main.py", "--help"],
             capture_output=True,
@@ -20,8 +20,8 @@ class TestMainCLI:
         )
         
         assert result.returncode == 0
-        # When there's only one command, typer shows that command's help directly
-        assert "Filter Alteryx sitemap URLs by language and product" in result.stdout
+        assert "RAG system for Alteryx help documentation" in result.stdout
+        assert "sitemap-filter" in result.stdout
     
     def test_main_version_flag(self):
         """Test that main.py --version shows the version."""
@@ -36,7 +36,7 @@ class TestMainCLI:
         assert "0.1.0" in result.stdout
 
     def test_main_no_args_shows_help(self):
-        """Test that main.py with no arguments shows error due to missing argument."""
+        """Test that main.py with no arguments shows help with available commands."""
         result = subprocess.run(
             [sys.executable, "main.py"],
             capture_output=True,
@@ -44,9 +44,10 @@ class TestMainCLI:
             cwd=Path(__file__).parent.parent
         )
         
-        # With only one command that requires an argument, should show error
-        assert result.returncode != 0
-        assert "Missing argument" in result.stderr or "SITEMAP_FILE" in result.stderr
+        # Typer exits with code 2 when no command provided but no_args_is_help=True
+        assert result.returncode == 2
+        assert "Commands" in result.stdout
+        assert "sitemap-filter" in result.stdout
 
     def test_main_sitemap_filter_command_exists(self):
         """Test that sitemap-filter command is registered."""
@@ -58,14 +59,13 @@ class TestMainCLI:
         )
         
         assert result.returncode == 0
-        # When there's only one command, typer shows it directly
-        # So we check for the sitemap-filter functionality in the help
-        assert "sitemap" in result.stdout.lower() or "filter" in result.stdout.lower()
+        assert "sitemap-filter" in result.stdout
+        assert "Filter Alteryx sitemap URLs by language and product" in result.stdout
 
     def test_main_sitemap_filter_requires_file_argument(self):
         """Test that sitemap-filter command requires sitemap file argument."""
         result = subprocess.run(
-            [sys.executable, "main.py"],
+            [sys.executable, "main.py", "sitemap-filter"],
             capture_output=True,
             text=True,
             cwd=Path(__file__).parent.parent
@@ -80,7 +80,7 @@ class TestMainCLI:
         sitemap_path = Path(__file__).parent.parent / "packages" / "sitemap-filter" / "tests" / "fixtures" / "sample_sitemap.xml"
         
         result = subprocess.run(
-            [sys.executable, "main.py", str(sitemap_path), "--dry-run"],
+            [sys.executable, "main.py", "sitemap-filter", str(sitemap_path), "--dry-run"],
             capture_output=True,
             text=True,
             cwd=Path(__file__).parent.parent
@@ -93,7 +93,7 @@ class TestMainCLI:
     def test_main_sitemap_filter_with_nonexistent_file(self):
         """Test that sitemap-filter command fails gracefully with nonexistent file."""
         result = subprocess.run(
-            [sys.executable, "main.py", "nonexistent.xml"],
+            [sys.executable, "main.py", "sitemap-filter", "nonexistent.xml"],
             capture_output=True,
             text=True,
             cwd=Path(__file__).parent.parent
@@ -108,7 +108,7 @@ class TestMainCLI:
         sitemap_path = Path(__file__).parent.parent / "packages" / "sitemap-filter" / "tests" / "fixtures" / "sample_sitemap.xml"
         
         result = subprocess.run(
-            [sys.executable, "main.py", str(sitemap_path), "--language", "de", "--dry-run"],
+            [sys.executable, "main.py", "sitemap-filter", str(sitemap_path), "--language", "de", "--dry-run"],
             capture_output=True,
             text=True,
             cwd=Path(__file__).parent.parent
@@ -122,7 +122,7 @@ class TestMainCLI:
         sitemap_path = Path(__file__).parent.parent / "packages" / "sitemap-filter" / "tests" / "fixtures" / "sample_sitemap.xml"
         
         result = subprocess.run(
-            [sys.executable, "main.py", str(sitemap_path), "--product", "designer", "--dry-run"],
+            [sys.executable, "main.py", "sitemap-filter", str(sitemap_path), "--product", "designer", "--dry-run"],
             capture_output=True,
             text=True,
             cwd=Path(__file__).parent.parent
@@ -136,7 +136,7 @@ class TestMainCLI:
         sitemap_path = Path(__file__).parent.parent / "packages" / "sitemap-filter" / "tests" / "fixtures" / "sample_sitemap.xml"
         
         result = subprocess.run(
-            [sys.executable, "main.py", str(sitemap_path), "--format", "json", "--dry-run"],
+            [sys.executable, "main.py", "sitemap-filter", str(sitemap_path), "--format", "json", "--dry-run"],
             capture_output=True,
             text=True,
             cwd=Path(__file__).parent.parent
@@ -149,7 +149,7 @@ class TestMainCLI:
         sitemap_path = Path(__file__).parent.parent / "packages" / "sitemap-filter" / "tests" / "fixtures" / "sample_sitemap.xml"
         
         result = subprocess.run(
-            [sys.executable, "main.py", str(sitemap_path), "--dry-run"],
+            [sys.executable, "main.py", "sitemap-filter", str(sitemap_path), "--dry-run"],
             capture_output=True,
             text=True,
             cwd=Path(__file__).parent.parent
