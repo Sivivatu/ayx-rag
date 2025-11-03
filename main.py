@@ -7,6 +7,7 @@ organized as workspace packages with isolated dependencies.
 """
 
 import sys
+import warnings
 from pathlib import Path
 
 import typer
@@ -25,7 +26,14 @@ def _get_version() -> str:
         with open(pyproject_path, "rb") as f:
             data = tomllib.load(f)
         return data["project"]["version"]
-    except Exception:
+    except FileNotFoundError:
+        warnings.warn("pyproject.toml not found, version unknown", stacklevel=2)
+        return "unknown"
+    except KeyError:
+        warnings.warn("Version field not found in pyproject.toml", stacklevel=2)
+        return "unknown"
+    except tomllib.TOMLDecodeError as e:
+        warnings.warn(f"Failed to parse pyproject.toml: {e}", stacklevel=2)
         return "unknown"
 
 
