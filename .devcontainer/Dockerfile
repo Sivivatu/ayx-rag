@@ -3,7 +3,7 @@ FROM debian
 ARG USER=developer
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt update \
-    && apt install -y --no-install-recommends sudo git zsh curl wget ca-certificates \
+    && apt install -y --no-install-recommends sudo git zsh curl wget ca-certificates make \
     && apt clean \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*

@@ -9,7 +9,8 @@
         "streetsidesoftware.code-spell-checker",
         "esbenp.prettier-vscode",
         "patbenatar.advanced-new-file",
-        "github.vscode-github-actions"
+        "github.vscode-github-actions",
+        "ms-vscode.makefile-tools"
       ]
     }
   }
