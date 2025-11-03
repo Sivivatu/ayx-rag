@@ -18,7 +18,7 @@ A modular RAG system designed to process and query ~35,000 Alteryx help document
 
 ## Features
 
-### ✅ Sitemap Filter (v0.2.0)
+### ✅ Sitemap Filter (v0.1.0)
 
 **Status**: Complete | **Branch**: `001-sitemap-filter`
 
@@ -313,6 +313,6 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 ---
 
-**Current Version**: 0.1.0-dev  
-**Last Updated**: 2025-10-31  
-**Status**: Active Development
+**Current Version**: 0.1.0  
+**Last Updated**: 2025-11-03  
+**Status**: Initial Release - sitemap-filter feature complete
