@@ -205,6 +205,7 @@ See [constitution.md](.specify/memory/constitution.md) for detailed requirements
 
 - **Language**: Python 3.10+
 - **Package Manager**: uv (exclusively - never use pip)
+- **Build Backend**: uv_build (native uv build backend for all packages)
 - **Testing**: pytest with TDD approach (>80% coverage required)
 - **Development**: Debian-based dev container with Oh My Zsh
 - **CLI Framework**: typer (type-hint based)

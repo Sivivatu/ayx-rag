@@ -28,12 +28,12 @@ This project uses uv workspace packages:
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create workspace package directory structure at packages/sitemap-download/
-- [ ] T002 Create pyproject.toml for sitemap-download package with httpx>=0.25.0 as package-specific dependency
-- [ ] T003 [P] Verify typer and loguru exist in root pyproject.toml (httpx is package-specific only)
-- [ ] T004 [P] Create package README.md at packages/sitemap-download/README.md
-- [ ] T005 [P] Create __init__.py files for package structure
-- [ ] T006 [P] Create test directory structure with unit/, integration/, fixtures/ at packages/sitemap-download/tests/
+- [X] T001 Create workspace package directory structure at packages/sitemap-download/
+- [X] T002 Create pyproject.toml for sitemap-download package with httpx>=0.25.0 as package-specific dependency
+- [X] T003 [P] Verify typer and loguru exist in root pyproject.toml (httpx is package-specific only)
+- [X] T004 [P] Create package README.md at packages/sitemap-download/README.md
+- [X] T005 [P] Create __init__.py files for package structure
+- [X] T006 [P] Create test directory structure with unit/, integration/, fixtures/ at packages/sitemap-download/tests/
 
 ---
 
@@ -43,13 +43,13 @@ This project uses uv workspace packages:
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T007 Create base exception classes in packages/sitemap-download/src/sitemap_download/exceptions.py (SitemapDownloadError, NetworkError, ValidationError, ConfigurationError)
-- [ ] T008 [P] Create DownloadConfig dataclass in packages/sitemap-download/src/sitemap_download/models.py
-- [ ] T009 [P] Create DownloadProgress dataclass in packages/sitemap-download/src/sitemap_download/models.py
-- [ ] T010 [P] Create DownloadResult dataclass in packages/sitemap-download/src/sitemap_download/models.py
-- [ ] T011 [P] Create ValidationResult dataclass in packages/sitemap-download/src/sitemap_download/models.py
-- [ ] T012 [P] Create RemoteFileInfo dataclass in packages/sitemap-download/src/sitemap_download/models.py
-- [ ] T013 Export all models and exceptions in packages/sitemap-download/src/sitemap_download/__init__.py
+- [X] T007 Create base exception classes in packages/sitemap-download/src/sitemap_download/exceptions.py (SitemapDownloadError, NetworkError, ValidationError, ConfigurationError)
+- [X] T008 [P] Create DownloadConfig dataclass in packages/sitemap-download/src/sitemap_download/models.py
+- [X] T009 [P] Create DownloadProgress dataclass in packages/sitemap-download/src/sitemap_download/models.py
+- [X] T010 [P] Create DownloadResult dataclass in packages/sitemap-download/src/sitemap_download/models.py
+- [X] T011 [P] Create ValidationResult dataclass in packages/sitemap-download/src/sitemap_download/models.py
+- [X] T012 [P] Create RemoteFileInfo dataclass in packages/sitemap-download/src/sitemap_download/models.py
+- [X] T013 Export all models and exceptions in packages/sitemap-download/src/sitemap_download/__init__.py
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -65,8 +65,8 @@ This project uses uv workspace packages:
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T014 [P] [US1] Create test fixture valid_sitemap.xml in packages/sitemap-download/tests/fixtures/
-- [ ] T015 [P] [US1] Create test fixture large_sitemap.xml (simulated large file) in packages/sitemap-download/tests/fixtures/
+- [X] T014 [P] [US1] Create test fixture valid_sitemap.xml in packages/sitemap-download/tests/fixtures/
+- [X] T015 [P] [US1] Create test fixture large_sitemap.xml (simulated large file) in packages/sitemap-download/tests/fixtures/
 - [ ] T016 [P] [US1] Write unit test test_downloader_init in packages/sitemap-download/tests/unit/test_downloader.py
 - [ ] T017 [P] [US1] Write unit test test_download_success in packages/sitemap-download/tests/unit/test_downloader.py
 - [ ] T018 [P] [US1] Write unit test test_download_with_progress_callback in packages/sitemap-download/tests/unit/test_downloader.py

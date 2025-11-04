@@ -114,9 +114,9 @@ All pipeline stages MUST emit structured logs with consistent schema. Progress m
 
 ### VI. Package Management (NON-NEGOTIABLE)
 
-All Python dependencies MUST be managed exclusively through **uv**. Never use pip directly. All dependencies MUST be declared in `pyproject.toml` with version constraints.
+All Python dependencies MUST be managed exclusively through **uv**. Never use pip directly. All dependencies MUST be declared in `pyproject.toml` with version constraints. All workspace packages MUST use the **uv_build** build backend.
 
-**Rationale**: uv provides fast, reproducible dependency resolution. Consistent tooling prevents version conflicts and "works on my machine" issues.
+**Rationale**: uv provides fast, reproducible dependency resolution. Consistent tooling prevents version conflicts and "works on my machine" issues. The uv_build backend provides zero-config defaults, tight integration with uv, and fast builds for pure Python packages.
 
 **Requirements**:
 - Use `uv add <package>` to add dependencies
@@ -124,6 +124,13 @@ All Python dependencies MUST be managed exclusively through **uv**. Never use pi
 - Use `uv sync` to synchronize environment
 - Lock file (`uv.lock`) MUST be committed
 - Dev dependencies separated from runtime dependencies
+- Each workspace package MUST include in `pyproject.toml`:
+  ```toml
+  [build-system]
+  requires = ["uv_build>=0.9.6,<0.10.0"]
+  build-backend = "uv_build"
+  ```
+- Upper bound on uv_build version ensures build stability across uv releases
 
 ### VII. Git Commit Standards (NON-NEGOTIABLE)
 

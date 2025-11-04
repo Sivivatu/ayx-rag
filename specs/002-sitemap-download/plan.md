@@ -80,6 +80,7 @@ Download the Alteryx help sitemap from https://help.alteryx.com/current/sitemap.
 **VI. Package Management**: ✅ PASS
 - Dependencies managed exclusively with uv
 - Package-specific dependencies in packages/sitemap-download/pyproject.toml
+- Build backend: uv_build (specified in pyproject.toml)
 - No direct pip usage
 
 **VII. Git Commit Standards**: ✅ PASS
