@@ -158,6 +158,7 @@ When implementing features, prioritize incremental development with clear separa
 - **loguru**: Structured logging with zero-config
 - **pytest & pytest-cov**: Testing framework with coverage
 - **xml.etree.ElementTree**: Standard library XML parsing/generation
+- Local filesystem (default: `alteryx-help-current-sitemap.xml` at project root) (002-sitemap-download)
 
 ## Current Package Status
 - **sitemap-filter** (v0.2.0): Complete with 57 passing tests
@@ -168,7 +169,6 @@ When implementing features, prioritize incremental development with clear separa
   - File output support
 
 ## Recent Changes
+- 002-sitemap-download: Added Python 3.10+
 - 2025-10-31: Restructured to uv workspaces with main.py entry point (Constitution v1.2.0)
 - 2025-10-31: Added Principle IX: Main Entry Point (NON-NEGOTIABLE)
-- 2025-10-31: Updated Principle I: Modular Architecture (workspace structure)
-- 2025-10-31: sitemap-filter moved to packages/sitemap-filter/ workspace package

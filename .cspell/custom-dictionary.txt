@@ -1,6 +1,9 @@
 # Custom Dictionary Words
 addopts
+alteryx
+Alteryx
 isort
+pathlib
 pycache
 pycodestyle
 pyflakes
@@ -8,4 +11,7 @@ pythonpath
 pyupgrade
 testpaths
 tomli
+typer
+Typer
+unwritable
 venv
