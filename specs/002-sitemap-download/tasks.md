@@ -67,27 +67,27 @@ This project uses uv workspace packages:
 
 - [X] T014 [P] [US1] Create test fixture valid_sitemap.xml in packages/sitemap-download/tests/fixtures/
 - [X] T015 [P] [US1] Create test fixture large_sitemap.xml (simulated large file) in packages/sitemap-download/tests/fixtures/
-- [ ] T016 [P] [US1] Write unit test test_downloader_init in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T017 [P] [US1] Write unit test test_download_success in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T018 [P] [US1] Write unit test test_download_with_progress_callback in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T019 [P] [US1] Write unit test test_download_network_error in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T020 [P] [US1] Write unit test test_download_timeout in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T021 [P] [US1] Write integration test test_cli_basic_download in packages/sitemap-download/tests/integration/test_cli.py
-- [ ] T022 [P] [US1] Write unit test test_check_disk_space_sufficient (optional) in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T023 [P] [US1] Write unit test test_check_disk_space_insufficient (optional) in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T016 [P] [US1] Write unit test test_downloader_init in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T017 [P] [US1] Write unit test test_download_success in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T018 [P] [US1] Write unit test test_download_with_progress_callback in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T019 [P] [US1] Write unit test test_download_network_error in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T020 [P] [US1] Write unit test test_download_timeout in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T021 [P] [US1] Write integration test test_cli_basic_download in packages/sitemap-download/tests/integration/test_cli.py
+- [X] T022 [P] [US1] Write unit test test_check_disk_space_sufficient (optional) in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T023 [P] [US1] Write unit test test_check_disk_space_insufficient (optional) in packages/sitemap-download/tests/unit/test_downloader.py
 
 ### Implementation for User Story 1
 
-- [ ] T024 [US1] Create SitemapDownloader class skeleton in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T025 [US1] Implement SitemapDownloader.__init__ with config validation in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T026 [US1] Implement check_disk_space() pre-flight check (optional) in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T027 [US1] Implement HTTP GET with streaming in SitemapDownloader.download() in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T028 [US1] Implement progress tracking logic (256KB/500ms threshold) in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T029 [US1] Implement progress callback invocation in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T030 [US1] Implement atomic file write (temp file + rename) in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T031 [US1] Implement timeout configuration (connection and read) in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T032 [US1] Implement custom HTTP headers (User-Agent, Accept-Encoding) per FR-009 in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T033 [US1] Implement error handling and result creation in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T024 [US1] Create SitemapDownloader class skeleton in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T025 [US1] Implement SitemapDownloader.__init__ with config validation in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T026 [US1] Implement check_disk_space() pre-flight check (optional) in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T027 [US1] Implement HTTP GET with streaming in SitemapDownloader.download() in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T028 [US1] Implement progress tracking logic (256KB/500ms threshold) in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T029 [US1] Implement progress callback invocation in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T030 [US1] Implement atomic file write (temp file + rename) in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T031 [US1] Implement timeout configuration (connection and read) in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T032 [US1] Implement custom HTTP headers (User-Agent, Accept-Encoding) per FR-009 in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T033 [US1] Implement error handling and result creation in packages/sitemap-download/src/sitemap_download/downloader.py
 - [ ] T034 [US1] Create CLI skeleton with typer in packages/sitemap-download/src/sitemap_download/cli.py
 - [ ] T035 [US1] Implement CLI options (url, output, connection-timeout, read-timeout) in packages/sitemap-download/src/sitemap_download/cli.py
 - [ ] T036 [US1] Implement progress display formatter in packages/sitemap-download/src/sitemap_download/cli.py
