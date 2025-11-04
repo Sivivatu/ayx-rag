@@ -2,6 +2,7 @@
 addopts
 alteryx
 Alteryx
+dataclass
 isort
 pathlib
 pycache
