@@ -297,7 +297,7 @@ wheels = [
 
 [[package]]
 name = "sitemap-filter"
-version = "0.2.0"
+version = "0.1.0"
 source = { editable = "packages/sitemap-filter" }
 dependencies = [
     { name = "loguru" },
@@ -392,7 +392,6 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "sitemap-filter" },
-    { name = "tomli", marker = "python_full_version < '3.11'" },
 ]
 
 [package.dev-dependencies]
@@ -403,10 +402,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "sitemap-filter", editable = "packages/sitemap-filter" },
-    { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2.0.0" },
-]
+requires-dist = [{ name = "sitemap-filter", editable = "packages/sitemap-filter" }]
 
 [package.metadata.requires-dev]
 dev = [
