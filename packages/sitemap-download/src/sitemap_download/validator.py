@@ -3,10 +3,10 @@
 import time
 import xml.sax
 from pathlib import Path
+
 from loguru import logger
 
 from .models import ValidationResult
-from .exceptions import ValidationError
 
 
 class SitemapContentHandler(xml.sax.ContentHandler):
@@ -115,7 +115,7 @@ class SitemapValidator:
             parser = xml.sax.make_parser()
             parser.setContentHandler(handler)
 
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 parser.parse(f)
 
             duration = time.time() - start_time
