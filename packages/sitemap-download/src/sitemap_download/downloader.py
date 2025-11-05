@@ -72,7 +72,8 @@ class SitemapDownloader:
                     read=self.config.read_timeout,
                     write=None,
                     pool=None,
-                )
+                ),
+                verify=False,
             ) as client:
                 response = client.head(self.config.url)
                 response.raise_for_status()
@@ -189,6 +190,7 @@ class SitemapDownloader:
                     pool=None,
                 ),
                 follow_redirects=True,
+                verify=False,
             ) as client:
                 with client.stream("GET", self.config.url) as response:
                     response.raise_for_status()
