@@ -122,6 +122,12 @@ def sitemap_download(
         "-f",
         help="Force download even if local file is up-to-date",
     ),
+    archive: bool = typer.Option(
+        False,
+        "--archive",
+        "-a",
+        help="Archive existing sitemap with timestamp before downloading",
+    ),
     connection_timeout: float = typer.Option(
         30.0,
         help="Connection timeout in seconds",
@@ -146,6 +152,11 @@ def sitemap_download(
     from sitemap_download.downloader import SitemapDownloader
     from sitemap_download.models import DownloadConfig, DownloadProgress
     from sitemap_download.exceptions import ConfigurationError
+    from sitemap_download.cli import archive_existing_file
+    
+    # Archive existing file if requested
+    if archive:
+        archive_existing_file(output, quiet)
     
     # Validate configuration
     try:

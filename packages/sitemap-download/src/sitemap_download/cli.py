@@ -1,6 +1,8 @@
 """Command-line interface for sitemap download."""
 
 import sys
+import shutil
+from datetime import datetime
 from pathlib import Path
 from typing import Optional
 import typer
@@ -77,6 +79,37 @@ def display_progress(progress: DownloadProgress, quiet: bool = False) -> None:
     sys.stdout.flush()
 
 
+def archive_existing_file(file_path: Path, quiet: bool = False) -> Optional[Path]:
+    """Archive existing file with timestamp suffix.
+    
+    Args:
+        file_path: Path to file to archive
+        quiet: Whether to suppress output
+        
+    Returns:
+        Path to archived file, or None if no file exists
+    """
+    if not file_path.exists():
+        return None
+    
+    # Generate timestamp suffix (yyyy_mm_dd_hh_mm)
+    timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M")
+    
+    # Create archive filename
+    stem = file_path.stem
+    suffix = file_path.suffix
+    archive_name = f"{stem}_{timestamp}{suffix}"
+    archive_path = file_path.parent / archive_name
+    
+    # Copy file to archive
+    shutil.copy2(file_path, archive_path)
+    
+    if not quiet:
+        typer.echo(f"Archived existing file to: {archive_path}")
+    
+    return archive_path
+
+
 @app.callback(invoke_without_command=True)
 def download_sitemap(
     ctx: typer.Context,
@@ -95,6 +128,12 @@ def download_sitemap(
         "--force",
         "-f",
         help="Force download even if local file is up-to-date",
+    ),
+    archive: bool = typer.Option(
+        False,
+        "--archive",
+        "-a",
+        help="Archive existing sitemap with timestamp before downloading",
     ),
     connection_timeout: float = typer.Option(
         30.0,
@@ -120,6 +159,10 @@ def download_sitemap(
     By default, checks if the remote sitemap has been modified since the last
     download and skips downloading if unchanged. Use --force to bypass this check.
     """
+    # Archive existing file if requested
+    if archive:
+        archive_existing_file(output, quiet)
+    
     # Validate configuration
     try:
         config = DownloadConfig(
