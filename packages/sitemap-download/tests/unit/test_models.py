@@ -1,15 +1,15 @@
 """Tests for data models."""
 
-import pytest
 from datetime import datetime
 from pathlib import Path
 
+import pytest
 from sitemap_download.models import (
     DownloadConfig,
     DownloadProgress,
     DownloadResult,
-    ValidationResult,
     RemoteFileInfo,
+    ValidationResult,
 )
 
 

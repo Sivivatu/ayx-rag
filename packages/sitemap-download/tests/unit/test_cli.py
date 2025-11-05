@@ -1,13 +1,10 @@
 """Unit tests for CLI helper functions."""
 
-import pytest
-from pathlib import Path
 from datetime import datetime
-from io import StringIO
-import sys
-from sitemap_download.utils import archive_file, format_bytes
-from sitemap_download.cli import format_progress_bar, display_progress
+
+from sitemap_download.cli import display_progress, format_progress_bar
 from sitemap_download.models import DownloadProgress
+from sitemap_download.utils import archive_file, format_bytes
 
 
 class TestArchiveFile:
@@ -24,16 +21,16 @@ class TestArchiveFile:
         # Create a test file
         file_path = tmp_path / "sitemap.xml"
         file_path.write_text("<sitemap>test</sitemap>")
-        
+
         # Archive it
         archive_path = archive_file(file_path)
-        
+
         # Verify archive was created
         assert archive_path is not None
         assert archive_path.exists()
         assert archive_path.parent == file_path.parent
         assert archive_path.read_text() == "<sitemap>test</sitemap>"
-        
+
         # Verify timestamp format in filename
         stem = archive_path.stem
         assert stem.startswith("sitemap_")
@@ -50,13 +47,13 @@ class TestArchiveFile:
         """Test archiving doesn't delete original file."""
         file_path = tmp_path / "sitemap.xml"
         file_path.write_text("<sitemap>test</sitemap>")
-        
+
         archive_path = archive_file(file_path)
-        
+
         # Original should still exist
         assert file_path.exists()
         assert archive_path.exists()
-        
+
         # Both should have same content
         assert file_path.read_text() == archive_path.read_text()
 
@@ -64,9 +61,9 @@ class TestArchiveFile:
         """Test archiving file with dots in name."""
         file_path = tmp_path / "alteryx-help-current-sitemap.xml"
         file_path.write_text("<sitemap>test</sitemap>")
-        
+
         archive_path = archive_file(file_path)
-        
+
         assert archive_path is not None
         assert archive_path.suffix == ".xml"
         assert "alteryx-help-current-sitemap" in archive_path.stem
@@ -81,7 +78,7 @@ class TestFormatBytes:
         assert "1.0 KB" in format_bytes(1024)
         assert "1.0 MB" in format_bytes(1024 * 1024)
         assert "1.0 GB" in format_bytes(1024 * 1024 * 1024)
-        
+
     def test_format_bytes_fractional(self):
         """Test fractional values."""
         assert "1.5" in format_bytes(1536)  # 1.5 KB
@@ -100,9 +97,9 @@ class TestFormatProgressBar:
             last_update_time=datetime.now(),
             bytes_per_second=100.0,
         )
-        
+
         result = format_progress_bar(progress, width=20)
-        
+
         # Should show 50% progress
         assert "50%" in result
         assert "500" in result  # Downloaded bytes
@@ -119,9 +116,9 @@ class TestFormatProgressBar:
             last_update_time=datetime.now(),
             bytes_per_second=100.0,
         )
-        
+
         result = format_progress_bar(progress, width=20)
-        
+
         assert "100%" in result
         assert "█" in result  # Filled bar character
 
@@ -134,9 +131,9 @@ class TestFormatProgressBar:
             last_update_time=datetime.now(),
             bytes_per_second=0.0,
         )
-        
+
         result = format_progress_bar(progress)
-        
+
         # Should show "--" for ETA when not calculable
         assert "ETA: --" in result or "ETA: 0s" in result
 
@@ -153,9 +150,9 @@ class TestDisplayProgress:
             last_update_time=datetime.now(),
             bytes_per_second=100.0,
         )
-        
+
         display_progress(progress, quiet=True)
-        
+
         captured = capsys.readouterr()
         # Should not output anything in quiet mode
         assert captured.out == ""
@@ -169,9 +166,9 @@ class TestDisplayProgress:
             last_update_time=datetime.now(),
             bytes_per_second=100.0,
         )
-        
+
         display_progress(progress, quiet=False)
-        
+
         captured = capsys.readouterr()
         # Should show progress in normal mode
         assert "50%" in captured.out or len(captured.out) > 0

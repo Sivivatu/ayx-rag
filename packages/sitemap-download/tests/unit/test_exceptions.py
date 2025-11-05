@@ -2,10 +2,10 @@
 
 import pytest
 from sitemap_download.exceptions import (
-    SitemapDownloadError,
-    NetworkError,
-    ValidationError,
     ConfigurationError,
+    NetworkError,
+    SitemapDownloadError,
+    ValidationError,
 )
 
 

@@ -150,16 +150,16 @@ def sitemap_download(
     """Download Alteryx sitemap with progress tracking."""
     # Import here to avoid circular imports and execution issues
     from sitemap_download.downloader import SitemapDownloader
-    from sitemap_download.models import DownloadConfig, DownloadProgress
     from sitemap_download.exceptions import ConfigurationError
+    from sitemap_download.models import DownloadConfig, DownloadProgress
     from sitemap_download.utils import archive_file
-    
+
     # Archive existing file if requested
     if archive:
         archive_path = archive_file(output)
         if archive_path and not quiet:
             typer.echo(f"Archived existing file to: {archive_path}")
-    
+
     # Validate configuration
     try:
         config = DownloadConfig(
@@ -173,30 +173,31 @@ def sitemap_download(
     except (ValueError, ConfigurationError) as e:
         typer.echo(f"✗ Configuration error: {e}", err=True)
         raise typer.Exit(code=3)
-    
+
     # Create downloader
     downloader = SitemapDownloader(config)
-    
+
     if not quiet:
         typer.echo("Downloading sitemap...")
-    
+
     # Perform download with progress tracking
     def progress_callback(progress: DownloadProgress) -> None:
         if not quiet:
             from sitemap_download.cli import display_progress
+
             display_progress(progress, quiet)
-    
+
     result = downloader.download(progress_callback=progress_callback if not quiet else None)
-    
+
     # Clear progress line
     if not quiet and result.success:
         sys.stdout.write("\r" + " " * 120 + "\r")  # Clear line
         sys.stdout.flush()
-    
+
     # Handle result
     if result.success:
         from sitemap_download.cli import format_bytes
-        
+
         if result.skipped:
             if not quiet:
                 typer.echo("✓ Local sitemap is up-to-date (use --force to re-download)")
@@ -204,33 +205,42 @@ def sitemap_download(
             if not quiet:
                 size_str = format_bytes(result.file_size)
                 duration_str = f"{result.duration_seconds:.1f}s"
-                speed = result.file_size / result.duration_seconds if result.duration_seconds > 0 else 0
+                speed = (
+                    result.file_size / result.duration_seconds if result.duration_seconds > 0 else 0
+                )
                 speed_str = format_bytes(int(speed))
                 typer.echo(f"✓ Download complete: {size_str} in {duration_str} ({speed_str}/s)")
             else:
                 typer.echo(f"✓ Sitemap downloaded: {format_bytes(result.file_size)}")
-        
+
         # Show validation results
         if result.validation_result and not quiet:
             if result.validation_result.valid:
-                typer.echo(f"✓ Validation successful: {result.validation_result.url_count:,} URLs found")
+                typer.echo(
+                    f"✓ Validation successful: {result.validation_result.url_count:,} URLs found"
+                )
             else:
-                typer.echo(f"⚠ Validation warning: {result.validation_result.error_message}", err=True)
-        
+                typer.echo(
+                    f"⚠ Validation warning: {result.validation_result.error_message}", err=True
+                )
+
         if not quiet:
             typer.echo(f"\nSitemap saved to: {result.file_path}")
-        
+
         raise typer.Exit(code=0)
     else:
         # Download failed
         typer.echo(f"✗ Download failed: {result.error_message}", err=True)
-        
+
         if not quiet:
             typer.echo("\nTroubleshooting:", err=True)
             typer.echo("- Check network connection", err=True)
-            typer.echo(f"- Try increasing timeouts (current: connect={connection_timeout}s, read={read_timeout}s)", err=True)
+            typer.echo(
+                f"- Try increasing timeouts (current: connect={connection_timeout}s, read={read_timeout}s)",
+                err=True,
+            )
             typer.echo(f"- Verify URL is accessible: {url}", err=True)
-        
+
         raise typer.Exit(code=1)
 
 

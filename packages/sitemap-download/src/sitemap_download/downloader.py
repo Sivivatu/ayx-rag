@@ -1,23 +1,23 @@
 """HTTP downloader with progress tracking and retry logic."""
 
-import time
 import random
 import shutil
-from pathlib import Path
+import time
+from collections.abc import Callable
 from datetime import datetime
-from typing import Callable, Optional
+from pathlib import Path
+
 import httpx
 from loguru import logger
 
+from .exceptions import NetworkError
 from .models import (
     DownloadConfig,
     DownloadProgress,
     DownloadResult,
     RemoteFileInfo,
 )
-from .exceptions import ConfigurationError, NetworkError
 from .validator import SitemapValidator
-
 
 # Type alias for progress callback
 ProgressCallback = Callable[[DownloadProgress], None]
@@ -72,7 +72,7 @@ class SitemapDownloader:
             Adds 25% random jitter to avoid thundering herd
         """
         base_delay = 1.0  # 1 second base
-        delay = base_delay * (2 ** attempt)
+        delay = base_delay * (2**attempt)
         jitter = delay * 0.25 * random.random()
         return delay + jitter
 
@@ -130,9 +130,7 @@ class SitemapDownloader:
                     # Parse HTTP date format
                     from email.utils import parsedate_to_datetime
 
-                    last_modified = parsedate_to_datetime(
-                        response.headers["last-modified"]
-                    )
+                    last_modified = parsedate_to_datetime(response.headers["last-modified"])
 
                 etag = response.headers.get("etag")
                 content_type = response.headers.get("content-type")
@@ -184,7 +182,7 @@ class SitemapDownloader:
         return False, "local file is up to date"
 
     def _attempt_download(
-        self, progress_callback: Optional[ProgressCallback] = None
+        self, progress_callback: ProgressCallback | None = None
     ) -> tuple[Path, int]:
         """Perform single download attempt.
 
@@ -200,90 +198,86 @@ class SitemapDownloader:
         """
         logger.info(f"Downloading from {self.config.url}")
 
-        with httpx.Client(
-            timeout=httpx.Timeout(
-                connect=self.config.connection_timeout,
-                read=self.config.read_timeout,
-                write=None,
-                pool=None,
-            ),
-            follow_redirects=True,
-            verify=False,
-        ) as client:
-            with client.stream("GET", self.config.url) as response:
-                response.raise_for_status()
+        with (
+            httpx.Client(
+                timeout=httpx.Timeout(
+                    connect=self.config.connection_timeout,
+                    read=self.config.read_timeout,
+                    write=None,
+                    pool=None,
+                ),
+                follow_redirects=True,
+                verify=False,
+            ) as client,
+            client.stream("GET", self.config.url) as response,
+        ):
+            response.raise_for_status()
 
-                # Get total size
-                total_bytes = 0
-                if "content-length" in response.headers:
-                    total_bytes = int(response.headers["content-length"])
+            # Get total size
+            total_bytes = 0
+            if "content-length" in response.headers:
+                total_bytes = int(response.headers["content-length"])
 
-                # Download to temporary file
-                temp_path = self.config.destination.with_suffix(".tmp")
-                downloaded_bytes = 0
-                last_update_time = time.time()
-                last_update_size = 0
-                download_start = time.time()
+            # Download to temporary file
+            temp_path = self.config.destination.with_suffix(".tmp")
+            downloaded_bytes = 0
+            last_update_time = time.time()
+            last_update_size = 0
+            download_start = time.time()
 
-                try:
-                    with open(temp_path, "wb") as f:
-                        for chunk in response.iter_bytes(
-                            chunk_size=self.config.chunk_size
+            try:
+                with open(temp_path, "wb") as f:
+                    for chunk in response.iter_bytes(chunk_size=self.config.chunk_size):
+                        f.write(chunk)
+                        downloaded_bytes += len(chunk)
+
+                        # Check if progress update needed
+                        now = time.time()
+                        bytes_since = downloaded_bytes - last_update_size
+                        time_since = now - last_update_time
+
+                        if (
+                            bytes_since >= UPDATE_THRESHOLD_BYTES
+                            or time_since >= UPDATE_THRESHOLD_SECONDS
                         ):
-                            f.write(chunk)
-                            downloaded_bytes += len(chunk)
+                            if progress_callback and total_bytes > 0:
+                                bytes_per_second = bytes_since / time_since if time_since > 0 else 0
+                                progress = DownloadProgress(
+                                    total_bytes=total_bytes,
+                                    downloaded_bytes=downloaded_bytes,
+                                    start_time=datetime.fromtimestamp(download_start),
+                                    last_update_time=datetime.fromtimestamp(now),
+                                    bytes_per_second=bytes_per_second,
+                                )
+                                progress_callback(progress)
 
-                            # Check if progress update needed
-                            now = time.time()
-                            bytes_since = downloaded_bytes - last_update_size
-                            time_since = now - last_update_time
+                            last_update_time = now
+                            last_update_size = downloaded_bytes
 
-                            if (
-                                bytes_since >= UPDATE_THRESHOLD_BYTES
-                                or time_since >= UPDATE_THRESHOLD_SECONDS
-                            ):
-                                if progress_callback and total_bytes > 0:
-                                    bytes_per_second = (
-                                        bytes_since / time_since if time_since > 0 else 0
-                                    )
-                                    progress = DownloadProgress(
-                                        total_bytes=total_bytes,
-                                        downloaded_bytes=downloaded_bytes,
-                                        start_time=datetime.fromtimestamp(download_start),
-                                        last_update_time=datetime.fromtimestamp(now),
-                                        bytes_per_second=bytes_per_second,
-                                    )
-                                    progress_callback(progress)
+                # Final progress callback
+                if progress_callback and total_bytes > 0:
+                    duration = time.time() - download_start
+                    progress = DownloadProgress(
+                        total_bytes=total_bytes,
+                        downloaded_bytes=downloaded_bytes,
+                        start_time=datetime.fromtimestamp(download_start),
+                        last_update_time=datetime.fromtimestamp(time.time()),
+                        bytes_per_second=downloaded_bytes / duration if duration > 0 else 0,
+                    )
+                    progress_callback(progress)
 
-                                last_update_time = now
-                                last_update_size = downloaded_bytes
+                # Atomic rename (preserves old file until success)
+                temp_path.replace(self.config.destination)
+                logger.info(f"Downloaded {downloaded_bytes} bytes to {self.config.destination}")
 
-                    # Final progress callback
-                    if progress_callback and total_bytes > 0:
-                        duration = time.time() - download_start
-                        progress = DownloadProgress(
-                            total_bytes=total_bytes,
-                            downloaded_bytes=downloaded_bytes,
-                            start_time=datetime.fromtimestamp(download_start),
-                            last_update_time=datetime.fromtimestamp(time.time()),
-                            bytes_per_second=downloaded_bytes / duration if duration > 0 else 0,
-                        )
-                        progress_callback(progress)
+                return (self.config.destination, downloaded_bytes)
 
-                    # Atomic rename (preserves old file until success)
-                    temp_path.replace(self.config.destination)
-                    logger.info(f"Downloaded {downloaded_bytes} bytes to {self.config.destination}")
+            except Exception:
+                # Clean up temp file on error
+                temp_path.unlink(missing_ok=True)
+                raise
 
-                    return (self.config.destination, downloaded_bytes)
-
-                except Exception as e:
-                    # Clean up temp file on error
-                    temp_path.unlink(missing_ok=True)
-                    raise
-
-    def download(
-        self, progress_callback: Optional[ProgressCallback] = None
-    ) -> DownloadResult:
+    def download(self, progress_callback: ProgressCallback | None = None) -> DownloadResult:
         """Download file with progress tracking and retry logic.
 
         Args:
@@ -321,7 +315,6 @@ class SitemapDownloader:
                     logger.warning(f"Could not check remote info: {e}. Proceeding with download.")
 
             # Perform download with retry logic
-            last_error = None
             for attempt in range(self.config.max_retries + 1):
                 try:
                     file_path, file_size = self._attempt_download(progress_callback)
@@ -351,8 +344,6 @@ class SitemapDownloader:
                     )
 
                 except Exception as e:
-                    last_error = e
-                    
                     # Check if we should retry
                     if attempt < self.config.max_retries and self.is_retryable_error(e):
                         retry_count += 1

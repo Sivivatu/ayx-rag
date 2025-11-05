@@ -164,13 +164,12 @@ def download_sitemap(
                 typer.echo(f"✓ Sitemap downloaded: {format_bytes(result.file_size)}")
         
         # Show validation results
-        if result.validation_result:
-            if not quiet:
-                if result.validation_result.valid:
-                    typer.echo(f"✓ Validation successful: {result.validation_result.url_count:,} URLs found")
-                else:
-                    typer.echo(f"✗ Validation failed: {result.validation_result.error_message}", err=True)
-                    raise typer.Exit(code=2)
+        if result.validation_result and not quiet:
+            if result.validation_result.valid:
+                typer.echo(f"✓ Validation successful: {result.validation_result.url_count:,} URLs found")
+            else:
+                typer.echo(f"✗ Validation failed: {result.validation_result.error_message}", err=True)
+                raise typer.Exit(code=2)
         
         if not quiet:
             typer.echo(f"\nSitemap saved to: {result.file_path}")

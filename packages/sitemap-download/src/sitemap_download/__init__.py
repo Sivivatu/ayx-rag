@@ -1,5 +1,7 @@
 """Sitemap Download package for Alteryx help documentation."""
 
+from .cli import app
+from .downloader import SitemapDownloader
 from .exceptions import (
     ConfigurationError,
     NetworkError,
@@ -13,10 +15,8 @@ from .models import (
     RemoteFileInfo,
     ValidationResult,
 )
-from .downloader import SitemapDownloader
-from .validator import SitemapValidator
-from .cli import app
 from .utils import archive_file, format_bytes
+from .validator import SitemapValidator
 
 __version__ = "0.2.0"
 

@@ -1,19 +1,13 @@
 """Tests for SitemapDownloader class."""
 
-import pytest
-from pathlib import Path
-from datetime import datetime
-from unittest.mock import Mock, patch, MagicMock
-import httpx
+from unittest.mock import MagicMock, Mock, patch
 
+import httpx
 from sitemap_download.downloader import SitemapDownloader
 from sitemap_download.models import (
     DownloadConfig,
     DownloadProgress,
-    DownloadResult,
-    RemoteFileInfo,
 )
-from sitemap_download.exceptions import ConfigurationError, NetworkError
 
 
 class TestDownloaderInit:
@@ -236,14 +230,18 @@ class TestDownloadRetry:
 
         mock_client = MagicMock()
         mock_client.__enter__.return_value = mock_client
-        
+
         # First two calls fail, third succeeds
         mock_client.stream.side_effect = [
-            httpx.HTTPStatusError("Service Unavailable", request=Mock(), response=mock_response_fail),
-            httpx.HTTPStatusError("Service Unavailable", request=Mock(), response=mock_response_fail),
+            httpx.HTTPStatusError(
+                "Service Unavailable", request=Mock(), response=mock_response_fail
+            ),
+            httpx.HTTPStatusError(
+                "Service Unavailable", request=Mock(), response=mock_response_fail
+            ),
             MagicMock(__enter__=lambda self: mock_response_success, __exit__=lambda *args: None),
         ]
-        
+
         mock_client_class.return_value = mock_client
 
         config = DownloadConfig(
@@ -264,13 +262,13 @@ class TestDownloadRetry:
         """Test that download fails after exceeding max retries."""
         mock_response = MagicMock()
         mock_response.status_code = 503
-        
+
         mock_client = MagicMock()
         mock_client.__enter__.return_value = mock_client
         mock_client.stream.side_effect = httpx.HTTPStatusError(
             "Service Unavailable", request=Mock(), response=mock_response
         )
-        
+
         mock_client_class.return_value = mock_client
 
         config = DownloadConfig(
@@ -290,13 +288,13 @@ class TestDownloadRetry:
         """Test that 4xx errors don't trigger retries."""
         mock_response = MagicMock()
         mock_response.status_code = 404
-        
+
         mock_client = MagicMock()
         mock_client.__enter__.return_value = mock_client
         mock_client.stream.side_effect = httpx.HTTPStatusError(
             "Not Found", request=Mock(), response=mock_response
         )
-        
+
         mock_client_class.return_value = mock_client
 
         config = DownloadConfig(
@@ -313,10 +311,12 @@ class TestDownloadRetry:
 
     @patch("httpx.Client")
     @patch("time.sleep")
-    def test_download_preserves_existing_file_on_failure(self, mock_sleep, mock_client_class, tmp_path):
+    def test_download_preserves_existing_file_on_failure(
+        self, mock_sleep, mock_client_class, tmp_path
+    ):
         """Test that existing file is not corrupted when download fails after retries."""
         destination = tmp_path / "sitemap.xml"
-        
+
         # Create existing file
         original_content = b"<urlset><url><loc>https://original.com</loc></url></urlset>"
         destination.write_bytes(original_content)
@@ -324,13 +324,13 @@ class TestDownloadRetry:
 
         mock_response = MagicMock()
         mock_response.status_code = 500
-        
+
         mock_client = MagicMock()
         mock_client.__enter__.return_value = mock_client
         mock_client.stream.side_effect = httpx.HTTPStatusError(
             "Internal Server Error", request=Mock(), response=mock_response
         )
-        
+
         mock_client_class.return_value = mock_client
 
         config = DownloadConfig(

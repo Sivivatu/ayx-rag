@@ -1,9 +1,9 @@
 """Unit tests for sitemap validator."""
 
-import pytest
 from pathlib import Path
+
+import pytest
 from sitemap_download.validator import SitemapValidator
-from sitemap_download.models import ValidationResult
 
 
 class TestSitemapValidator:
@@ -53,11 +53,11 @@ class TestSitemapValidator:
         sitemap_path = tmp_path / "no_namespace.xml"
         sitemap_path.write_text(
             '<?xml version="1.0" encoding="UTF-8"?>\n'
-            '<urlset>\n'
-            '  <url>\n'
-            '    <loc>https://example.com</loc>\n'
-            '  </url>\n'
-            '</urlset>'
+            "<urlset>\n"
+            "  <url>\n"
+            "    <loc>https://example.com</loc>\n"
+            "  </url>\n"
+            "</urlset>"
         )
 
         result = validator.validate(sitemap_path)
@@ -70,16 +70,16 @@ class TestSitemapValidator:
         """Test validation of sitemap with invalid root element."""
         sitemap_path = tmp_path / "invalid_root.xml"
         sitemap_path.write_text(
-            '<?xml version="1.0" encoding="UTF-8"?>\n'
-            '<html>\n'
-            '  <body>Not a sitemap</body>\n'
-            '</html>'
+            '<?xml version="1.0" encoding="UTF-8"?>\n<html>\n  <body>Not a sitemap</body>\n</html>'
         )
 
         result = validator.validate(sitemap_path)
 
         assert result.valid is False
-        assert "root element" in result.error_message.lower() or "urlset" in result.error_message.lower()
+        assert (
+            "root element" in result.error_message.lower()
+            or "urlset" in result.error_message.lower()
+        )
 
     def test_validate_no_urls(self, validator, fixtures_dir):
         """Test validation of sitemap with no URLs."""
@@ -95,10 +95,10 @@ class TestSitemapValidator:
         sitemap_path.write_text(
             '<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-            '  <url>\n'
-            '    <lastmod>2025-10-23</lastmod>\n'
-            '  </url>\n'
-            '</urlset>'
+            "  <url>\n"
+            "    <lastmod>2025-10-23</lastmod>\n"
+            "  </url>\n"
+            "</urlset>"
         )
 
         result = validator.validate(sitemap_path)
@@ -113,7 +113,10 @@ class TestSitemapValidator:
         result = validator.validate(sitemap_path)
 
         assert result.valid is False
-        assert "not found" in result.error_message.lower() or "does not exist" in result.error_message.lower()
+        assert (
+            "not found" in result.error_message.lower()
+            or "does not exist" in result.error_message.lower()
+        )
 
     def test_validate_sitemapindex(self, validator, tmp_path):
         """Test validation of sitemapindex format."""
@@ -121,11 +124,11 @@ class TestSitemapValidator:
         sitemap_path.write_text(
             '<?xml version="1.0" encoding="UTF-8"?>\n'
             '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-            '  <sitemap>\n'
-            '    <loc>https://example.com/sitemap1.xml</loc>\n'
-            '    <lastmod>2025-10-23</lastmod>\n'
-            '  </sitemap>\n'
-            '</sitemapindex>'
+            "  <sitemap>\n"
+            "    <loc>https://example.com/sitemap1.xml</loc>\n"
+            "    <lastmod>2025-10-23</lastmod>\n"
+            "  </sitemap>\n"
+            "</sitemapindex>"
         )
 
         result = validator.validate(sitemap_path)

@@ -23,7 +23,7 @@ class SitemapContentHandler(xml.sax.ContentHandler):
         self.root_element = None
         self.errors = []
 
-    def startElement(self, name, attrs):
+    def startElement(self, name, attrs):  # noqa: N802
         """Handle start of element."""
         self.current_element_stack.append(name)
 
@@ -46,7 +46,7 @@ class SitemapContentHandler(xml.sax.ContentHandler):
         elif name == "loc":
             self.has_loc = True
 
-    def endElement(self, name):
+    def endElement(self, name):  # noqa: N802
         """Handle end of element."""
         # Validate URL/sitemap entry has loc
         if name == "url":

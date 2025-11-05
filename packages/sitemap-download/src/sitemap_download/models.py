@@ -103,9 +103,7 @@ class DownloadResult:
         )
 
     @staticmethod
-    def failure_result(
-        error: str, duration: float, retry_count: int = 0
-    ) -> "DownloadResult":
+    def failure_result(error: str, duration: float, retry_count: int = 0) -> "DownloadResult":
         """Create a failed download result."""
         return DownloadResult(
             success=False,
@@ -129,9 +127,7 @@ class ValidationResult:
     validation_duration: float
 
     @staticmethod
-    def valid_result(
-        url_count: int, file_size: int, duration: float
-    ) -> "ValidationResult":
+    def valid_result(url_count: int, file_size: int, duration: float) -> "ValidationResult":
         """Create a successful validation result."""
         return ValidationResult(
             valid=True,
