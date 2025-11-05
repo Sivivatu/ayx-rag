@@ -152,11 +152,13 @@ def sitemap_download(
     from sitemap_download.downloader import SitemapDownloader
     from sitemap_download.models import DownloadConfig, DownloadProgress
     from sitemap_download.exceptions import ConfigurationError
-    from sitemap_download.cli import archive_existing_file
+    from sitemap_download.utils import archive_file
     
     # Archive existing file if requested
     if archive:
-        archive_existing_file(output, quiet)
+        archive_path = archive_file(output)
+        if archive_path and not quiet:
+            typer.echo(f"Archived existing file to: {archive_path}")
     
     # Validate configuration
     try:

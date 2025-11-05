@@ -3,16 +3,16 @@
 import pytest
 from pathlib import Path
 from datetime import datetime
-from sitemap_download.cli import archive_existing_file, format_bytes
+from sitemap_download.utils import archive_file, format_bytes
 
 
-class TestArchiveExistingFile:
-    """Tests for archive_existing_file function."""
+class TestArchiveFile:
+    """Tests for archive_file function."""
 
     def test_archive_nonexistent_file(self, tmp_path):
         """Test archiving when file doesn't exist returns None."""
         file_path = tmp_path / "nonexistent.xml"
-        result = archive_existing_file(file_path, quiet=True)
+        result = archive_file(file_path)
         assert result is None
 
     def test_archive_existing_file(self, tmp_path):
@@ -22,7 +22,7 @@ class TestArchiveExistingFile:
         file_path.write_text("<sitemap>test</sitemap>")
         
         # Archive it
-        archive_path = archive_existing_file(file_path, quiet=True)
+        archive_path = archive_file(file_path)
         
         # Verify archive was created
         assert archive_path is not None
@@ -47,7 +47,7 @@ class TestArchiveExistingFile:
         file_path = tmp_path / "sitemap.xml"
         file_path.write_text("<sitemap>test</sitemap>")
         
-        archive_path = archive_existing_file(file_path, quiet=True)
+        archive_path = archive_file(file_path)
         
         # Original should still exist
         assert file_path.exists()
@@ -61,7 +61,7 @@ class TestArchiveExistingFile:
         file_path = tmp_path / "alteryx-help-current-sitemap.xml"
         file_path.write_text("<sitemap>test</sitemap>")
         
-        archive_path = archive_existing_file(file_path, quiet=True)
+        archive_path = archive_file(file_path)
         
         assert archive_path is not None
         assert archive_path.suffix == ".xml"

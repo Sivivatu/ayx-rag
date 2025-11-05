@@ -19,7 +19,7 @@ class DownloadConfig:
 
     def __post_init__(self):
         """Validate configuration parameters."""
-        if not self.url.startswith(("http://", "https://", "file://")):
+        if not self.url.startswith(("http://", "https://")):
             raise ValueError(f"Invalid URL scheme: {self.url}")
         if self.connection_timeout <= 0:
             raise ValueError(f"connection_timeout must be > 0, got {self.connection_timeout}")

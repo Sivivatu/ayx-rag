@@ -15,6 +15,7 @@ from .models import (
 )
 from .downloader import SitemapDownloader
 from .cli import app
+from .utils import archive_file, format_bytes
 
 __version__ = "0.1.0"
 
@@ -34,4 +35,7 @@ __all__ = [
     "SitemapDownloader",
     # CLI
     "app",
+    # Utils
+    "archive_file",
+    "format_bytes",
 ]

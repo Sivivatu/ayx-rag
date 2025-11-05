@@ -1,8 +1,6 @@
 """Command-line interface for sitemap download."""
 
 import sys
-import shutil
-from datetime import datetime
 from pathlib import Path
 from typing import Optional
 import typer
@@ -11,6 +9,7 @@ from loguru import logger
 from .downloader import SitemapDownloader
 from .models import DownloadConfig, DownloadProgress
 from .exceptions import ConfigurationError
+from .utils import archive_file, format_bytes
 
 
 app = typer.Typer(
@@ -18,22 +17,6 @@ app = typer.Typer(
     help="Download Alteryx sitemap with progress tracking and validation",
     no_args_is_help=False,
 )
-
-
-def format_bytes(bytes_count: int) -> str:
-    """Format bytes as human-readable string.
-    
-    Args:
-        bytes_count: Number of bytes
-        
-    Returns:
-        Formatted string (e.g., "45.2 MB")
-    """
-    for unit in ["B", "KB", "MB", "GB"]:
-        if bytes_count < 1024.0:
-            return f"{bytes_count:.1f} {unit}"
-        bytes_count /= 1024.0
-    return f"{bytes_count:.1f} TB"
 
 
 def format_progress_bar(progress: DownloadProgress, width: int = 40) -> str:
@@ -77,37 +60,6 @@ def display_progress(progress: DownloadProgress, quiet: bool = False) -> None:
     sys.stdout.write("\r" + " " * 120 + "\r")  # Clear line
     sys.stdout.write(format_progress_bar(progress))
     sys.stdout.flush()
-
-
-def archive_existing_file(file_path: Path, quiet: bool = False) -> Optional[Path]:
-    """Archive existing file with timestamp suffix.
-    
-    Args:
-        file_path: Path to file to archive
-        quiet: Whether to suppress output
-        
-    Returns:
-        Path to archived file, or None if no file exists
-    """
-    if not file_path.exists():
-        return None
-    
-    # Generate timestamp suffix (yyyy_mm_dd_hh_mm)
-    timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M")
-    
-    # Create archive filename
-    stem = file_path.stem
-    suffix = file_path.suffix
-    archive_name = f"{stem}_{timestamp}{suffix}"
-    archive_path = file_path.parent / archive_name
-    
-    # Copy file to archive
-    shutil.copy2(file_path, archive_path)
-    
-    if not quiet:
-        typer.echo(f"Archived existing file to: {archive_path}")
-    
-    return archive_path
 
 
 @app.callback(invoke_without_command=True)
@@ -161,7 +113,9 @@ def download_sitemap(
     """
     # Archive existing file if requested
     if archive:
-        archive_existing_file(output, quiet)
+        archive_path = archive_file(output)
+        if archive_path and not quiet:
+            typer.echo(f"Archived existing file to: {archive_path}")
     
     # Validate configuration
     try:
