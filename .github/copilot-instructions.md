@@ -10,6 +10,10 @@ This is a RAG (Retrieval Augmented Generation) system for Alteryx help documenta
 - Project uses **uv workspaces** - root manages workspace and global dependencies, packages have isolated deps
 - Root `pyproject.toml` declares workspace members with `[tool.uv.workspace]`
 - Commands: `uv add <package>`, `uv run <script>`, `uv sync`
+- Build backend: **uv_build** (native uv build backend) - specified in each package's `pyproject.toml`
+  - Format: `[build-system]` with `requires = ["uv_build>=0.9.6,<0.10.0"]` and `build-backend = "uv_build"`
+  - Provides zero-config defaults, tight uv integration, fast builds
+  - Only supports pure Python (no extension modules)
 
 ### Workspace Structure
 ```
@@ -62,13 +66,19 @@ This is a RAG (Retrieval Augmented Generation) system for Alteryx help documenta
 - Package structure:
   ```
   packages/feature-name/
-  ├── pyproject.toml           # Feature dependencies (typer, loguru, etc.)
+  ├── pyproject.toml           # Feature dependencies + uv_build backend
   ├── src/
   │   └── feature_name/
   │       ├── __init__.py      # Export CLI function/app
   │       ├── cli.py           # CLI implementation
   │       └── modules/         # Feature-specific modules
   └── tests/                   # Feature tests
+  ```
+- Each package's `pyproject.toml` must include:
+  ```toml
+  [build-system]
+  requires = ["uv_build>=0.9.6,<0.10.0"]
+  build-backend = "uv_build"
   ```
 - `main.py` imports and registers feature CLI commands
 - Use `@app.command("feature-name")` decorator in main.py
@@ -158,6 +168,7 @@ When implementing features, prioritize incremental development with clear separa
 - **loguru**: Structured logging with zero-config
 - **pytest & pytest-cov**: Testing framework with coverage
 - **xml.etree.ElementTree**: Standard library XML parsing/generation
+- Local filesystem (default: `alteryx-help-current-sitemap.xml` at project root) (002-sitemap-download)
 
 ## Current Package Status
 - **sitemap-filter** (v0.2.0): Complete with 57 passing tests
@@ -168,7 +179,6 @@ When implementing features, prioritize incremental development with clear separa
   - File output support
 
 ## Recent Changes
+- 002-sitemap-download: Added Python 3.10+
 - 2025-10-31: Restructured to uv workspaces with main.py entry point (Constitution v1.2.0)
 - 2025-10-31: Added Principle IX: Main Entry Point (NON-NEGOTIABLE)
-- 2025-10-31: Updated Principle I: Modular Architecture (workspace structure)
-- 2025-10-31: sitemap-filter moved to packages/sitemap-filter/ workspace package

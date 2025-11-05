@@ -5,6 +5,7 @@ description = "RAG (Retrieval Augmented Generation) system for Alteryx help docu
 requires-python = ">=3.10"
 dependencies = [
     "sitemap-filter",
+    "sitemap-download",
 ]
 
 [tool.uv.workspace]
@@ -12,6 +13,7 @@ members = ["packages/*"]
 
 [tool.uv.sources]
 sitemap-filter = { workspace = true, editable = true }
+sitemap-download = { workspace = true, editable = true }
 
 [dependency-groups]
 dev = [

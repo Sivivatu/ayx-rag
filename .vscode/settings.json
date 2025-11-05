@@ -37,7 +37,9 @@
     // "packages/<package-name>/tests"
     "python.testing.pytestArgs": [
         "tests",
-        "packages/sitemap-filter/tests"
+        "packages/sitemap-filter/tests",
+        "packages/sitemap-download/tests"
+        // "packages/*/tests"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,

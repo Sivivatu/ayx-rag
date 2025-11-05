@@ -2,6 +2,13 @@
   "name": "uv",
   "build": { "dockerfile": "Dockerfile" },
   "remoteUser": "developer",
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/developer/.ssh-host,readonly,type=bind,consistency=cached"
+  ],
+  "postCreateCommand": "mkdir -p ~/.ssh && cp -r ~/.ssh-host/* ~/.ssh/ 2>/dev/null || true && chmod 700 ~/.ssh && chmod 600 ~/.ssh/* 2>/dev/null || true",
+  "remoteEnv": {
+    "SSH_AUTH_SOCK": "${localEnv:SSH_AUTH_SOCK}"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
