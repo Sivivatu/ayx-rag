@@ -104,5 +104,115 @@ def sitemap_filter(
     do_filter(sitemap_file, language, product, format, output, dry_run)
 
 
+@app.command("sitemap-download")
+def sitemap_download(
+    url: str = typer.Option(
+        "https://help.alteryx.com/current/sitemap.xml",
+        help="URL of the sitemap to download",
+    ),
+    output: Path = typer.Option(
+        Path("alteryx-help-current-sitemap.xml"),
+        "--output",
+        "-o",
+        help="Path where the sitemap should be saved",
+    ),
+    force: bool = typer.Option(
+        False,
+        "--force",
+        "-f",
+        help="Force download even if local file is up-to-date",
+    ),
+    connection_timeout: float = typer.Option(
+        30.0,
+        help="Connection timeout in seconds",
+    ),
+    read_timeout: float = typer.Option(
+        300.0,
+        help="Read timeout in seconds",
+    ),
+    max_retries: int = typer.Option(
+        3,
+        help="Maximum number of retry attempts",
+    ),
+    quiet: bool = typer.Option(
+        False,
+        "--quiet",
+        "-q",
+        help="Suppress progress output",
+    ),
+):
+    """Download Alteryx sitemap with progress tracking."""
+    # Import here to avoid circular imports and execution issues
+    from sitemap_download.downloader import SitemapDownloader
+    from sitemap_download.models import DownloadConfig, DownloadProgress
+    from sitemap_download.exceptions import ConfigurationError
+    
+    # Validate configuration
+    try:
+        config = DownloadConfig(
+            url=url,
+            destination=output,
+            force=force,
+            connection_timeout=connection_timeout,
+            read_timeout=read_timeout,
+            max_retries=max_retries,
+        )
+    except (ValueError, ConfigurationError) as e:
+        typer.echo(f"✗ Configuration error: {e}", err=True)
+        raise typer.Exit(code=3)
+    
+    # Create downloader
+    downloader = SitemapDownloader(config)
+    
+    if not quiet:
+        typer.echo("Downloading sitemap...")
+    
+    # Perform download with progress tracking
+    def progress_callback(progress: DownloadProgress) -> None:
+        if not quiet:
+            from sitemap_download.cli import display_progress
+            display_progress(progress, quiet)
+    
+    result = downloader.download(progress_callback=progress_callback if not quiet else None)
+    
+    # Clear progress line
+    if not quiet and result.success:
+        sys.stdout.write("\r" + " " * 120 + "\r")  # Clear line
+        sys.stdout.flush()
+    
+    # Handle result
+    if result.success:
+        from sitemap_download.cli import format_bytes
+        
+        if result.skipped:
+            if not quiet:
+                typer.echo("✓ Local sitemap is up-to-date (use --force to re-download)")
+        else:
+            if not quiet:
+                size_str = format_bytes(result.file_size)
+                duration_str = f"{result.duration_seconds:.1f}s"
+                speed = result.file_size / result.duration_seconds if result.duration_seconds > 0 else 0
+                speed_str = format_bytes(int(speed))
+                typer.echo(f"✓ Download complete: {size_str} in {duration_str} ({speed_str}/s)")
+            else:
+                typer.echo(f"✓ Sitemap downloaded: {format_bytes(result.file_size)}")
+        
+        if not quiet:
+            typer.echo(f"\nSitemap saved to: {result.file_path}")
+        
+        raise typer.Exit(code=0)
+    else:
+        # Download failed
+        typer.echo(f"✗ Download failed: {result.error_message}", err=True)
+        
+        if not quiet:
+            typer.echo("\nTroubleshooting:", err=True)
+            typer.echo("- Check network connection", err=True)
+            typer.echo(f"- Try increasing timeouts (current: connect={connection_timeout}s, read={read_timeout}s)", err=True)
+            typer.echo(f"- Verify URL is accessible: {url}", err=True)
+        
+        raise typer.Exit(code=1)
+
+
 if __name__ == "__main__":
     app()

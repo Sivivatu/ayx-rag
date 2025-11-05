@@ -14,6 +14,7 @@ from .models import (
     ValidationResult,
 )
 from .downloader import SitemapDownloader
+from .cli import app
 
 __version__ = "0.1.0"
 
@@ -31,4 +32,6 @@ __all__ = [
     "RemoteFileInfo",
     # Downloader
     "SitemapDownloader",
+    # CLI
+    "app",
 ]

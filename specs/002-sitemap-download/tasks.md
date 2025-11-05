@@ -88,14 +88,14 @@ This project uses uv workspace packages:
 - [X] T031 [US1] Implement timeout configuration (connection and read) in packages/sitemap-download/src/sitemap_download/downloader.py
 - [X] T032 [US1] Implement custom HTTP headers (User-Agent, Accept-Encoding) per FR-009 in packages/sitemap-download/src/sitemap_download/downloader.py
 - [X] T033 [US1] Implement error handling and result creation in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T034 [US1] Create CLI skeleton with typer in packages/sitemap-download/src/sitemap_download/cli.py
-- [ ] T035 [US1] Implement CLI options (url, output, connection-timeout, read-timeout) in packages/sitemap-download/src/sitemap_download/cli.py
-- [ ] T036 [US1] Implement progress display formatter in packages/sitemap-download/src/sitemap_download/cli.py
-- [ ] T037 [US1] Integrate downloader with CLI in packages/sitemap-download/src/sitemap_download/cli.py
-- [ ] T038 [US1] Export typer app in packages/sitemap-download/src/sitemap_download/__init__.py
-- [ ] T039 [US1] Register sitemap-download command in main.py at repository root
-- [ ] T040 [US1] Add structured logging for download operations in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T041 [US1] Verify all US1 tests pass
+- [X] T034 [US1] Create CLI skeleton with typer in packages/sitemap-download/src/sitemap_download/cli.py
+- [X] T035 [US1] Implement CLI options (url, output, connection-timeout, read-timeout) in packages/sitemap-download/src/sitemap_download/cli.py
+- [X] T036 [US1] Implement progress display formatter in packages/sitemap-download/src/sitemap_download/cli.py
+- [X] T037 [US1] Integrate downloader with CLI in packages/sitemap-download/src/sitemap_download/cli.py
+- [X] T038 [US1] Export typer app in packages/sitemap-download/src/sitemap_download/__init__.py
+- [X] T039 [US1] Register sitemap-download command in main.py at repository root
+- [X] T040 [US1] Add structured logging for download operations in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T041 [US1] Verify all US1 tests pass
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - users can download sitemap with progress indication
 

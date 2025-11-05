@@ -47,3 +47,5 @@ RUN <<EOT
     echo 'eval "$(uv generate-shell-completion zsh)"' >> ~/.zshrc
     echo 'eval "$(uvx --generate-shell-completion zsh)"' >> ~/.zshrc
 EOT
+
+ENV UV_LINK_MODE=copy
