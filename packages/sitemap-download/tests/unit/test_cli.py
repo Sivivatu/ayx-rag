@@ -3,7 +3,11 @@
 import pytest
 from pathlib import Path
 from datetime import datetime
+from io import StringIO
+import sys
 from sitemap_download.utils import archive_file, format_bytes
+from sitemap_download.cli import format_progress_bar, display_progress
+from sitemap_download.models import DownloadProgress
 
 
 class TestArchiveFile:
@@ -82,3 +86,92 @@ class TestFormatBytes:
         """Test fractional values."""
         assert "1.5" in format_bytes(1536)  # 1.5 KB
         assert "KB" in format_bytes(1536)
+
+
+class TestFormatProgressBar:
+    """Tests for format_progress_bar function."""
+
+    def test_format_progress_bar_partial(self):
+        """Test progress bar formatting at 50%."""
+        progress = DownloadProgress(
+            total_bytes=1000,
+            downloaded_bytes=500,
+            start_time=datetime.now(),
+            last_update_time=datetime.now(),
+            bytes_per_second=100.0,
+        )
+        
+        result = format_progress_bar(progress, width=20)
+        
+        # Should show 50% progress
+        assert "50%" in result
+        assert "500" in result  # Downloaded bytes
+        assert "1.0 KB" in result or "1000" in result  # Total
+        assert "/s" in result  # Speed indicator
+        assert "ETA" in result
+
+    def test_format_progress_bar_complete(self):
+        """Test progress bar at 100%."""
+        progress = DownloadProgress(
+            total_bytes=1000,
+            downloaded_bytes=1000,
+            start_time=datetime.now(),
+            last_update_time=datetime.now(),
+            bytes_per_second=100.0,
+        )
+        
+        result = format_progress_bar(progress, width=20)
+        
+        assert "100%" in result
+        assert "█" in result  # Filled bar character
+
+    def test_format_progress_bar_no_eta(self):
+        """Test progress bar when ETA is not calculable."""
+        progress = DownloadProgress(
+            total_bytes=1000,
+            downloaded_bytes=0,
+            start_time=datetime.now(),
+            last_update_time=datetime.now(),
+            bytes_per_second=0.0,
+        )
+        
+        result = format_progress_bar(progress)
+        
+        # Should show "--" for ETA when not calculable
+        assert "ETA: --" in result or "ETA: 0s" in result
+
+
+class TestDisplayProgress:
+    """Tests for display_progress function."""
+
+    def test_display_progress_quiet_mode(self, capsys):
+        """Test that quiet mode suppresses output."""
+        progress = DownloadProgress(
+            total_bytes=1000,
+            downloaded_bytes=500,
+            start_time=datetime.now(),
+            last_update_time=datetime.now(),
+            bytes_per_second=100.0,
+        )
+        
+        display_progress(progress, quiet=True)
+        
+        captured = capsys.readouterr()
+        # Should not output anything in quiet mode
+        assert captured.out == ""
+
+    def test_display_progress_normal_mode(self, capsys):
+        """Test that normal mode shows progress."""
+        progress = DownloadProgress(
+            total_bytes=1000,
+            downloaded_bytes=500,
+            start_time=datetime.now(),
+            last_update_time=datetime.now(),
+            bytes_per_second=100.0,
+        )
+        
+        display_progress(progress, quiet=False)
+        
+        captured = capsys.readouterr()
+        # Should show progress in normal mode
+        assert "50%" in captured.out or len(captured.out) > 0

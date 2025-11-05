@@ -38,7 +38,7 @@ def format_progress_bar(progress: DownloadProgress, width: int = 40) -> str:
     speed = format_bytes(int(progress.bytes_per_second))
     eta = progress.eta_seconds
     
-    if eta is not None:
+    if eta is not None and eta != float('inf'):
         eta_str = f"ETA: {int(eta)}s"
     else:
         eta_str = "ETA: --"
