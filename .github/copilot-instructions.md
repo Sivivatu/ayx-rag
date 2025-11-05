@@ -169,6 +169,8 @@ When implementing features, prioritize incremental development with clear separa
 - **pytest & pytest-cov**: Testing framework with coverage
 - **xml.etree.ElementTree**: Standard library XML parsing/generation
 - Local filesystem (default: `alteryx-help-current-sitemap.xml` at project root) (002-sitemap-download)
+- Python >=3.10 (aligned with project requirements) + httpx>=0.25.0 (HTTP client with streaming), typer>=0.20.0 (CLI framework), loguru>=0.7.3 (logging), robotexclusionrulesparser or urllib.robotparser (robots.txt) (003-page-downloader)
+- Local filesystem (nested directories matching URL path structure) (003-page-downloader)
 
 ## Current Package Status
 - **sitemap-filter** (v0.2.0): Complete with 57 passing tests
@@ -179,6 +181,6 @@ When implementing features, prioritize incremental development with clear separa
   - File output support
 
 ## Recent Changes
+- 003-page-downloader: Added Python >=3.10 (aligned with project requirements) + httpx>=0.25.0 (HTTP client with streaming), typer>=0.20.0 (CLI framework), loguru>=0.7.3 (logging), robotexclusionrulesparser or urllib.robotparser (robots.txt)
 - 002-sitemap-download: Added Python 3.10+
 - 2025-10-31: Restructured to uv workspaces with main.py entry point (Constitution v1.2.0)
-- 2025-10-31: Added Principle IX: Main Entry Point (NON-NEGOTIABLE)
