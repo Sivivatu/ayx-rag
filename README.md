@@ -15,12 +15,12 @@ A modular RAG system designed to process and query ~35,000 Alteryx help document
 **Phase**: Feature development in progress  
 **Active Features**:  
 - sitemap-filter v0.2.0 (complete)  
-- sitemap-download v0.1.0 (complete)  
+- sitemap-download v0.2.0 (complete)  
 **Stage**: Ready for release
 
 ## Features
 
-### ✅ Sitemap Filter (v0.2.0)
+### ✅ Sitemap Filter (v0.1.0)
 
 **Status**: Complete | **Branch**: `001-sitemap-filter`
 
@@ -41,7 +41,7 @@ Filter Alteryx help documentation sitemap URLs by language and product. CLI tool
 uv run main.py sitemap.xml --language en --product designer
 ```
 
-### ✅ Sitemap Download (v0.1.0)
+### ✅ Sitemap Download (v0.2.0)
 
 **Status**: Complete | **Branch**: `002-sitemap-download`
 

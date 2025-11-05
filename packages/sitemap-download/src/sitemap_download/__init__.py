@@ -18,7 +18,7 @@ from .validator import SitemapValidator
 from .cli import app
 from .utils import archive_file, format_bytes
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     # Exceptions

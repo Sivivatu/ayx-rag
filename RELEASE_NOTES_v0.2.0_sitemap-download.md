@@ -1,4 +1,4 @@
-# Release v0.1.0 - Sitemap Download
+# Release v0.2.0 - Sitemap Download
 
 **Package**: `sitemap-download`  
 **Released**: 5 November 2025  

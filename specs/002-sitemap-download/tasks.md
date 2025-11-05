@@ -210,13 +210,13 @@ This project uses uv workspace packages:
 - [X] T103 [P] Add docstrings to all public classes and methods in packages/sitemap-download/src/sitemap_download/
 - [X] T104 [P] Update package README.md with usage examples and API documentation
 - [X] T105 [P] Update project root README.md with sitemap-download feature description
-- [X] T106 [P] Add entry to CHANGELOG.md for v0.1.0 (Added: sitemap download with progress, validation, incremental updates)
+- [X] T106 [P] Add entry to CHANGELOG.md for v0.2.0 (Added: sitemap download with progress, validation, incremental updates)
 - [X] T107 [P] Generate release notes from conventional commits using .github/RELEASE_NOTES_TEMPLATE.md
 - [X] T108 Run complete test suite with coverage (pytest --cov=src --cov-report=term-missing)
 - [X] T109 Validate quickstart.md examples work end-to-end
-- [X] T110 Final commit with format: docs(sitemap-download): update README and create release notes for v0.1.0
+- [X] T110 Final commit with format: docs(sitemap-download): update README and create release notes for v0.2.0
 
-**Checkpoint**: All phases complete - sitemap-download v0.1.0 ready for release (56 tests passing, 74% coverage) ✅ **COMPLETE**
+**Checkpoint**: All phases complete - sitemap-download v0.2.0 ready for release (56 tests passing, 74% coverage) ✅ **COMPLETE**
 
 ---
 
