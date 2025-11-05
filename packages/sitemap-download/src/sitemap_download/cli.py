@@ -36,7 +36,7 @@ def format_progress_bar(progress: DownloadProgress, width: int = 40) -> str:
     speed = format_bytes(int(progress.bytes_per_second))
     eta = progress.eta_seconds
 
-    eta_str = f"ETA: {int(eta)}s" if eta is not None and eta != float('inf') else "ETA: --"
+    eta_str = f"ETA: {int(eta)}s" if eta is not None and eta != float("inf") else "ETA: --"
 
     return f"[{bar}] {percentage:.0f}% | {downloaded} / {total} | {speed}/s | {eta_str}"
 
@@ -152,7 +152,9 @@ def download_sitemap(
             if not quiet:
                 size_str = format_bytes(result.file_size)
                 duration_str = f"{result.duration_seconds:.1f}s"
-                speed = result.file_size / result.duration_seconds if result.duration_seconds > 0 else 0
+                speed = (
+                    result.file_size / result.duration_seconds if result.duration_seconds > 0 else 0
+                )
                 speed_str = format_bytes(int(speed))
                 typer.echo(f"✓ Download complete: {size_str} in {duration_str} ({speed_str}/s)")
             else:
@@ -161,9 +163,13 @@ def download_sitemap(
         # Show validation results
         if result.validation_result and not quiet:
             if result.validation_result.valid:
-                typer.echo(f"✓ Validation successful: {result.validation_result.url_count:,} URLs found")
+                typer.echo(
+                    f"✓ Validation successful: {result.validation_result.url_count:,} URLs found"
+                )
             else:
-                typer.echo(f"✗ Validation failed: {result.validation_result.error_message}", err=True)
+                typer.echo(
+                    f"✗ Validation failed: {result.validation_result.error_message}", err=True
+                )
                 raise typer.Exit(code=2)
 
         if not quiet:
@@ -177,7 +183,10 @@ def download_sitemap(
         if not quiet:
             typer.echo("\nTroubleshooting:", err=True)
             typer.echo("- Check network connection", err=True)
-            typer.echo(f"- Try increasing timeouts (current: connect={connection_timeout}s, read={read_timeout}s)", err=True)
+            typer.echo(
+                f"- Try increasing timeouts (current: connect={connection_timeout}s, read={read_timeout}s)",
+                err=True,
+            )
             typer.echo(f"- Verify URL is accessible: {url}", err=True)
 
         raise typer.Exit(code=1)
