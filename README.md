@@ -12,13 +12,15 @@ A modular RAG system designed to process and query ~35,000 Alteryx help document
 
 ### Current Status
 
-**Phase**: Feature complete, documentation updated  
-**Active Feature**: sitemap-filter v0.2.0  
+**Phase**: Feature development in progress  
+**Active Features**:  
+- sitemap-filter v0.2.0 (complete)  
+- sitemap-download v0.1.0 (complete)  
 **Stage**: Ready for release
 
 ## Features
 
-### ✅ Sitemap Filter (v0.1.0)
+### ✅ Sitemap Filter (v0.2.0)
 
 **Status**: Complete | **Branch**: `001-sitemap-filter`
 
@@ -39,9 +41,33 @@ Filter Alteryx help documentation sitemap URLs by language and product. CLI tool
 uv run main.py sitemap.xml --language en --product designer
 ```
 
+### ✅ Sitemap Download (v0.1.0)
+
+**Status**: Complete | **Branch**: `002-sitemap-download`
+
+Download and validate XML sitemaps with progress tracking, smart incremental updates, and production-ready retry logic.
+
+- 📥 Download with real-time progress (speed, ETA)
+- ✓ XML validation with URL counting (SAX streaming)
+- 🔄 Smart incremental updates (skip unchanged files)
+- 🔁 Retry logic with exponential backoff
+- 📦 Archive existing files with timestamps
+- 💾 Memory efficient (8KB chunks, streaming)
+- ✅ 95%+ test coverage, 56 tests passing
+
+**[View Full Documentation →](packages/sitemap-download/README.md)**
+
+**Quick Example:**
+```bash
+# Download Alteryx sitemap with progress
+uv run python main.py sitemap-download
+
+# Force update with archive
+uv run python main.py sitemap-download --force --archive
+```
+
 ### Planned
 
-- Sitemap downloader
 - Web scraper for content extraction
 - Document processor (HTML cleaning, text chunking)
 - Embedding service (vector generation)

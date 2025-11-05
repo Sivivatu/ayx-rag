@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-11-05
+
+### Added
+- **Sitemap Download CLI** - Download and validate XML sitemaps with production-ready reliability
+  - HTTP/HTTPS download with streaming (8KB chunks, memory efficient)
+  - Real-time progress tracking (speed, ETA, downloaded/total bytes)
+  - XML validation with SAX streaming (validates structure, counts URLs)
+  - Smart incremental updates (compares Last-Modified dates, skips unchanged downloads)
+  - Retry logic with exponential backoff (1s, 2s, 4s delays)
+  - Jitter randomization (25% variance) to prevent thundering herd
+  - Error classification: 5xx/timeouts retryable, 4xx fail immediately
+  - Archive support (preserve existing files with timestamp suffixes)
+  - Configurable timeouts (connection and read)
+  - Configurable retry attempts (default: 3)
+  - Quiet mode for scripting
+  - Exit codes (0=success, 1=download fail, 2=validation fail, 3=config error)
+  - Atomic file writes (temp file + rename for crash safety)
+- Test infrastructure with 95%+ coverage
+  - 56 tests (48 unit, 8 integration)
+  - Test fixtures for XML validation scenarios
+  - Mock-based retry testing with time.sleep patching
+- Comprehensive documentation
+  - Package README with full API guide, usage examples, troubleshooting
+  - Root README updated with feature summary
+  - Docstrings for all public classes and methods
+
+### Performance
+- Streaming download: constant memory usage regardless of file size
+- Streaming validation: SAX parser (memory efficient for large XML)
+- 8,872 URLs downloaded in ~3 seconds (1.4 MB)
+- Progress updates every 256KB or 500ms
+
+### Fixed
+- Validation failures now return proper exit code 2 (was 0)
+
 ## [0.1.0] - 2025-11-03
 
 ### Added
