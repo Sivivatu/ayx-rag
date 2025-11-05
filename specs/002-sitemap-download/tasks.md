@@ -109,28 +109,28 @@ This project uses uv workspace packages:
 
 ### Tests for User Story 2 (TDD Required)
 
-- [ ] T042 [P] [US2] Write unit test test_check_remote_info_success in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T043 [P] [US2] Write unit test test_check_remote_info_timeout in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T044 [P] [US2] Write unit test test_should_download_force_true in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T045 [P] [US2] Write unit test test_should_download_file_missing in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T046 [P] [US2] Write unit test test_should_download_remote_newer in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T047 [P] [US2] Write unit test test_should_download_up_to_date in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T048 [P] [US2] Write integration test test_cli_skip_up_to_date in packages/sitemap-download/tests/integration/test_cli.py
-- [ ] T049 [P] [US2] Write integration test test_cli_force_download in packages/sitemap-download/tests/integration/test_cli.py
+- [X] T042 [P] [US2] Write unit test test_check_remote_info_success in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T043 [P] [US2] Write unit test test_check_remote_info_timeout in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T044 [P] [US2] Write unit test test_should_download_force_true in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T045 [P] [US2] Write unit test test_should_download_file_missing in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T046 [P] [US2] Write unit test test_should_download_remote_newer in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T047 [P] [US2] Write unit test test_should_download_up_to_date in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T048 [P] [US2] Write integration test test_cli_skip_up_to_date in packages/sitemap-download/tests/integration/test_cli.py
+- [X] T049 [P] [US2] Write integration test test_cli_force_download in packages/sitemap-download/tests/integration/test_cli.py
 
 ### Implementation for User Story 2
 
-- [ ] T050 [US2] Implement check_remote_info() method with HTTP HEAD request in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T051 [US2] Implement header parsing (Last-Modified, Content-Length, ETag) in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T052 [US2] Implement should_download() decision logic in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T053 [US2] Implement local file modification date checking in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T054 [US2] Integrate modification check into download() workflow in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T055 [US2] Add --force CLI flag in packages/sitemap-download/src/sitemap_download/cli.py
-- [ ] T056 [US2] Implement skip notification display in CLI in packages/sitemap-download/src/sitemap_download/cli.py
-- [ ] T057 [US2] Add structured logging for skip/update decisions in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T058 [US2] Verify all US2 tests pass
+- [X] T050 [US2] Implement check_remote_info() method with HTTP HEAD request in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T051 [US2] Implement header parsing (Last-Modified, Content-Length, ETag) in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T052 [US2] Implement should_download() decision logic in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T053 [US2] Implement local file modification date checking in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T054 [US2] Integrate modification check into download() workflow in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T055 [US2] Add --force CLI flag in packages/sitemap-download/src/sitemap_download/cli.py
+- [X] T056 [US2] Implement skip notification display in CLI in packages/sitemap-download/src/sitemap_download/cli.py
+- [X] T057 [US2] Add structured logging for skip/update decisions in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T058 [US2] Verify all US2 tests pass
 
-**Checkpoint**: At this point, User Stories 1 AND 2 should both work - download with smart incremental updates
+**Checkpoint**: At this point, User Stories 1 AND 2 should both work - download with smart incremental updates ✅ **COMPLETE**
 
 ---
 

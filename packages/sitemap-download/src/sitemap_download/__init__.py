@@ -14,6 +14,7 @@ from .models import (
     ValidationResult,
 )
 from .downloader import SitemapDownloader
+from .validator import SitemapValidator
 from .cli import app
 from .utils import archive_file, format_bytes
 
@@ -33,6 +34,8 @@ __all__ = [
     "RemoteFileInfo",
     # Downloader
     "SitemapDownloader",
+    # Validator
+    "SitemapValidator",
     # CLI
     "app",
     # Utils

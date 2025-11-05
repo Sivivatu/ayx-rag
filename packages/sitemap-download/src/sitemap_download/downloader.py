@@ -15,6 +15,7 @@ from .models import (
     RemoteFileInfo,
 )
 from .exceptions import ConfigurationError, NetworkError
+from .validator import SitemapValidator
 
 
 # Type alias for progress callback
@@ -256,11 +257,27 @@ class SitemapDownloader:
                         temp_path.replace(self.config.destination)
                         logger.info(f"Downloaded {downloaded_bytes} bytes to {self.config.destination}")
 
+                        # Validate the downloaded sitemap
+                        validator = SitemapValidator()
+                        validation_result = validator.validate(self.config.destination)
+
+                        if not validation_result.valid:
+                            # Validation failed - log error but don't fail the download
+                            # (user has the file, they can inspect it manually)
+                            logger.warning(
+                                f"Downloaded sitemap failed validation: {validation_result.error_message}"
+                            )
+                        else:
+                            logger.info(
+                                f"Validation successful: {validation_result.url_count} URLs found"
+                            )
+
                         duration = time.time() - start_time
                         return DownloadResult.success_result(
                             file_path=self.config.destination,
                             file_size=downloaded_bytes,
                             duration=duration,
+                            validation_result=validation_result,
                         )
 
                     except Exception as e:

@@ -75,6 +75,7 @@ class DownloadResult:
     skipped: bool
     remote_modified: datetime | None = None
     local_modified: datetime | None = None
+    validation_result: "ValidationResult | None" = None
 
     @staticmethod
     def success_result(
@@ -85,6 +86,7 @@ class DownloadResult:
         skipped: bool = False,
         remote_modified: datetime | None = None,
         local_modified: datetime | None = None,
+        validation_result: "ValidationResult | None" = None,
     ) -> "DownloadResult":
         """Create a successful download result."""
         return DownloadResult(
@@ -97,6 +99,7 @@ class DownloadResult:
             skipped=skipped,
             remote_modified=remote_modified,
             local_modified=local_modified,
+            validation_result=validation_result,
         )
 
     @staticmethod
