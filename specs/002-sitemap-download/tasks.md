@@ -181,18 +181,20 @@ This project uses uv workspace packages:
 
 **Purpose**: Robust error handling for production use across all user stories
 
-- [ ] T086 [P] Write unit test test_download_retry_transient_error in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T087 [P] Write unit test test_download_max_retries_exceeded in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T088 [P] Write unit test test_download_non_retryable_error in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T089 [P] Write unit test test_download_preserves_existing_file_on_failure in packages/sitemap-download/tests/unit/test_downloader.py
-- [ ] T090 Implement retry loop with exponential backoff in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T091 Implement calculate_retry_delay() with jitter in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T092 Implement retry decision logic (5xx, timeouts, connection errors) in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T093 Implement non-retryable error handling (4xx errors) in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T094 Add --max-retries CLI option in packages/sitemap-download/src/sitemap_download/cli.py
-- [ ] T095 Implement retry logging with attempt count in packages/sitemap-download/src/sitemap_download/downloader.py
-- [ ] T096 Add error troubleshooting messages in CLI output in packages/sitemap-download/src/sitemap_download/cli.py
-- [ ] T097 Verify retry tests pass
+- [X] T086 [P] Write unit test test_download_retry_transient_error in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T087 [P] Write unit test test_download_max_retries_exceeded in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T088 [P] Write unit test test_download_non_retryable_error in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T089 [P] Write unit test test_download_preserves_existing_file_on_failure in packages/sitemap-download/tests/unit/test_downloader.py
+- [X] T090 Implement retry loop with exponential backoff in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T091 Implement calculate_retry_delay() with jitter in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T092 Implement retry decision logic (5xx, timeouts, connection errors) in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T093 Implement non-retryable error handling (4xx errors) in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T094 Add --max-retries CLI option in packages/sitemap-download/src/sitemap_download/cli.py
+- [X] T095 Implement retry logging with attempt count in packages/sitemap-download/src/sitemap_download/downloader.py
+- [X] T096 Add error troubleshooting messages in CLI output in packages/sitemap-download/src/sitemap_download/cli.py
+- [X] T097 Verify retry tests pass
+
+**Checkpoint**: Production-ready retry logic complete - handles transient failures gracefully with exponential backoff (56 tests passing) ✅ **COMPLETE**
 
 ---
 
