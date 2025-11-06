@@ -6,5 +6,6 @@ with proper error handling, rate limiting, and incremental update support.
 
 __version__ = "0.1.0"
 
-# Export CLI app for main.py integration (will be implemented in cli.py)
+# CLI app will be implemented in cli.py during Phase 3
+# from .cli import app
 __all__ = ["__version__"]

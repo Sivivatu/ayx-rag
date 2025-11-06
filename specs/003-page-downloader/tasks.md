@@ -55,9 +55,9 @@ Each user story is independently testable and deployable.
 
 ### Tasks
 
-- [ ] T005 [P] Create `packages/page-downloader/src/page_downloader/__init__.py` (export app for main.py integration)
-- [ ] T006 [P] Create `packages/page-downloader/src/page_downloader/exceptions.py` with custom exception hierarchy (PageDownloaderError, DownloadError, ValidationError, RobotsDeniedError, ConfigurationError)
-- [ ] T007 Create `packages/page-downloader/src/page_downloader/models.py` with DownloadConfig dataclass (validate config fields in __post_init__)
+- [x] T005 [P] Create `packages/page-downloader/src/page_downloader/__init__.py` (export app for main.py integration)
+- [x] T006 [P] Create `packages/page-downloader/src/page_downloader/exceptions.py` with custom exception hierarchy (PageDownloaderError, DownloadError, ValidationError, RobotsDeniedError, ConfigurationError)
+- [x] T007 Create `packages/page-downloader/src/page_downloader/models.py` with DownloadConfig dataclass (validate config fields in __post_init__)
 
 **Completion Criteria**: Exceptions and models importable, config validation working
 
