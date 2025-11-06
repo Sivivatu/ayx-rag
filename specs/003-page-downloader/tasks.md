@@ -237,6 +237,45 @@ Polish (Phase 7)
 
 ---
 
+## Expanded Subtasks (Granular)
+
+These subtasks break down complex implementation tasks into small, actionable steps (suitable for individual PRs). IDs continue sequentially from existing tasks.
+
+### US1 (P1) - MVP Detailed Subtasks
+
+- [ ] T048 [US1] Create `src/page_downloader/utils/http_client.py` with HTTP client wrapper class skeleton (methods: head(), stream_get(), close())
+- [ ] T049 [US1] Write unit tests `tests/unit/test_http_client.py` for http client wrapper (mock httpx responses with respx)
+- [ ] T050 [US1] Implement `http_client.head()` to send HEAD request with timeouts and SSL verification
+- [ ] T051 [US1] Implement `http_client.stream_get()` to stream response body in chunks and yield bytes
+- [ ] T052 [US1] Create `src/page_downloader/utils/io.py` implementing `atomic_write()` (tempfile + os.replace) and unit tests `tests/unit/test_io.py`
+- [ ] T053 [US1] Implement `src/page_downloader/downloader.py::download_one()` orchestration: run head(), validate content-type, stream_get(), enforce max file size, call atomic_write()
+- [ ] T054 [US1] Write unit tests `tests/unit/test_downloader_download_one.py` covering success, non-HTML skip, size-exceed, and partial failure cleanup
+- [ ] T055 [US1] Add logging calls in downloader for start/finish/skip/error including URL, bytes and path; write tests to assert log messages
+- [ ] T056 [US1] Implement `src/page_downloader/path_utils.py::sanitize_url_path()` (replace invalid chars, strip query/fragments) and unit tests
+- [ ] T057 [US1] Implement CLI wiring for single-URL mode to call download_one() and return proper exit codes; add integration test for CLI single URL
+- [ ] T058 [US1] Add sample fixture `tests/fixtures/sample_pages/non_html.pdf` and a test to ensure non-HTML is skipped and logged
+
+### US2 (P2) - Batch Processing Detailed Subtasks
+
+- [ ] T059 [US2] Implement `src/page_downloader/models.py::URLList.from_file()` to parse file, validate lines, emit (line_no, url) tuples and unit tests `tests/unit/test_urllist.py`
+- [ ] T060 [US2] Implement `src/page_downloader/models.py::DownloadSession` helpers: start(), record_result(), summary() and unit tests `tests/unit/test_downloadsession.py`
+- [ ] T061 [US2] Implement `src/page_downloader/progress.py::ProgressTracker` using rich with methods start(total), advance(), stop(), and unit tests `tests/unit/test_progress_tracker.py`
+- [ ] T062 [US2] Integrate batch loop in `src/page_downloader/downloader.py::download_batch()` which iterates URLList, calls download_one(), updates DownloadSession and ProgressTracker; add integration tests using respx to mock multiple endpoints
+- [ ] T063 [US2] Implement error classification helper `src/page_downloader/utils/errors.py` to map httpx exceptions/status codes to retryable boolean; unit tests `tests/unit/test_errors_classification.py`
+- [ ] T064 [US2] Add CLI batch mode entry (file input) and options: --delay, --verbose, --quiet; add integration tests for file input mode
+- [ ] T065 [US2] Implement summary output routine that prints DownloadSession.summary() at end and tests assert summary content for sample runs
+
+### Misc / Polish Subtasks
+
+- [ ] T066 [P] Add `tests/fixtures/robots/robots_allow.txt` and `robots_disallow.txt` and unit tests for robots checking in `tests/unit/test_robots.py`
+- [ ] T067 [P] Add CI job configuration snippet to run `uv run pytest` for `packages/page-downloader/` (create `.github/workflows/page-downloader-ci.yml` placeholder)
+- [ ] T068 [P] Create `packages/page-downloader/README.md` minimal usage examples (single URL, batch, incremental) and note dependencies
+
+---
+
+These subtasks are intentionally small and focused so each maps to a single unit of work and corresponding tests. After these are implemented, merge into the main feature branch in small PRs.
+
+
 ## Testing Strategy
 
 ### Test Coverage Targets
