@@ -39,7 +39,7 @@
         "tests",
         "packages/sitemap-filter/tests",
         "packages/sitemap-download/tests",
-        "packages/url-extractor/tests"
+        "packages/page-downloader/tests"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
