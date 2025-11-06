@@ -81,8 +81,8 @@ Each user story is independently testable and deployable.
 #### Core Implementation
 - [x] T011 [US1] Write tests for path sanitization in `tests/unit/test_path_utils.py` (invalid chars, query params, fragments, Unicode)
 - [x] T012 [US1] Implement `src/page_downloader/path_utils.py` with sanitize_url_path() function (replace invalid chars with _, strip query/fragments)
-- [ ] T013 [US1] Write tests for HTML validation in `tests/unit/test_validator.py` (Content-Type checking, non-HTML detection)
-- [ ] T014 [US1] Implement `src/page_downloader/validator.py` with is_html_content() function
+- [x] T013 [US1] Write tests for HTML validation in `tests/unit/test_validator.py` (Content-Type checking, non-HTML detection)
+- [x] T014 [US1] Implement `src/page_downloader/validator.py` with is_html_content() function
 - [ ] T015 [US1] Write tests for file operations in `tests/unit/test_downloader.py` (atomic writes, directory creation, disk space handling)
 - [ ] T016 [US1] Implement `src/page_downloader/downloader.py` with HTTPDownloader class (httpx.Client, streaming, atomic writes, timeouts)
 - [ ] T017 [US1] Write tests for CLI single URL mode in `tests/integration/test_cli.py` (success, network error, invalid URL, non-HTML)
