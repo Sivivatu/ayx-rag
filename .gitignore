@@ -44,6 +44,9 @@ coverage.xml
 *.cover
 *.log
 
+# Test fixtures - large generated files
+**/tests/fixtures/sample_pages/large.html
+
 # IDEs
 .vscode/
 .idea/
