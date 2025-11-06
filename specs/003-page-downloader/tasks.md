@@ -74,9 +74,9 @@ Each user story is independently testable and deployable.
 ### Tasks
 
 #### Test Setup
-- [ ] T008 [P] [US1] Create test fixture `tests/fixtures/sample_pages/valid.html` with sample HTML content
-- [ ] T009 [P] [US1] Create test fixture `tests/fixtures/sample_pages/large.html` (>5MB) for file size validation
-- [ ] T010 [P] [US1] Create `tests/conftest.py` with pytest fixtures (sample_config, temp_output_dir, mock_response)
+- [x] T008 [P] [US1] Create test fixture `tests/fixtures/sample_pages/valid.html` with sample HTML content
+- [x] T009 [P] [US1] Create test fixture `tests/fixtures/sample_pages/large.html` (>5MB) for file size validation
+- [x] T010 [P] [US1] Create `tests/conftest.py` with pytest fixtures (sample_config, temp_output_dir, mock_response)
 
 #### Core Implementation
 - [ ] T011 [US1] Write tests for path sanitization in `tests/unit/test_path_utils.py` (invalid chars, query params, fragments, Unicode)
