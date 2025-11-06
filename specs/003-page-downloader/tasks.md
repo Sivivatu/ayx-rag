@@ -40,10 +40,10 @@ Each user story is independently testable and deployable.
 
 ### Tasks
 
-- [ ] T001 Create package directory structure at `packages/page-downloader/`
-- [ ] T002 Create `packages/page-downloader/pyproject.toml` with uv_build backend and package metadata
-- [ ] T003 Add workspace dependencies to root `pyproject.toml`: httpx>=0.25.0, rich>=13.0.0, typer>=0.20.0, loguru>=0.7.3
-- [ ] T004 Add dev dependencies to root: respx>=0.20.0, pytest>=8.4.2, pytest-cov>=7.0.0
+- [x] T001 Create package directory structure at `packages/page-downloader/`
+- [x] T002 Create `packages/page-downloader/pyproject.toml` with uv_build backend and package metadata
+- [x] T003 Add workspace dependencies to root `pyproject.toml`: httpx>=0.25.0, rich>=13.0.0, typer>=0.20.0, loguru>=0.7.3
+- [x] T004 Add dev dependencies to root: respx>=0.20.0, pytest>=8.4.2, pytest-cov>=7.0.0
 
 **Completion Criteria**: `uv sync` runs successfully, all dependencies resolved
 
