@@ -20,6 +20,10 @@
 - Q: What should the system do when output directory or nested subdirectories don't exist? → A: Auto-create with logging - Create missing directories recursively (mkdir -p behavior), log the creation, proceed with download
 - Q: When a URL redirects, which URL should determine the file path? → A: Use final destination URL - Save file using the path from the URL after all redirects are resolved (matches user expectations and current documentation structure)
 - Q: If a download is interrupted mid-response, what should the system do? → A: Skip page, log warning - Discard partial content, log warning, treat as failed download, let retry logic handle from scratch (ensures file integrity, consistent with graceful degradation pattern)
+- Q: How should the system handle URLs with query parameters or fragments? → A: Strip and preserve base path - Remove query params and fragments, use only base path for filename, log full URL for audit (cleaner paths, prevents duplicate downloads with different tracking params)
+- Q: What happens if local disk space is exhausted during batch download? → A: Abort entire batch - Stop immediately with error code, require user intervention (disk space affects all subsequent downloads, continuing wastes resources)
+- Q: How does the system handle concurrent downloads for the same URL? → A: Not applicable (sequential processing) - Cannot occur due to sequential architecture per FR-003a, edge case removed from spec
+- Q: What happens when URL path contains filesystem-invalid characters? → A: Replace with underscore, log original - Replace invalid chars with underscore, log mapping of original URL to sanitized path (safe across platforms, maintains readability)
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -100,11 +104,10 @@ As a data engineer dealing with network variability, I need the system to automa
 - What happens if the output directory doesn't exist or lacks write permissions? → System auto-creates missing directories recursively with logging; if lacks write permissions, logs error and exits with configuration error code
 - How does the system handle malformed URLs in the input file? → System logs warning with line number and invalid URL, skips it, continues processing remaining URLs
 - What happens if the URL returns non-HTML content (e.g., PDF, JSON)? → System skips the URL, logs a warning with URL and Content-Type, continues with remaining URLs
-- How does the system handle URLs with query parameters or fragments?
+- How does the system handle URLs with query parameters or fragments? → System strips query params and fragments, uses base path for filename, logs full URL for audit trail
 - How does the system handle partial downloads (connection interrupted mid-response)? → System discards partial content, logs warning with URL and bytes received, treats as failed download for retry logic
-- What happens if local disk space is exhausted during batch download?
-- How does the system handle concurrent downloads for the same URL (race condition)?
-- What happens when URL path contains characters invalid for filesystem (e.g., `?`, `*`, `:`)?
+- What happens if local disk space is exhausted during batch download? → System aborts entire batch immediately, logs clear error with available disk space, exits with configuration error code (3)
+- What happens when URL path contains characters invalid for filesystem (e.g., `?`, `*`, `:`)? → System replaces invalid chars with underscores per FR-005, logs mapping of original URL to sanitized path for audit
 
 ## Requirements *(mandatory)*
 
@@ -115,7 +118,7 @@ As a data engineer dealing with network variability, I need the system to automa
 - **FR-003**: System MUST download the raw HTML content of each URL via HTTP GET request
 - **FR-003a**: System MUST process URLs sequentially (one at a time), not concurrently, to ensure predictable rate limiting and simpler error handling
 - **FR-004**: System MUST save downloaded HTML files using the URL's path structure (e.g., `en/designer/tools.html`) within the configured output directory
-- **FR-005**: System MUST sanitize URL paths to ensure valid filesystem names (replace invalid characters)
+- **FR-005**: System MUST sanitize URL paths to ensure valid filesystem names by replacing filesystem-invalid characters (Windows: `<>:"|?*`, Unix: `/\0`) with underscores, and MUST log the mapping of original URL to sanitized path for audit trail
 - **FR-006**: System MUST provide configurable rate limiting (delay between requests, default: 0.5 seconds)
 - **FR-007**: System MUST support configurable connection timeout (default: 30 seconds)
 - **FR-008**: System MUST support configurable read timeout (default: 300 seconds)
@@ -145,6 +148,8 @@ As a data engineer dealing with network variability, I need the system to automa
 - **FR-027a**: System MUST validate URLs during input parsing; when a malformed URL is detected, system MUST log a warning with line number and invalid URL, skip it, and continue processing remaining URLs
 - **FR-027b**: System MUST auto-create missing output directories and nested subdirectories recursively, log directory creation events, and proceed with download
 - **FR-027c**: System MUST handle interrupted downloads (connection drops mid-response) by discarding partial content, logging a warning, and allowing retry logic to attempt full download from scratch
+- **FR-027d**: System MUST strip query parameters and fragments from URLs when determining file paths; the base path only is used for the filename, while the full URL (including query params/fragments) is logged for audit trail
+- **FR-027e**: System MUST abort batch download immediately when disk space exhaustion is detected during file write, log clear error message with available space, and exit with configuration error code (3)
 
 ### Key Entities
 
