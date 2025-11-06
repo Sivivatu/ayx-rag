@@ -181,6 +181,6 @@ When implementing features, prioritize incremental development with clear separa
   - File output support
 
 ## Recent Changes
+- 003-page-downloader: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 - 003-page-downloader: Added Python >=3.10 (aligned with project requirements) + httpx>=0.25.0 (HTTP client with streaming), typer>=0.20.0 (CLI framework), loguru>=0.7.3 (logging), robotexclusionrulesparser or urllib.robotparser (robots.txt)
 - 002-sitemap-download: Added Python 3.10+
-- 2025-10-31: Restructured to uv workspaces with main.py entry point (Constitution v1.2.0)

@@ -1,98 +1,104 @@
-# Implementation Plan: Page Downloader
+# Implementation Plan: [FEATURE]
 
-**Branch**: `003-page-downloader` | **Date**: 2025-11-05 | **Spec**: [spec.md](./spec.md)
-**Input**: Feature specification from `/specs/003-page-downloader/spec.md`
+**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
 
 **Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
 ## Summary
 
-The page-downloader feature downloads raw HTML pages from Alteryx documentation URLs (filtered by sitemap-filter) and saves them to disk with human-readable directory structures. It implements sequential processing with rate limiting, retry logic with exponential backoff, robots.txt enforcement, SSL/TLS validation, and incremental update support based on Last-Modified headers. The feature integrates into the RAG pipeline as the content collection stage between sitemap filtering and HTML processing.
+[Extract from feature spec: primary requirement + technical approach from research]
 
 ## Technical Context
 
-**Language/Version**: Python >=3.10 (aligned with project requirements)  
-**Primary Dependencies**: httpx>=0.25.0 (HTTP client with streaming), typer>=0.20.0 (CLI framework), loguru>=0.7.3 (logging), robotexclusionrulesparser or urllib.robotparser (robots.txt)  
-**Storage**: Local filesystem (nested directories matching URL path structure)  
-**Testing**: pytest>=8.4.2 with pytest-cov>=7.0.0, httpx mocking (respx or pytest-httpx)  
-**Target Platform**: Linux dev container (Debian-based), cross-platform Python  
-**Project Type**: Single workspace package (uv workspace member under packages/)  
-**Performance Goals**: Download 100 pages in <2 minutes with 0.5s rate limiting (SC-002), single page <5 seconds (SC-001), rate limiting variance <10% (SC-008)  
-**Constraints**: Sequential processing only (no concurrency), 5MB default file size limit (configurable), strict SSL/TLS validation, HTTP timeouts (30s connect, 300s read)  
-**Scale/Scope**: Expected to handle 8,864 filtered URLs from sitemap, support for incremental updates (80% time reduction for unchanged content per SC-004)
+<!--
+  ACTION REQUIRED: Replace the content in this section with the technical details
+  for the project. The structure here is presented in advisory capacity to guide
+  the iteration process.
+-->
+
+**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
+**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
+**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Project Type**: [single/web/mobile - determines source structure]  
+**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
+**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-| Principle | Status | Notes |
-|-----------|--------|-------|
-| **I. Modular Architecture** | ✅ PASS | Feature organized as uv workspace package under `packages/page-downloader/` with isolated dependencies, clear interfaces, independent tests |
-| **II. Data Pipeline Integrity** | ✅ PASS | Downloads preserve source URL attribution, Last-Modified timestamps tracked for incremental updates, progress/error metadata logged |
-| **III. Test-Driven Development** | ✅ PASS | TDD workflow required: unit tests for HTTP client, retry logic, path sanitization; integration tests for CLI; contract tests for main.py integration |
-| **IV. Incremental Processing** | ✅ PASS | Incremental mode skips unchanged pages (FR-014), batch downloads continue after failures (FR-019), progress tracked per URL |
-| **V. Observability & Monitoring** | ✅ PASS | Structured logging with loguru (FR-017), progress metrics displayed (FR-016), summary statistics reported (FR-018), errors include URL/stage/context |
-| **VI. Package Management** | ✅ PASS | Dependencies managed via uv exclusively, `pyproject.toml` with uv_build>=0.9.6 backend, versions constrained |
-| **VII. Git Commit Standards** | ✅ PASS | Conventional commits required throughout development: `feat(page-downloader):`, `test(page-downloader):`, etc. |
-| **VIII. Release Documentation** | ✅ PASS | Feature completion includes README.md updates, CHANGELOG.md entry, release notes generation, final docs commit |
-| **IX. Main Entry Point** | ✅ PASS | CLI registered with main.py dispatcher via `app.add_typer()`, command: `python main.py page-downloader` |
-
-**Gate Status**: ✅ ALL GATES PASSED - Ready for Phase 0 research
+[Gates determined based on constitution file]
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```text
-specs/003-page-downloader/
-├── spec.md              # Feature specification with clarifications
-├── plan.md              # This file (implementation plan)
-├── research.md          # Phase 0: Technology decisions and patterns
-├── data-model.md        # Phase 1: Entity definitions and relationships
-├── quickstart.md        # Phase 1: Developer getting started guide
-├── contracts/           # Phase 1: CLI interface contracts
-│   └── cli-interface.md
-├── checklists/          # Specification validation
-│   └── requirements.md
-└── tasks.md             # Phase 2: Task breakdown (created by /speckit.tasks)
+specs/[###-feature]/
+├── plan.md              # This file (/speckit.plan command output)
+├── research.md          # Phase 0 output (/speckit.plan command)
+├── data-model.md        # Phase 1 output (/speckit.plan command)
+├── quickstart.md        # Phase 1 output (/speckit.plan command)
+├── contracts/           # Phase 1 output (/speckit.plan command)
+└── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
 ```
 
 ### Source Code (repository root)
+<!--
+  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+  for this feature. Delete unused options and expand the chosen structure with
+  real paths (e.g., apps/admin, packages/something). The delivered plan must
+  not include Option labels.
+-->
 
 ```text
-packages/page-downloader/
-├── pyproject.toml       # Package metadata, dependencies (httpx, robotexclusionrulesparser)
-├── README.md            # Package documentation
-├── src/
-│   └── page_downloader/
-│       ├── __init__.py          # Exports app for main.py integration
-│       ├── cli.py               # Typer CLI implementation
-│       ├── downloader.py        # HTTP download engine with retry logic
-│       ├── models.py            # Data models (DownloadConfig, PageDownload, DownloadSession, DownloadResult)
-│       ├── validator.py         # HTML validation, robots.txt checking
-│       ├── path_utils.py        # URL-to-filesystem path sanitization
-│       ├── progress.py          # Progress tracking and display
-│       └── exceptions.py        # Custom exceptions (DownloadError, ValidationError, RobotsDeniedError)
-└── tests/
-    ├── fixtures/
-    │   ├── sample_pages/        # Sample HTML files for testing
-    │   ├── robots.txt           # Test robots.txt files
-    │   └── url_lists/           # Sample URL list inputs
-    ├── unit/
-    │   ├── test_downloader.py   # HTTP client, retry logic, timeout handling
-    │   ├── test_models.py       # Data model validation
-    │   ├── test_validator.py    # HTML validation, robots.txt parsing
-    │   ├── test_path_utils.py   # Path sanitization edge cases
-    │   └── test_progress.py     # Progress tracking logic
-    └── integration/
-        ├── test_cli.py          # End-to-end CLI tests with mocked HTTP
-        └── test_incremental.py  # Incremental download scenarios
+# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+src/
+├── models/
+├── services/
+├── cli/
+└── lib/
 
-main.py                          # Updated to register page-downloader command
+tests/
+├── contract/
+├── integration/
+└── unit/
+
+# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+backend/
+├── src/
+│   ├── models/
+│   ├── services/
+│   └── api/
+└── tests/
+
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+└── tests/
+
+# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+api/
+└── [same as backend above]
+
+ios/ or android/
+└── [platform-specific structure: feature modules, UI flows, platform tests]
 ```
 
-**Structure Decision**: Workspace package structure following established pattern from sitemap-filter and sitemap-download. Single package with clear module separation: CLI layer (cli.py), business logic (downloader.py, validator.py), utilities (path_utils.py, progress.py), and models (models.py, exceptions.py). Tests organized by type (unit vs integration) with comprehensive fixtures.
+**Structure Decision**: [Document the selected structure and reference the real
+directories captured above]
 
 ## Complexity Tracking
 
-**No violations** - All constitution principles satisfied without exceptions.
+> **Fill ONLY if Constitution Check has violations that must be justified**
+
+| Violation | Why Needed | Simpler Alternative Rejected Because |
+|-----------|------------|-------------------------------------|
+| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
+| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |

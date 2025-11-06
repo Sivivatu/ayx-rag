@@ -14,6 +14,12 @@
 - Q: How should the system enforce robots.txt rules? → A: Check and skip with warning - skip disallowed URLs, log warnings, continue with allowed URLs, with optional --ignore-robots-txt flag to bypass check
 - Q: How should the system handle HTTP 429 (Too Many Requests) responses? → A: Retry with longer backoff, respect Retry-After header if present, otherwise use 2x normal backoff
 - Q: Should the system enforce a maximum file size limit for downloads? → A: Configurable limit with default 5MB (--max-file-size), abort download if exceeded, log error
+- Q: Where should cross-workspace dependencies (httpx, typer, loguru, rich) be declared? → A: Workspace root pyproject.toml - enables reuse across all feature packages, follows uv workspace best practices
+- Q: How should the system handle URLs that return valid HTTP responses with non-HTML content? → A: Skip and log warning - Skip non-HTML URLs with warning message, continue processing remaining URLs (graceful degradation for batch operations)
+- Q: How should the system handle malformed URLs in the input file? → A: Skip with warning, continue batch - Log warning with line number and invalid URL, skip it, continue processing remaining URLs
+- Q: What should the system do when output directory or nested subdirectories don't exist? → A: Auto-create with logging - Create missing directories recursively (mkdir -p behavior), log the creation, proceed with download
+- Q: When a URL redirects, which URL should determine the file path? → A: Use final destination URL - Save file using the path from the URL after all redirects are resolved (matches user expectations and current documentation structure)
+- Q: If a download is interrupted mid-response, what should the system do? → A: Skip page, log warning - Discard partial content, log warning, treat as failed download, let retry logic handle from scratch (ensures file integrity, consistent with graceful degradation pattern)
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -90,12 +96,12 @@ As a data engineer dealing with network variability, I need the system to automa
 
 ### Edge Cases
 
-- What happens when the URL returns a redirect (301/302)?
-- What happens if the output directory doesn't exist or lacks write permissions?
-- How does the system handle malformed URLs in the input file?
-- What happens if the URL returns non-HTML content (e.g., PDF, JSON)?
+- What happens when the URL returns a redirect (301/302)? → System follows redirects per FR-023, uses final destination URL for file path, logs original URL for audit trail
+- What happens if the output directory doesn't exist or lacks write permissions? → System auto-creates missing directories recursively with logging; if lacks write permissions, logs error and exits with configuration error code
+- How does the system handle malformed URLs in the input file? → System logs warning with line number and invalid URL, skips it, continues processing remaining URLs
+- What happens if the URL returns non-HTML content (e.g., PDF, JSON)? → System skips the URL, logs a warning with URL and Content-Type, continues with remaining URLs
 - How does the system handle URLs with query parameters or fragments?
-- How does the system handle partial downloads (connection interrupted mid-response)?
+- How does the system handle partial downloads (connection interrupted mid-response)? → System discards partial content, logs warning with URL and bytes received, treats as failed download for retry logic
 - What happens if local disk space is exhausted during batch download?
 - How does the system handle concurrent downloads for the same URL (race condition)?
 - What happens when URL path contains characters invalid for filesystem (e.g., `?`, `*`, `:`)?
@@ -118,7 +124,7 @@ As a data engineer dealing with network variability, I need the system to automa
 - **FR-010**: System MUST support configurable maximum retry attempts (default: 3)
 - **FR-011**: System MUST distinguish between retryable errors (timeouts, 5xx, 429) and non-retryable errors (other 4xx)
 - **FR-011a**: System MUST handle HTTP 429 responses as retryable with extended backoff, respecting Retry-After header when present, otherwise using 2x normal backoff delay
-- **FR-012**: System MUST validate that downloaded content is HTML (check Content-Type header)
+- **FR-012**: System MUST validate that downloaded content is HTML (check Content-Type header); if non-HTML content is detected, system MUST skip the URL, log a warning with the URL and Content-Type, and continue processing remaining URLs
 - **FR-013**: System MUST check if local HTML file exists and compare with remote Last-Modified header
 - **FR-014**: System MUST skip downloading unchanged pages (local timestamp >= remote timestamp) in incremental mode
 - **FR-015**: System MUST support a force flag (`--force`) to bypass incremental checks and re-download all pages
@@ -130,11 +136,15 @@ As a data engineer dealing with network variability, I need the system to automa
 - **FR-021**: System MUST use atomic writes (temp file + rename) to prevent file corruption
 - **FR-022**: System MUST support custom HTTP headers (User-Agent, Accept, Accept-Encoding)
 - **FR-022a**: System MUST verify SSL/TLS certificates and reject connections with invalid, expired, or self-signed certificates
-- **FR-023**: System MUST follow HTTP redirects (301, 302, 303, 307, 308)
+- **FR-023**: System MUST follow HTTP redirects (301, 302, 303, 307, 308); the final destination URL after all redirects MUST be used to determine the file path structure
 - **FR-024**: System MUST check robots.txt for help.alteryx.com and skip URLs disallowed by robots.txt directives, logging a warning for each skipped URL
 - **FR-024a**: System MUST support an optional flag (--ignore-robots-txt) to bypass robots.txt checking for special circumstances
 - **FR-025**: System MUST provide dry-run mode to preview what would be downloaded without actually downloading
 - **FR-026**: System MUST exit with standard exit codes (0: success, 1: download failures occurred, 2: validation failures, 3: configuration error)
+- **FR-027**: Cross-workspace dependencies (httpx, typer, loguru, rich) MUST be declared in workspace root pyproject.toml to enable reuse across feature packages
+- **FR-027a**: System MUST validate URLs during input parsing; when a malformed URL is detected, system MUST log a warning with line number and invalid URL, skip it, and continue processing remaining URLs
+- **FR-027b**: System MUST auto-create missing output directories and nested subdirectories recursively, log directory creation events, and proceed with download
+- **FR-027c**: System MUST handle interrupted downloads (connection drops mid-response) by discarding partial content, logging a warning, and allowing retry logic to attempt full download from scratch
 
 ### Key Entities
 
