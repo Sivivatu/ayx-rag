@@ -28,7 +28,7 @@ class TestCLISingleURLSuccess:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path)],
+            [url, "--output-dir", str(tmp_path)],
         )
 
         assert result.exit_code == 0
@@ -54,7 +54,7 @@ class TestCLISingleURLSuccess:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path)],
+            [url, "--output-dir", str(tmp_path)],
         )
 
         assert result.exit_code == 0
@@ -78,7 +78,7 @@ class TestCLISingleURLSuccess:
             )
         )
 
-        result = runner.invoke(app, ["download", url])
+        result = runner.invoke(app, [url])
 
         assert result.exit_code == 0
 
@@ -99,7 +99,7 @@ class TestCLISingleURLErrors:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path)],
+            [url, "--output-dir", str(tmp_path)],
         )
 
         assert result.exit_code != 0
@@ -111,7 +111,7 @@ class TestCLISingleURLErrors:
 
         result = runner.invoke(
             app,
-            ["download", invalid_url, "--output-dir", str(tmp_path)],
+            [invalid_url, "--output-dir", str(tmp_path)],
         )
 
         assert result.exit_code != 0
@@ -132,7 +132,7 @@ class TestCLISingleURLErrors:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path)],
+            [url, "--output-dir", str(tmp_path)],
         )
 
         # Should exit with non-zero (validation error)
@@ -153,7 +153,7 @@ class TestCLISingleURLErrors:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path)],
+            [url, "--output-dir", str(tmp_path)],
         )
 
         assert result.exit_code == 1
@@ -180,7 +180,7 @@ class TestCLIOptions:
         # Set max size to 500 bytes (should reject 1KB file)
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path), "--max-file-size", "500"],
+            [url, "--output-dir", str(tmp_path), "--max-file-size", "500"],
         )
 
         assert result.exit_code != 0
@@ -208,7 +208,7 @@ class TestCLIOptions:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path), "--force"],
+            [url, "--output-dir", str(tmp_path), "--force"],
         )
 
         assert result.exit_code == 0
@@ -221,7 +221,7 @@ class TestCLIOptions:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path), "--dry-run"],
+            [url, "--output-dir", str(tmp_path), "--dry-run"],
         )
 
         assert result.exit_code == 0
@@ -250,7 +250,7 @@ class TestCLILogging:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path)],
+            [url, "--output-dir", str(tmp_path)],
         )
 
         assert result.exit_code == 0
@@ -272,7 +272,7 @@ class TestCLILogging:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path), "--verbose"],
+            [url, "--output-dir", str(tmp_path), "--verbose"],
         )
 
         assert result.exit_code == 0
@@ -299,7 +299,7 @@ class TestCLIExitCodes:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path)],
+            [url, "--output-dir", str(tmp_path)],
         )
 
         assert result.exit_code == 0
@@ -315,7 +315,7 @@ class TestCLIExitCodes:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path)],
+            [url, "--output-dir", str(tmp_path)],
         )
 
         assert result.exit_code == 1
@@ -335,7 +335,7 @@ class TestCLIExitCodes:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", str(tmp_path)],
+            [url, "--output-dir", str(tmp_path)],
         )
 
         assert result.exit_code == 2
@@ -349,7 +349,7 @@ class TestCLIExitCodes:
 
         result = runner.invoke(
             app,
-            ["download", url, "--output-dir", invalid_path],
+            [url, "--output-dir", invalid_path],
         )
 
         assert result.exit_code == 3
