@@ -9,6 +9,7 @@ import respx
 from httpx import ConnectError, ReadTimeout, Response
 from page_downloader.downloader import HTTPDownloader
 from page_downloader.models import DownloadConfig
+from page_downloader.path_utils import sanitize_url_path
 
 
 class TestHTTPDownloaderInit:
@@ -371,7 +372,6 @@ class TestForceFlag:
         url = "https://help.alteryx.com/current/en/designer/tools.html"
         
         # Create an existing file at the expected location
-        from page_downloader.path_utils import sanitize_url_path
         sanitized_path = sanitize_url_path(url)
         file_path = temp_output_dir / sanitized_path
         file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -410,7 +410,6 @@ class TestForceFlag:
         url = "https://help.alteryx.com/current/en/designer/tools.html"
         
         # Create an existing file at the expected location
-        from page_downloader.path_utils import sanitize_url_path
         sanitized_path = sanitize_url_path(url)
         file_path = temp_output_dir / sanitized_path
         file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -465,7 +464,6 @@ class TestForceFlag:
         assert result.skipped is False
         
         # File should be created with content
-        from page_downloader.path_utils import sanitize_url_path
         sanitized_path = sanitize_url_path(url)
         file_path = temp_output_dir / sanitized_path
         assert file_path.exists()
