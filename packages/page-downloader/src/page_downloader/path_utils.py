@@ -55,7 +55,7 @@ def sanitize_url_path(url: str) -> str:
     sanitized = re.sub(invalid_chars, "_", path)
 
     # Use 'index.html' as default for root URLs to prevent IsADirectoryError
-    if not sanitized or sanitized == "/":
+    if not sanitized:
         sanitized = "index.html"
 
     return sanitized
