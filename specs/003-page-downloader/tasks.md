@@ -86,10 +86,10 @@ Each user story is independently testable and deployable.
 - [x] T015 [US1] Write tests for file operations in `tests/unit/test_downloader.py` (atomic writes, directory creation, disk space handling)
 - [x] T016 [US1] Implement `src/page_downloader/downloader.py` with HTTPDownloader class (httpx.Client, streaming, atomic writes, timeouts)
 - [x] T017 [US1] Write tests for CLI single URL mode in `tests/integration/test_cli.py` (success, network error, invalid URL, non-HTML)
-- [ ] T018 [US1] Implement `src/page_downloader/cli.py` with typer app and download() command (single URL argument, output-dir option)
-- [ ] T019 [US1] Update `main.py` to register page-downloader CLI app with app.add_typer()
-- [ ] T020 [US1] Test end-to-end: `uv run python main.py page-downloader https://help.alteryx.com/current/en/designer/tools.html`
-- [ ] T021 [US1] Verify logs with timestamp, URL, file size, and file path per FR-017
+- [x] T018 [US1] Implement `src/page_downloader/cli.py` with typer app and download() command (single URL argument, output-dir option)
+- [x] T019 [US1] Update `main.py` to register page-downloader CLI app with app.add_typer()
+- [x] T020 [US1] Test end-to-end: `uv run python main.py page-downloader https://help.alteryx.com/current/en/designer/tools.html`
+- [x] T021 [US1] Verify logs with timestamp, URL, file size, and file path per FR-017
 
 **Completion Criteria**: Single URL downloads work with proper error handling, all US1 tests pass
 
