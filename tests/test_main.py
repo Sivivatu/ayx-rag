@@ -22,16 +22,24 @@ class TestMainCLI:
         assert "sitemap-filter" in result.stdout
 
     def test_main_version_flag(self):
-        """Test that main.py --version shows the version."""
+        """Test that main.py --version shows the version from pyproject.toml."""
+        # Read expected version dynamically from pyproject.toml to avoid hardcoding
+        import tomllib
+
+        root = Path(__file__).parent.parent
+        with open(root / "pyproject.toml", "rb") as f:
+            data = tomllib.load(f)
+        expected_version = data["project"]["version"]
+
         result = subprocess.run(
             [sys.executable, "main.py", "--version"],
             capture_output=True,
             text=True,
-            cwd=Path(__file__).parent.parent,
+            cwd=root,
         )
 
         assert result.returncode == 0
-        assert "0.1.0" in result.stdout
+        assert f"uv-ayx-rag version {expected_version}" in result.stdout
 
     def test_main_no_args_shows_help(self):
         """Test that main.py with no arguments shows help with available commands."""
