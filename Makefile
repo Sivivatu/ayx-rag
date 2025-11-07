@@ -22,12 +22,10 @@ fix:  ## Auto-fix linting issues
 	uv run ruff check --fix .
 
 test:  ## Run all tests
-# 	cd packages/sitemap-filter && uv run pytest tests/
-	uv run pytest tests/
+	uv run pytest
 
 test-cov:  ## Run tests with coverage
-#	cd packages/sitemap-filter && uv run pytest tests/ --cov=src/sitemap_filter --cov-report=term-missing --cov-fail-under=80
-	uv run pytest tests/ --cov=src/sitemap_filter --cov-report=term-missing --cov-fail-under=80
+	uv run pytest --cov=packages/sitemap-filter/src --cov=packages/sitemap-download/src --cov=packages/page-downloader/src --cov-report=term-missing --cov-fail-under=80
 
 check: lint format-check test  ## Run all checks (lint, format, test)
 
