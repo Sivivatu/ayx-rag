@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-11-07
+
+### Added
+- **Page Downloader CLI** (single + batch HTML download)
+  - Single URL and file-based batch mode
+  - URL→path mapping preserving hierarchy
+  - HTML content validation and skip logic
+  - Batch progress tracking with rich-based tracker (quiet/verbose modes)
+  - Rate limiting via `--delay`
+  - Dry run support (`--dry-run`)
+  - Configurable max file size, timeouts, retries
+  - Structured logging (FR-017) with byte count
+  - Summary statistics (total/success/failed/skipped/invalid/duration)
+  - Standard exit codes (0 success, 1 failure, 2 validation/skip, 3 config)
+
+### Changed
+- Main CLI now forwards positional `url_or_file` and exposes `--quiet`, `--delay` options.
+
+### Fixed
+- Preserved test-added log handlers (avoid removing custom sinks)
+- Corrected progress session statistics and batch fixture mismatch
+- Adjusted mixed batch expected HTML count (5 valid pages)
+
+### Tests
+- Restored and renamed integration tests to avoid namespace collisions
+- Added logging integration tests verifying format and required fields
+- Added batch mode tests (success, comments/blanks parity, mixed errors summary)
+
+### Documentation
+- Updated root README with page-downloader feature and examples
+- Added package README for page-downloader
+- Updated tasks.md marking US2 (batch mode) complete
+
+### Performance
+- Batch processing sequential with optional delay; progress tracker lightweight
+
+### Coverage
+- Page-downloader unit + integration tests passing (19 integration; unit suite green)
+
+### Notes
+- Incremental updates (US3) and retry/backoff enhancements (US4) scheduled for future versions.
+
 ## [0.2.0] - 2025-11-05
 
 ### Added
@@ -75,7 +117,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
-- **0.1.0** (2025-11-03): Initial release with sitemap-filter feature
+- **0.3.0** (2025-11-07): Page Downloader (single + batch) feature
+- **0.2.0** (2025-11-05): Sitemap Download feature
+- **0.1.0** (2025-11-03): Sitemap Filter feature
 - **Unreleased**: Active development
 
 ---
