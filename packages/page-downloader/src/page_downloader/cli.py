@@ -54,7 +54,12 @@ def main(
     dry_run: bool = typer.Option(
         False,
         "--dry-run",
-        help="Preview download without actually downloading",
+        help="Preview download without executing",
+    ),
+    no_verify_ssl: bool = typer.Option(
+        False,
+        "--no-verify-ssl",
+        help="Disable SSL certificate verification (use for dev/testing only)",
     ),
     verbose: bool = typer.Option(
         False,
@@ -104,6 +109,7 @@ def main(
             max_retries=max_retries,
             force=force,
             dry_run=dry_run,
+            verify_ssl=not no_verify_ssl,  # Invert the flag
         )
 
         # Initialize downloader

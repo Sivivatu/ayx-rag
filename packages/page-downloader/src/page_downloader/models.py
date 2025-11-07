@@ -20,6 +20,7 @@ class DownloadConfig:
         force: Force re-download even if files exist (default: False)
         dry_run: Preview mode without actual downloads (default: False)
         ignore_robots: Bypass robots.txt checking (default: False)
+        verify_ssl: Verify SSL certificates (default: True, disable for dev/testing)
         user_agent: Custom User-Agent header (default: Python/httpx)
     """
 
@@ -32,6 +33,7 @@ class DownloadConfig:
     force: bool = False
     dry_run: bool = False
     ignore_robots: bool = False
+    verify_ssl: bool = True
     user_agent: str = "uv-ayx-rag-page-downloader/0.1.0 (Python/httpx)"
 
     def __post_init__(self):
@@ -71,7 +73,9 @@ class DownloadConfig:
         try:
             self.output_dir.mkdir(parents=True, exist_ok=True)
         except Exception as e:
-            raise ConfigurationError(f"Cannot create output directory {self.output_dir}: {e}")
+            raise ConfigurationError(
+                f"Cannot create output directory {self.output_dir}: {e}"
+            )
 
         # Check write permissions
         if not self.output_dir.exists() or not self.output_dir.is_dir():

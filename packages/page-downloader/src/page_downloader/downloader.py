@@ -6,6 +6,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
+import certifi
 import httpx
 from loguru import logger
 
@@ -49,6 +50,9 @@ class HTTPDownloader:
         self.config = config
 
         # Create httpx client with configured timeouts per FR-007, FR-008
+        # Use certifi CA bundle if SSL verification enabled, otherwise disable verification
+        ssl_verify = certifi.where() if config.verify_ssl else False
+
         self.client = httpx.Client(
             timeout=httpx.Timeout(
                 connect=config.connection_timeout,
@@ -57,7 +61,7 @@ class HTTPDownloader:
                 pool=config.connection_timeout,
             ),
             follow_redirects=True,  # FR-023: Follow redirects
-            verify=True,  # FR-022a: Verify SSL/TLS certificates
+            verify=ssl_verify,  # FR-022a: Use certifi's CA bundle or disable for dev/testing
             headers={
                 "User-Agent": config.user_agent,
                 "Accept": "text/html,application/xhtml+xml",

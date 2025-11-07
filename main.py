@@ -144,6 +144,11 @@ def page_downloader(
         "--dry-run",
         help="Preview download without executing",
     ),
+    no_verify_ssl: bool = typer.Option(
+        False,
+        "--no-verify-ssl",
+        help="Disable SSL certificate verification (use for dev/testing only)",
+    ),
     verbose: bool = typer.Option(
         False,
         "--verbose",
@@ -164,6 +169,7 @@ def page_downloader(
         max_retries=max_retries,
         force=force,
         dry_run=dry_run,
+        no_verify_ssl=no_verify_ssl,
         verbose=verbose,
     )
 
