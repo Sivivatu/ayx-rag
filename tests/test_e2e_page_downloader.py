@@ -34,7 +34,9 @@ def test_e2e_page_downloader_via_main():
         )
 
         # Check exit code
-        assert result.exit_code == 0, f"Expected exit code 0, got {result.exit_code}. Output: {result.stdout}"
+        assert result.exit_code == 0, (
+            f"Expected exit code 0, got {result.exit_code}. Output: {result.stdout}"
+        )
 
         # Check output messages
         assert "Success" in result.stdout or "Downloaded" in result.stdout
@@ -93,9 +95,7 @@ def test_e2e_page_downloader_handles_errors():
     """Test error handling through complete stack."""
     url = "https://help.alteryx.com/current/en/designer/missing.html"
 
-    respx.get(url).mock(
-        return_value=Response(status_code=404, content=b"Not Found")
-    )
+    respx.get(url).mock(return_value=Response(status_code=404, content=b"Not Found"))
 
     with tempfile.TemporaryDirectory() as tmp_dir:
         result = runner.invoke(

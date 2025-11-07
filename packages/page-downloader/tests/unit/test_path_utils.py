@@ -1,6 +1,5 @@
 """Unit tests for path_utils module - URL path sanitization."""
 
-
 from page_downloader.path_utils import sanitize_url_path
 
 

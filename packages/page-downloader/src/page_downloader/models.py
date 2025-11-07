@@ -71,9 +71,7 @@ class DownloadConfig:
         try:
             self.output_dir.mkdir(parents=True, exist_ok=True)
         except Exception as e:
-            raise ConfigurationError(
-                f"Cannot create output directory {self.output_dir}: {e}"
-            )
+            raise ConfigurationError(f"Cannot create output directory {self.output_dir}: {e}")
 
         # Check write permissions
         if not self.output_dir.exists() or not self.output_dir.is_dir():

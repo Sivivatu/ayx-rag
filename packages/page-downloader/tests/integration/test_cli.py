@@ -1,6 +1,5 @@
 """Integration tests for CLI interface - single URL mode."""
 
-
 import respx
 from httpx import Response
 from page_downloader.cli import app
@@ -309,9 +308,7 @@ class TestCLIExitCodes:
         """Test exit code 1 for download failures."""
         url = "https://help.alteryx.com/current/en/designer/tools.html"
 
-        respx.get(url).mock(
-            return_value=Response(status_code=500, content=b"Server Error")
-        )
+        respx.get(url).mock(return_value=Response(status_code=500, content=b"Server Error"))
 
         result = runner.invoke(
             app,

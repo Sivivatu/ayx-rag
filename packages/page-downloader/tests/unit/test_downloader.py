@@ -68,9 +68,7 @@ class TestAtomicWrite:
         file_path.write_bytes(original_content)
 
         # Simulate write failure by making temp file creation fail
-        with patch("tempfile.mkstemp", side_effect=OSError("Disk full")), pytest.raises(
-            OSError
-        ):
+        with patch("tempfile.mkstemp", side_effect=OSError("Disk full")), pytest.raises(OSError):
             downloader._atomic_write(file_path, b"new content")
 
         # Original file should still exist with original content

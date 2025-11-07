@@ -182,5 +182,7 @@ def main(
             logger.exception(f"Unexpected error during download: {e}")
 
         raise typer.Exit(1)
+
+
 if __name__ == "__main__":
     app()

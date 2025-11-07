@@ -1,5 +1,6 @@
 """HTTP downloader for fetching HTML pages."""
 
+import contextlib
 import tempfile
 import time
 from dataclasses import dataclass
@@ -16,7 +17,7 @@ from .validator import is_html_content
 @dataclass
 class DownloadResult:
     """Result of a download operation.
-    
+
     Attributes:
         url: Source URL
         success: Whether download succeeded
@@ -41,7 +42,7 @@ class HTTPDownloader:
 
     def __init__(self, config: DownloadConfig):
         """Initialize downloader with configuration.
-        
+
         Args:
             config: Download configuration settings
         """
@@ -66,12 +67,12 @@ class HTTPDownloader:
 
     def download_page(self, url: str) -> DownloadResult:
         """Download a single page from URL.
-        
+
         Implements FR-003, FR-011, FR-012, FR-017, FR-020, FR-021, FR-023.
-        
+
         Args:
             url: URL to download
-            
+
         Returns:
             DownloadResult with outcome details
         """
@@ -85,8 +86,7 @@ class HTTPDownloader:
                 # Log successful download per FR-017
                 if result.success:
                     logger.info(
-                        f"Downloaded {url} -> {result.file_path} "
-                        f"({result.bytes_downloaded} bytes)"
+                        f"Downloaded {url} -> {result.file_path} ({result.bytes_downloaded} bytes)"
                     )
                 elif result.skipped:
                     logger.warning(f"Skipped {url}: {result.error_message}")
@@ -166,10 +166,10 @@ class HTTPDownloader:
 
     def _attempt_download(self, url: str) -> DownloadResult:
         """Attempt to download URL once (no retries).
-        
+
         Args:
             url: URL to download
-            
+
         Returns:
             DownloadResult with outcome
         """
@@ -233,15 +233,15 @@ class HTTPDownloader:
 
     def _atomic_write(self, file_path: Path, content: bytes) -> None:
         """Write content to file atomically using temp file + rename.
-        
+
         Implements FR-021: atomic writes to prevent corruption.
         Implements FR-027b: auto-create parent directories.
         Implements FR-020: preserve existing files on failure.
-        
+
         Args:
             file_path: Destination file path
             content: Content to write
-            
+
         Raises:
             IOError: If write fails
         """
@@ -266,18 +266,16 @@ class HTTPDownloader:
 
         except Exception:
             # Clean up temp file on failure
-            try:
+            with contextlib.suppress(Exception):
                 Path(temp_path).unlink(missing_ok=True)
-            except Exception:
-                pass
             raise
 
     def _calculate_backoff(self, attempt: int) -> float:
         """Calculate exponential backoff with jitter per FR-009.
-        
+
         Args:
             attempt: Attempt number (0-indexed)
-            
+
         Returns:
             Backoff duration in seconds
         """

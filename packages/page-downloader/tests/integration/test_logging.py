@@ -3,12 +3,10 @@
 import re
 import tempfile
 from io import StringIO
-from pathlib import Path
 
 import respx
 from httpx import Response
 from loguru import logger
-
 from page_downloader.cli import app
 from typer.testing import CliRunner
 
@@ -57,12 +55,16 @@ def test_logging_contains_required_fields():
             assert url in log_output, "Log missing URL"
 
             # 3. File size (in bytes)
-            assert f"{len(html_content)} bytes" in log_output or f"({len(html_content)} bytes)" in log_output, \
-                "Log missing file size"
+            assert (
+                f"{len(html_content)} bytes" in log_output
+                or f"({len(html_content)} bytes)" in log_output
+            ), "Log missing file size"
 
             # 4. File path
             expected_path_fragment = "current/en/designer/tools.html"
-            assert expected_path_fragment in log_output, f"Log missing file path (expected fragment: {expected_path_fragment})"
+            assert expected_path_fragment in log_output, (
+                f"Log missing file path (expected fragment: {expected_path_fragment})"
+            )
 
             # Verify log level is INFO for successful download
             assert "INFO" in log_output, "Log should use INFO level"
@@ -104,9 +106,12 @@ def test_logging_format():
 
             # Verify structured format: timestamp | level | module:function:line - message
             # Module can contain dots (e.g., page_downloader.downloader)
-            log_line_pattern = r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3} \| \w+ +\| [\w_.]+:[\w_]+:\d+ - .+"
-            assert re.search(log_line_pattern, log_output), \
+            log_line_pattern = (
+                r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3} \| \w+ +\| [\w_.]+:[\w_]+:\d+ - .+"
+            )
+            assert re.search(log_line_pattern, log_output), (
                 f"Log format doesn't match expected pattern. Got:\n{log_output}"
+            )
 
     finally:
         logger.remove(log_id)

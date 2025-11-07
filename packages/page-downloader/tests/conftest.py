@@ -149,16 +149,20 @@ def sample_large_html(tmp_path: Path) -> Path:
     <h1>Large HTML File - File Size Validation Test</h1>
     <p>This file exceeds the default 5MB limit for testing max file size enforcement.</p>
 """
-        padding = '<div class="content-block"><p>' + ('Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' * 100) + '</p></div>\n'
+        padding = (
+            '<div class="content-block"><p>'
+            + ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. " * 100)
+            + "</p></div>\n"
+        )
 
-        with open(large_html_path, 'w') as f:
+        with open(large_html_path, "w") as f:
             f.write(content_base)
             target_size = 6 * 1024 * 1024  # 6MB
             current_size = len(content_base)
             while current_size < target_size:
                 f.write(padding)
                 current_size += len(padding)
-            f.write('</body>\n</html>')
+            f.write("</body>\n</html>")
 
     return large_html_path
 
