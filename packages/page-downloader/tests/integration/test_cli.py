@@ -4,6 +4,8 @@ import respx
 from httpx import Response
 from page_downloader.cli import app
 from typer.testing import CliRunner
+from pathlib import Path
+import re
 
 runner = CliRunner()
 
@@ -350,3 +352,104 @@ class TestCLIExitCodes:
         )
 
         assert result.exit_code == 3
+
+
+class TestCLIBatchMode:
+    """Batch mode tests: file input, progress, continue on errors, summary (T030)."""
+
+    def _fixtures_dir(self) -> Path:
+        return Path(__file__).resolve().parents[1] / "fixtures" / "url_lists"
+
+    @respx.mock
+    def test_batch_cli_downloads_all_urls_success(self, tmp_path):
+        """Given a file of 10 URLs, process sequentially and succeed."""
+        batch_file = self._fixtures_dir() / "batch.txt"
+
+        # Mock all help.alteryx.com GETs to return HTML
+        pattern = re.compile(r"^https://help\.alteryx\.com/.*")
+        respx.get(pattern).mock(
+            return_value=Response(
+                status_code=200,
+                headers={"content-type": "text/html; charset=utf-8"},
+                content=b"<html><body>ok</body></html>",
+            )
+        )
+
+        result = runner.invoke(app, [str(batch_file), "--output-dir", str(tmp_path), "--quiet"])
+
+        # Expect success
+        assert result.exit_code == 0
+
+        # Verify 10 HTML files were created
+        downloaded_files = list(tmp_path.rglob("*.html"))
+        assert len(downloaded_files) == 10
+
+        # Summary presence (implementation should include a summary line)
+        assert "summary" in result.stdout.lower() or "success" in result.stdout.lower()
+
+    @respx.mock
+    def test_batch_cli_ignores_comments_and_blanks(self, tmp_path):
+        """batch_with_comments should yield same count as plain batch."""
+        batch_plain = self._fixtures_dir() / "batch.txt"
+        batch_comments = self._fixtures_dir() / "batch_with_comments.txt"
+
+        pattern = re.compile(r"^https://help\.alteryx\.com/.*")
+        respx.get(pattern).mock(
+            return_value=Response(
+                status_code=200,
+                headers={"content-type": "text/html"},
+                content=b"<html>ok</html>",
+            )
+        )
+
+        res_plain = runner.invoke(app, [str(batch_plain), "--output-dir", str(tmp_path / "plain"), "--quiet"])
+        res_comments = runner.invoke(
+            app, [str(batch_comments), "--output-dir", str(tmp_path / "comments"), "--quiet"]
+        )
+
+        assert res_plain.exit_code == 0
+        assert res_comments.exit_code == 0
+
+        count_plain = len(list((tmp_path / "plain").rglob("*.html")))
+        count_comments = len(list((tmp_path / "comments").rglob("*.html")))
+        assert count_plain == 10
+        assert count_comments == 10
+
+    @respx.mock
+    def test_batch_cli_continues_on_errors_and_reports_summary(self, tmp_path):
+        """Mixed file: skip invalid and non-HTML; continue others; non-zero exit and summary printed."""
+        mixed_file = self._fixtures_dir() / "mixed_urls.txt"
+
+        # Default: assume HTML OK
+        pattern = re.compile(r"^https://help\.alteryx\.com/.*")
+        respx.get(pattern).mock(
+            return_value=Response(
+                status_code=200,
+                headers={"content-type": "text/html"},
+                content=b"<html>ok</html>",
+            )
+        )
+
+        # Non-HTML endpoints
+        respx.get("https://help.alteryx.com/assets/image.png").mock(
+            return_value=Response(status_code=200, headers={"content-type": "image/png"}, content=b"\x89PNG")
+        )
+        respx.get("https://help.alteryx.com/downloads/file.pdf").mock(
+            return_value=Response(status_code=200, headers={"content-type": "application/pdf"}, content=b"%PDF")
+        )
+        respx.get("https://help.alteryx.com/static/script.js").mock(
+            return_value=Response(status_code=200, headers={"content-type": "application/javascript"}, content=b"console.log(1)")
+        )
+
+        result = runner.invoke(app, [str(mixed_file), "--output-dir", str(tmp_path), "--quiet"])
+
+        # Expect non-zero due to validation failures (or download failures)
+        assert result.exit_code != 0
+
+        # Expect only HTML pages downloaded (5 from fixture: install, workflow, search, whitespace, final)
+        downloaded_files = list(tmp_path.rglob("*.html"))
+        assert len(downloaded_files) == 5
+
+        # Summary should mention success/failed/skipped counts
+        out = result.stdout.lower()
+        assert ("summary" in out) or ("success" in out and ("failed" in out or "skipped" in out))
