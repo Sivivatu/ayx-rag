@@ -1,8 +1,6 @@
 """Unit tests for validator module - HTML content validation."""
 
-import pytest
 from httpx import Response
-
 from page_downloader.validator import is_html_content
 
 

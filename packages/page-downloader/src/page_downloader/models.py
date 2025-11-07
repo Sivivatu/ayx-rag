@@ -1,8 +1,7 @@
 """Data models for page-downloader package."""
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 
 from .exceptions import ConfigurationError, ValidationError
 
@@ -10,7 +9,7 @@ from .exceptions import ConfigurationError, ValidationError
 @dataclass
 class DownloadConfig:
     """Configuration for page download operations.
-    
+
     Attributes:
         output_dir: Base directory for saving downloaded pages
         rate_limit: Delay in seconds between consecutive requests (default: 0.5)
@@ -41,7 +40,7 @@ class DownloadConfig:
 
     def _validate(self):
         """Validate configuration values.
-        
+
         Raises:
             ValidationError: If any configuration value is invalid
             ConfigurationError: If output directory cannot be created

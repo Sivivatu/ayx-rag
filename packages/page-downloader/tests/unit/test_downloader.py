@@ -1,14 +1,13 @@
 """Unit tests for downloader module - HTTP download functionality."""
 
+import tempfile
 from pathlib import Path
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import pytest
 import respx
 from httpx import ConnectError, ReadTimeout, Response
-
 from page_downloader.downloader import HTTPDownloader
-from page_downloader.exceptions import DownloadError
 from page_downloader.models import DownloadConfig
 
 
@@ -68,10 +67,11 @@ class TestAtomicWrite:
         original_content = b"<html><body>original</body></html>"
         file_path.write_bytes(original_content)
 
-        # Simulate write failure by trying to write to a read-only directory
-        with patch("pathlib.Path.write_bytes", side_effect=IOError("Write failed")):
-            with pytest.raises(IOError):
-                downloader._atomic_write(file_path, b"new content")
+        # Simulate write failure by making temp file creation fail
+        with patch("tempfile.mkstemp", side_effect=OSError("Disk full")), pytest.raises(
+            OSError
+        ):
+            downloader._atomic_write(file_path, b"new content")
 
         # Original file should still exist with original content
         assert file_path.exists()
@@ -86,23 +86,24 @@ class TestAtomicWrite:
         content = b"<html><body>test</body></html>"
 
         # Track if temp file was created during write
-        temp_files_during_write = []
+        temp_files_created = []
+        original_mkstemp = tempfile.mkstemp
 
-        original_write = Path.write_bytes
+        def track_mkstemp(*args, **kwargs):
+            fd, path = original_mkstemp(*args, **kwargs)
+            temp_files_created.append(path)
+            return fd, path
 
-        def track_temp_files(self, data):
-            if ".tmp" in str(self):
-                temp_files_during_write.append(str(self))
-            return original_write(self, data)
-
-        with patch.object(Path, "write_bytes", track_temp_files):
+        with patch("tempfile.mkstemp", side_effect=track_mkstemp):
             downloader._atomic_write(file_path, content)
 
-        # Should have used a temp file
-        assert len(temp_files_during_write) > 0
-        # Temp file should not exist after completion
-        for temp_file in temp_files_during_write:
+        # Should have used mkstemp to create a temp file
+        assert len(temp_files_created) > 0
+        # Temp file should not exist after completion (renamed to final path)
+        for temp_file in temp_files_created:
             assert not Path(temp_file).exists()
+        # Final file should exist
+        assert file_path.exists()
 
 
 class TestDownloadSinglePage:
@@ -137,7 +138,7 @@ class TestDownloadSinglePage:
 
         assert result.success is False
         assert result.skipped is True
-        assert "PDF" in result.error_message or "non-HTML" in result.error_message
+        assert "non-HTML" in result.error_message or "application/pdf" in result.error_message
 
     @respx.mock
     def test_download_enforces_max_file_size(self, sample_config, mock_large_response):

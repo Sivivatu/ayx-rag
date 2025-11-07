@@ -1,23 +1,21 @@
 """Pytest configuration and shared fixtures for page-downloader tests."""
 
-import tempfile
+from collections.abc import Generator
 from pathlib import Path
-from typing import Generator
 
 import pytest
 import respx
 from httpx import Response
-
 from page_downloader.models import DownloadConfig
 
 
 @pytest.fixture
 def sample_config(tmp_path: Path) -> DownloadConfig:
     """Create a basic DownloadConfig with temporary output directory.
-    
+
     Args:
         tmp_path: Pytest temporary directory fixture
-        
+
     Returns:
         DownloadConfig instance configured for testing
     """
@@ -37,10 +35,10 @@ def sample_config(tmp_path: Path) -> DownloadConfig:
 @pytest.fixture
 def temp_output_dir(tmp_path: Path) -> Path:
     """Create a temporary output directory for test downloads.
-    
+
     Args:
         tmp_path: Pytest temporary directory fixture
-        
+
     Returns:
         Path to temporary output directory
     """
@@ -52,7 +50,7 @@ def temp_output_dir(tmp_path: Path) -> Path:
 @pytest.fixture
 def mock_html_response() -> Response:
     """Create a mock HTTP response with HTML content.
-    
+
     Returns:
         httpx.Response with sample HTML content
     """
@@ -61,7 +59,7 @@ def mock_html_response() -> Response:
 <head><title>Test Page</title></head>
 <body><h1>Test Content</h1></body>
 </html>"""
-    
+
     return Response(
         status_code=200,
         headers={
@@ -76,7 +74,7 @@ def mock_html_response() -> Response:
 @pytest.fixture
 def mock_non_html_response() -> Response:
     """Create a mock HTTP response with non-HTML content (PDF).
-    
+
     Returns:
         httpx.Response with PDF content-type
     """
@@ -93,12 +91,12 @@ def mock_non_html_response() -> Response:
 @pytest.fixture
 def mock_large_response() -> Response:
     """Create a mock HTTP response exceeding max file size.
-    
+
     Returns:
         httpx.Response with >5MB content
     """
     large_content = b"x" * (6 * 1024 * 1024)  # 6MB
-    
+
     return Response(
         status_code=200,
         headers={
@@ -112,10 +110,10 @@ def mock_large_response() -> Response:
 @pytest.fixture
 def sample_valid_html(tmp_path: Path) -> Path:
     """Path to valid.html fixture file.
-    
+
     Args:
         tmp_path: Not used, but kept for consistency
-        
+
     Returns:
         Path to sample valid HTML file
     """
@@ -126,19 +124,19 @@ def sample_valid_html(tmp_path: Path) -> Path:
 @pytest.fixture
 def sample_large_html(tmp_path: Path) -> Path:
     """Path to large.html fixture file (>5MB), generated on-demand.
-    
+
     Creates the large.html file if it doesn't exist to avoid committing
     6MB+ files to git. File is generated once per test session and reused.
-    
+
     Args:
         tmp_path: Not used, but kept for consistency
-        
+
     Returns:
         Path to sample large HTML file
     """
     fixtures_dir = Path(__file__).parent / "fixtures" / "sample_pages"
     large_html_path = fixtures_dir / "large.html"
-    
+
     # Generate file if it doesn't exist (not in git)
     if not large_html_path.exists():
         content_base = """<!DOCTYPE html>
@@ -152,7 +150,7 @@ def sample_large_html(tmp_path: Path) -> Path:
     <p>This file exceeds the default 5MB limit for testing max file size enforcement.</p>
 """
         padding = '<div class="content-block"><p>' + ('Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' * 100) + '</p></div>\n'
-        
+
         with open(large_html_path, 'w') as f:
             f.write(content_base)
             target_size = 6 * 1024 * 1024  # 6MB
@@ -161,14 +159,14 @@ def sample_large_html(tmp_path: Path) -> Path:
                 f.write(padding)
                 current_size += len(padding)
             f.write('</body>\n</html>')
-    
+
     return large_html_path
 
 
 @pytest.fixture
 def respx_mock() -> Generator:
     """Enable respx mocking for httpx requests.
-    
+
     Yields:
         respx.mock context manager for HTTP mocking
     """

@@ -12,7 +12,7 @@ class DownloadError(PageDownloaderError):
 
     def __init__(self, url: str, message: str):
         """Initialize with URL and error message.
-        
+
         Args:
             url: The URL that failed to download
             message: Description of the error
@@ -33,7 +33,7 @@ class RobotsDeniedError(PageDownloaderError):
 
     def __init__(self, url: str):
         """Initialize with denied URL.
-        
+
         Args:
             url: The URL denied by robots.txt
         """
