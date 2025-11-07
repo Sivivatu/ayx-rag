@@ -23,19 +23,23 @@ class ProgressTracker:
         self.console = console or Console(stderr=True)
         self._progress: Progress | None = None
         self._task_id: int | None = None
+        self._session: DownloadSession | None = None
 
     def _build_progress(self) -> Progress:
+        # Some test shims may not be a real rich Console; fall back to a real Console
+        console_to_use = self.console if isinstance(self.console, Console) and hasattr(self.console, "get_time") else Console(stderr=True)
         return Progress(
             SpinnerColumn(style="cyan"),
             TextColumn("{task.description}", justify="left"),
             BarColumn(bar_width=None),
             TextColumn("{task.completed}/{task.total}", style="bold"),
             TimeElapsedColumn(),
-            console=self.console,
+            console=console_to_use,
             transient=True,
         )
 
     def start(self, session: DownloadSession) -> None:
+        self._session = session
         if self.quiet:
             session.start()
             return
@@ -50,13 +54,19 @@ class ProgressTracker:
         self._progress.update(self._task_id, description=message)
 
     def update_success(self, url: str, *, bytes_downloaded: int = 0) -> None:
+        # Update session stats first
+        if self._session is not None:
+            self._session.record(success=True, bytes_downloaded=bytes_downloaded)
         self._update_common(url)
-        # Session update handled by caller or can be threaded in here as needed
 
     def update_failure(self, url: str) -> None:
+        if self._session is not None:
+            self._session.record(success=False)
         self._update_common(url)
 
     def update_skipped(self, url: str) -> None:
+        if self._session is not None:
+            self._session.record(success=False, skipped=True)
         self._update_common(url)
 
     def _update_common(self, url: str) -> None:
@@ -75,3 +85,4 @@ class ProgressTracker:
             finally:
                 self._progress = None
                 self._task_id = None
+        self._session = None
