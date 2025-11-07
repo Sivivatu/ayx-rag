@@ -128,6 +128,7 @@ def main(
         raise typer.Exit(0)
     elif dry_run and is_batch:
         from page_downloader.models import URLList
+
         url_list = URLList.from_file(arg_path)
         typer.echo(f"[DRY RUN] Would batch download {url_list.valid_count} URLs from: {arg_path}")
         typer.echo(f"[DRY RUN] Output directory: {output_path}")
@@ -199,6 +200,7 @@ def main(
                 # Rate limiting (simple sleep) only if delay > 0
                 if config.rate_limit > 0:
                     import time as _t
+
                     _t.sleep(config.rate_limit)
 
             tracker.finish(session)
