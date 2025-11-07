@@ -28,6 +28,7 @@ class TestMainCLI:
         sys.path.insert(0, str(root))
         try:
             import importlib
+
             main_mod = importlib.import_module("main")
             expected_version = getattr(main_mod, "__version__", "unknown")
         finally:
