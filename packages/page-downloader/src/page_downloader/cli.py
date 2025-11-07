@@ -1,5 +1,6 @@
 """CLI interface for page-downloader using Typer."""
 
+import sys
 from pathlib import Path
 
 import typer
@@ -82,8 +83,16 @@ def main(
     """
     # Configure logging based on verbose flag
     if verbose:
+        # Enable DEBUG level logging for verbose mode
+        logger.remove()  # Remove default handler
+        logger.add(
+            sys.stderr,
+            format="<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
+            level="DEBUG",
+        )
         logger.info(f"Starting download of {url}")
         logger.info(f"Output directory: {output_dir}")
+        logger.info(f"SSL verification: {'disabled' if no_verify_ssl else 'enabled'}")
 
     try:
         # Convert output_dir string to Path (may raise ValueError for invalid paths)

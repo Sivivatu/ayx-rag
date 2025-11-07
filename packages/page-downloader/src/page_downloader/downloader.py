@@ -53,6 +53,12 @@ class HTTPDownloader:
         # Use certifi CA bundle if SSL verification enabled, otherwise disable verification
         ssl_verify = certifi.where() if config.verify_ssl else False
 
+        logger.debug(f"Initializing HTTPDownloader with SSL verification: {config.verify_ssl}")
+        if config.verify_ssl:
+            logger.debug(f"Using CA bundle from: {ssl_verify}")
+        else:
+            logger.debug("SSL verification disabled")
+
         self.client = httpx.Client(
             timeout=httpx.Timeout(
                 connect=config.connection_timeout,
@@ -117,6 +123,10 @@ class HTTPDownloader:
 
             except httpx.ConnectError as e:
                 # Retryable error per FR-011
+                logger.debug(f"ConnectError details: {type(e).__name__}: {e}")
+                if hasattr(e, '__cause__') and e.__cause__:
+                    logger.debug(f"Underlying cause: {type(e.__cause__).__name__}: {e.__cause__}")
+
                 if attempt < self.config.max_retries:
                     backoff = self._calculate_backoff(attempt)
                     logger.warning(
