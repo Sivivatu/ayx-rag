@@ -1,0 +1,11 @@
+https://help.alteryx.com/current/en/server/install.html
+https://help.alteryx.com/current/en/server/system-requirements.html
+https://help.alteryx.com/current/en/designer/workflow-configuration.html
+https://help.alteryx.com/current/en/designer/interface-tour.html
+https://help.alteryx.com/current/de/server/what-s-new-in-server.html
+https://help.alteryx.com/2023.1/en/server/release-notes.html
+https://help.alteryx.com/current/fr/designer/getting-started.html
+https://help.alteryx.com/current/ja/designer/best-practices.html
+https://help.alteryx.com/current/es/server/admin-guide.html
+https://help.alteryx.com/current/en/designer/final.html
+
