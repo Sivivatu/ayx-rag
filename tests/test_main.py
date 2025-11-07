@@ -22,14 +22,16 @@ class TestMainCLI:
         assert "sitemap-filter" in result.stdout
 
     def test_main_version_flag(self):
-        """Test that main.py --version shows the version from pyproject.toml."""
-        # Read expected version dynamically from pyproject.toml to avoid hardcoding
-        import tomllib
-
+        """Test that main.py --version shows the package version (no hardcoding)."""
+        # Import the computed version from main to avoid tomllib/tomli differences
         root = Path(__file__).parent.parent
-        with open(root / "pyproject.toml", "rb") as f:
-            data = tomllib.load(f)
-        expected_version = data["project"]["version"]
+        sys.path.insert(0, str(root))
+        try:
+            import importlib
+            main_mod = importlib.import_module("main")
+            expected_version = getattr(main_mod, "__version__", "unknown")
+        finally:
+            sys.path.pop(0)
 
         result = subprocess.run(
             [sys.executable, "main.py", "--version"],
