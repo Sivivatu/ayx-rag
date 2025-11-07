@@ -2,7 +2,7 @@
 
 **Feature**: page-downloader  
 **Branch**: `003-page-downloader`  
-**Generated**: November 6, 2025  
+**Generated**: November 7, 2025  
 **Approach**: Test-Driven Development (TDD) with user story-based incremental delivery
 
 ## Task Summary
@@ -108,18 +108,18 @@ Each user story is independently testable and deployable.
 ### Tasks
 
 #### Test Setup
-- [ ] T022 [P] [US2] Create test fixture `tests/fixtures/url_lists/batch.txt` with 10 sample URLs
-- [ ] T023 [P] [US2] Create test fixture `tests/fixtures/url_lists/mixed_urls.txt` with valid, invalid, and non-HTML URLs
+- [x] T022 [P] [US2] Create test fixture `tests/fixtures/url_lists/batch.txt` with 10 sample URLs
+- [x] T023 [P] [US2] Create test fixture `tests/fixtures/url_lists/mixed_urls.txt` with valid, invalid, and non-HTML URLs
 
 #### Core Implementation
-- [ ] T024 [US2] Write tests for URLList parsing in `tests/unit/test_models.py` (parse file, validate URLs, handle malformed lines)
-- [ ] T025 [US2] Implement URLList class in `src/page_downloader/models.py` with from_file() method (validate URLs per FR-027a)
-- [ ] T026 [US2] Write tests for DownloadSession in `tests/unit/test_models.py` (track counts, calculate statistics, session state)
-- [ ] T027 [US2] Implement DownloadSession class in `src/page_downloader/models.py` (track total/success/failed/skipped counts)
-- [ ] T028 [US2] Write tests for progress display in `tests/unit/test_progress.py` (rich progress bar, quiet mode, verbose mode)
-- [ ] T029 [US2] Implement `src/page_downloader/progress.py` with ProgressTracker class using rich.Progress (FR-016)
-- [ ] T030 [US2] Write tests for batch CLI mode in `tests/integration/test_cli.py` (file input, progress display, continue on errors, summary stats)
-- [ ] T031 [US2] Update CLI in `src/page_downloader/cli.py` to accept file path, add --delay, --verbose, --quiet options
+- [x] T024 [US2] Write tests for URLList parsing in `tests/unit/test_models.py` (parse file, validate URLs, handle malformed lines)
+- [x] T025 [US2] Implement URLList class in `src/page_downloader/models.py` with from_file() method (validate URLs per FR-027a)
+- [x] T026 [US2] Write tests for DownloadSession in `tests/unit/test_models.py` (track counts, calculate statistics, session state)
+- [x] T027 [US2] Implement DownloadSession class in `src/page_downloader/models.py` (track total/success/failed/skipped counts)
+- [x] T028 [US2] Write tests for progress display in `tests/unit/test_progress.py` (rich progress bar, quiet mode, verbose mode)
+- [x] T029 [US2] Implement `src/page_downloader/progress.py` with ProgressTracker class using rich.Progress (FR-016)
+- [x] T030 [US2] Write tests for batch CLI mode in `tests/integration/test_cli.py` (file input, progress display, continue on errors, summary stats)
+- [x] T031 [US2] Update CLI in `src/page_downloader/cli.py` to accept file path, add --delay, --verbose, --quiet options
 
 **Completion Criteria**: Batch downloads process all URLs sequentially, display progress, continue after errors, show summary (FR-018)
 
