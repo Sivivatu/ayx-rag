@@ -121,15 +121,12 @@ def sample_valid_html(tmp_path: Path) -> Path:
     return fixtures_dir / "valid.html"
 
 
-@pytest.fixture
-def sample_large_html(tmp_path: Path) -> Path:
+@pytest.fixture(scope="session")
+def sample_large_html() -> Path:
     """Path to large.html fixture file (>5MB), generated on-demand.
 
     Creates the large.html file if it doesn't exist to avoid committing
     6MB+ files to git. File is generated once per test session and reused.
-
-    Args:
-        tmp_path: Not used, but kept for consistency
 
     Returns:
         Path to sample large HTML file
