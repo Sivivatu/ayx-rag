@@ -273,6 +273,12 @@ wheels = [
 name = "page-downloader"
 version = "0.1.0"
 source = { editable = "packages/page-downloader" }
+dependencies = [
+    { name = "certifi" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "certifi", specifier = ">=2025.10.5" }]
 
 [[package]]
 name = "pluggy"
