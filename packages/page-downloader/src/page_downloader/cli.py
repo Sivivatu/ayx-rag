@@ -1,6 +1,5 @@
 """CLI interface for page-downloader using Typer."""
 
-import contextlib
 import sys
 from pathlib import Path
 
@@ -97,9 +96,9 @@ def main(
     """
     # Configure logging based on verbose flag
     if verbose:
-        # Enable DEBUG level logging for verbose mode but preserve any pre-existing test handlers
-        with contextlib.suppress(ValueError):  # remove only default handler id=0 if present
-            logger.remove(0)
+        # Add a DEBUG-level handler for verbose output
+        # We don't remove existing handlers to avoid fragile ID assumptions
+        # This means both default and DEBUG handlers will output in verbose mode
         logger.add(
             sys.stderr,
             format="<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
