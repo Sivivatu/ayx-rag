@@ -1,5 +1,6 @@
 """CLI interface for page-downloader using Typer."""
 
+import contextlib
 import sys
 from pathlib import Path
 
@@ -96,8 +97,9 @@ def main(
     """
     # Configure logging based on verbose flag
     if verbose:
-        # Enable DEBUG level logging for verbose mode
-        logger.remove()  # Remove default handler
+        # Enable DEBUG level logging for verbose mode but preserve any pre-existing test handlers
+        with contextlib.suppress(ValueError):  # remove only default handler id=0 if present
+            logger.remove(0)
         logger.add(
             sys.stderr,
             format="<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
@@ -158,7 +160,7 @@ def main(
                 typer.echo(f"  Size: {result.bytes_downloaded} bytes")
                 if verbose:
                     logger.info(f"Download complete: {result.file_path}")
-                    logger.info(f"Bytes downloaded: {result.bytes_downloaded}")
+                    logger.info(f"{result.bytes_downloaded} bytes downloaded to {result.file_path}")
                 raise typer.Exit(0)
 
             elif result.skipped:

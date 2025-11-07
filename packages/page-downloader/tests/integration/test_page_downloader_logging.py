@@ -1,5 +1,6 @@
 """Logging integration tests for page-downloader (FR-017)."""
 
+import contextlib
 import re
 import tempfile
 from io import StringIO
@@ -40,7 +41,9 @@ def test_logging_contains_required_fields():
             assert "current/en/designer/tools.html" in log_output
             assert "INFO" in log_output or "DEBUG" in log_output
     finally:
-        logger.remove(log_id)
+        # Defensive removal: handler may auto-remove; ignore if missing
+        with contextlib.suppress(ValueError):
+            logger.remove(log_id)
 
 
 @respx.mock
@@ -68,4 +71,5 @@ def test_logging_format():
             pattern = r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3} \| \w+ +\| [\w_.]+:[\w_]+:\d+ - .+"
             assert re.search(pattern, log_output), f"Unexpected log format:\n{log_output}"
     finally:
-        logger.remove(log_id)
+        with contextlib.suppress(ValueError):
+            logger.remove(log_id)
