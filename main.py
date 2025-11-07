@@ -106,7 +106,7 @@ def sitemap_filter(
 
 @app.command("page-downloader")
 def page_downloader(
-    url: str = typer.Argument(..., help="URL to download"),
+    url: str = typer.Argument(..., help="URL to download or path to URL list file"),
     output_dir: str = typer.Option(
         "downloads",
         "--output-dir",
@@ -155,13 +155,26 @@ def page_downloader(
         "-v",
         help="Enable verbose output",
     ),
+    quiet: bool = typer.Option(
+        False,
+        "--quiet",
+        "-q",
+        help="Suppress progress output in batch mode",
+    ),
+    delay: float = typer.Option(
+        0.5,
+        "--delay",
+        help="Delay (seconds) between requests in batch mode",
+    ),
 ):
     """Download HTML pages from URLs for RAG pipeline content collection."""
     # Import here to avoid circular imports and execution issues
     from page_downloader.cli import main as do_download
 
+    # Forward to package CLI. The underlying function expects the first positional
+    # argument to be the URL or a path to a file of URLs (batch mode).
     do_download(
-        url=url,
+        url,  # url_or_file positional
         output_dir=output_dir,
         max_file_size=max_file_size,
         connection_timeout=connection_timeout,
@@ -171,6 +184,8 @@ def page_downloader(
         dry_run=dry_run,
         no_verify_ssl=no_verify_ssl,
         verbose=verbose,
+        quiet=quiet,
+        delay=delay,
     )
 
 
