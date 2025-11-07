@@ -506,6 +506,7 @@ dependencies = [
     { name = "rich" },
     { name = "sitemap-download" },
     { name = "sitemap-filter" },
+    { name = "tomli", marker = "python_full_version < '3.11'" },
     { name = "typer" },
 ]
 
@@ -525,6 +526,7 @@ requires-dist = [
     { name = "rich", specifier = ">=13.0.0" },
     { name = "sitemap-download", editable = "packages/sitemap-download" },
     { name = "sitemap-filter", editable = "packages/sitemap-filter" },
+    { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2.0.1" },
     { name = "typer", specifier = ">=0.20.0" },
 ]
 
