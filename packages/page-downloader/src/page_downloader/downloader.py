@@ -124,7 +124,7 @@ class HTTPDownloader:
             except httpx.ConnectError as e:
                 # Retryable error per FR-011
                 logger.debug(f"ConnectError details: {type(e).__name__}: {e}")
-                if hasattr(e, '__cause__') and e.__cause__:
+                if hasattr(e, "__cause__") and e.__cause__:
                     logger.debug(f"Underlying cause: {type(e.__cause__).__name__}: {e.__cause__}")
 
                 if attempt < self.config.max_retries:

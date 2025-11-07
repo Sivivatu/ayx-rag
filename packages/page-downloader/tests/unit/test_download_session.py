@@ -3,7 +3,6 @@
 from time import sleep
 
 import pytest
-
 from page_downloader.models import DownloadSession
 
 
@@ -48,7 +47,7 @@ class TestDownloadSession:
         assert session.skipped_count == 1
         assert session.processed == 3
         assert session.remaining == 0
-        assert session.success_rate == pytest.approx(1/3, rel=1e-6)
+        assert session.success_rate == pytest.approx(1 / 3, rel=1e-6)
 
     def test_average_bytes_per_second_nonzero(self):
         session = DownloadSession(total=1)

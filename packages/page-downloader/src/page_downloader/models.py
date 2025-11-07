@@ -1,7 +1,6 @@
 """Data models for page-downloader package."""
 
-from dataclasses import dataclass
-from dataclasses import field
+from dataclasses import dataclass, field
 from pathlib import Path
 from time import perf_counter
 
@@ -75,9 +74,7 @@ class DownloadConfig:
         try:
             self.output_dir.mkdir(parents=True, exist_ok=True)
         except Exception as e:
-            raise ConfigurationError(
-                f"Cannot create output directory {self.output_dir}: {e}"
-            )
+            raise ConfigurationError(f"Cannot create output directory {self.output_dir}: {e}")
 
         # Check write permissions
         if not self.output_dir.exists() or not self.output_dir.is_dir():

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-
 from rich.console import Console
 from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
 
@@ -27,7 +26,11 @@ class ProgressTracker:
 
     def _build_progress(self) -> Progress:
         # Some test shims may not be a real rich Console; fall back to a real Console
-        console_to_use = self.console if isinstance(self.console, Console) and hasattr(self.console, "get_time") else Console(stderr=True)
+        console_to_use = (
+            self.console
+            if isinstance(self.console, Console) and hasattr(self.console, "get_time")
+            else Console(stderr=True)
+        )
         return Progress(
             SpinnerColumn(style="cyan"),
             TextColumn("{task.description}", justify="left"),
