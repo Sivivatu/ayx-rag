@@ -1,26 +1,10 @@
 """Unit tests for ProgressTracker using rich.Progress."""
 
-from io import StringIO
+from unittest.mock import Mock
 
 from page_downloader.models import DownloadSession
 from page_downloader.progress import ProgressTracker
-
-
-class DummyConsole:
-    """Capture output written by rich Console for testing."""
-
-    def __init__(self):
-        self.out = StringIO()
-
-    def print(self, *args, **kwargs):  # pragma: no cover - minimal shim
-        text = " ".join(str(a) for a in args)
-        self.out.write(text + "\n")
-
-    def __enter__(self):  # pragma: no cover
-        return self
-
-    def __exit__(self, exc_type, exc, tb):  # pragma: no cover
-        return False
+from rich.console import Console
 
 
 def test_progress_tracker_quiet_mode_suppresses_output():
@@ -39,8 +23,8 @@ def test_progress_tracker_quiet_mode_suppresses_output():
 
 def test_progress_tracker_updates_counts_and_renders_minimally():
     session = DownloadSession(total=2)
-    dummy_console = DummyConsole()
-    tracker = ProgressTracker(total=2, quiet=False, console=dummy_console)
+    mock_console = Mock(spec=Console)
+    tracker = ProgressTracker(total=2, quiet=False, console=mock_console)
 
     tracker.start(session)
     tracker.update_success("https://a", bytes_downloaded=100)
