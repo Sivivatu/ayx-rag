@@ -3,11 +3,7 @@
 from pathlib import Path
 
 import pytest
-
-try:
-    from page_downloader.models import URLList
-except Exception:  # pragma: no cover - will exist after implementation
-    URLList = None  # type: ignore
+from page_downloader.models import URLList
 
 
 @pytest.fixture()
@@ -16,7 +12,6 @@ def fixtures_dir() -> Path:
     return Path(__file__).resolve().parents[1] / "fixtures" / "url_lists"
 
 
-@pytest.mark.skipif(URLList is None, reason="URLList not implemented yet")
 class TestURLListParsing:
     def test_parse_plain_file_returns_all_urls(self, fixtures_dir: Path):
         src = fixtures_dir / "batch.txt"
