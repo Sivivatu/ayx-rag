@@ -471,3 +471,21 @@ class TestForceFlag:
 
         # HTTP request should have been made
         assert len(respx.calls) == 1
+    @respx.mock
+    def test_download_handles_root_url(self, sample_config, temp_output_dir, mock_html_response):
+        """Test that downloader can handle root URLs without IsADirectoryError."""
+        config = DownloadConfig(output_dir=temp_output_dir)
+        downloader = HTTPDownloader(config)
+
+        # Root URL that would previously cause empty sanitized path
+        url = "https://example.com/"
+        respx.get(url).mock(return_value=mock_html_response)
+
+        result = downloader.download_page(url)
+
+        assert result.success is True
+        # Should use index.html as fallback filename
+        assert result.file_path.endswith("index.html")
+        assert Path(result.file_path).exists()
+        # Verify the file was actually created and is not a directory
+        assert Path(result.file_path).is_file()

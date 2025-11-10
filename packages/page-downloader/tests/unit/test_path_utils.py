@@ -91,7 +91,7 @@ class TestSanitizeUrlPath:
         """Test URL with only domain (root path)."""
         url = "https://help.alteryx.com/"
         result = sanitize_url_path(url)
-        assert result == ""
+        assert result == "index.html"
 
     def test_handles_path_with_dots(self):
         """Test that dots in filenames are preserved."""
