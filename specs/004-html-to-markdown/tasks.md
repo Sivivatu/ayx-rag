@@ -42,8 +42,9 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 - [ ] T009 [P] Add Pandoc strategy adapter in packages/html-to-markdown/src/html_to_markdown/strategies/pandoc_adapter.py (if needed for benchmark)
 - [ ] T010 Implement CLI `diff` command (research-only) in packages/html-to-markdown/src/html_to_markdown/cli.py
 - [ ] T011 Add benchmark harness script in packages/html-to-markdown/src/html_to_markdown/benchmark.py
-- [ ] T012 Populate research comparison matrix in specs/004-html-to-markdown/research.md
-- [ ] T013 Remove unselected strategies after decision; keep only chosen library
+- [ ] T012 Execute benchmark across candidate strategies (Docling, Pandoc, markdownify) producing raw metrics JSON (heading/link/table/code/image/time) persisted under specs/004-html-to-markdown/benchmarks/
+- [ ] T013 Populate research comparison matrix in specs/004-html-to-markdown/research.md with quantitative metrics (≥5 candidates, ≥8 attributes each) and select final library (FR-012, SC-010)
+- [ ] T051 Remove unselected strategies AND remove `diff` command; update specs/004-html-to-markdown/research.md & spec.md with final decision annotation
 
 **Checkpoint**: Library selected; proceed to foundational implementation with chosen dependency
 
@@ -59,6 +60,8 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 - [ ] T017 [P] Implement table handling module in packages/html-to-markdown/src/html_to_markdown/table_handler.py (hybrid approach)
 - [ ] T018 Add tests for models/config/table handling in packages/html-to-markdown/tests/unit/
 - [ ] T019 Wire CLI skeleton commands in packages/html-to-markdown/src/html_to_markdown/cli.py (convert, batch, evaluate)
+- [ ] T041 Implement deterministic normalization + body hash generation for idempotency (converter pre-implementation scaffolding) (FR-018)
+- [ ] T042 Add property-based tests verifying idempotent re-run (unchanged HTML → identical Markdown hash) (SC-009)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -79,6 +82,7 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 - [ ] T024 [US1] Implement CLI command `convert` in packages/html-to-markdown/src/html_to_markdown/cli.py to read HTML and write Markdown
 - [ ] T025 [US1] Add unit tests for converter in packages/html-to-markdown/tests/unit/test_converter.py using fixtures
 - [ ] T026 [US1] Add integration test for single-file CLI in packages/html-to-markdown/tests/integration/test_cli_single.py
+- [ ] T043 Add single-file performance timing test (ensure <2s per standard page) (FR-016)
 
 **Checkpoint**: US1 independently functional and testable
 
@@ -96,6 +100,7 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 - [ ] T028 [P] [US2] Add progress indicator and timing in packages/html-to-markdown/src/html_to_markdown/cli.py (batch mode)
 - [ ] T029 [US2] Produce summary JSON with counts in packages/html-to-markdown/src/html_to_markdown/evaluation.py or CLI layer
 - [ ] T030 [US2] Add integration test for batch CLI in packages/html-to-markdown/tests/integration/test_cli_batch.py
+- [ ] T044 Add batch throughput performance test (≥25 pages/min for average 100KB pages) (SC-006, FR-016)
 
 **Checkpoint**: US2 independently functional and testable
 
@@ -113,6 +118,9 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 - [ ] T032 [P] [US3] Implement CSV/Markdown report generation in packages/html-to-markdown/src/html_to_markdown/evaluation.py
 - [ ] T033 [US3] Implement CLI `evaluate` command in packages/html-to-markdown/src/html_to_markdown/cli.py with thresholds and failure listing
 - [ ] T034 [US3] Add integration test for evaluate CLI in packages/html-to-markdown/tests/integration/test_cli_evaluate.py
+- [ ] T045 Persist evaluation results with timestamped filenames in evaluation/ directory (FR-020)
+- [ ] T046 Implement overall score weighting + redistribution logic with unit tests (SC-007)
+- [ ] T047 Implement manual review percentage calculation (<5% failure rate) and output in report (SC-008)
 
 **Checkpoint**: US3 independently functional and testable
 
@@ -128,6 +136,9 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 - [ ] T038 Code cleanup, dead code removal (remove strategies if not chosen)
 - [ ] T039 [P] Add extra unit tests for edge cases (deep lists, non-UTF-8, very large HTML)
 - [ ] T040 Validate quickstart steps in specs/004-html-to-markdown/quickstart.md
+- [ ] T048 Populate any remaining research metrics & ensure matrix completeness (≥5 candidates; if reduced, document elimination rationale) (SC-010)
+- [ ] T049 Optional: Implement threshold-based re-processing attempt script for flagged files (FR-013 optional clause)
+- [ ] T050 Optional: Standardize "front matter" terminology across docs/code (consistency)
 
 ---
 
