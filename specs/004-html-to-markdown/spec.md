@@ -47,9 +47,9 @@ An internal reviewer runs an evaluation command that compares converted Markdown
 2. **Given** a file with all links preserved, **When** evaluated, **Then** link preservation metric reports 100%.
 3. **Given** a file with heading depth reduced (e.g. H3 collapsed), **When** evaluated, **Then** heading fidelity metric < 100% with diagnostic note.
 
-### User Story 4 - Comparative Library Research (Priority: P4)
+### Prerequisite: Comparative Library Research (Priority: P4)
 
-An internal architect runs a research/report command generating a comparative matrix for candidate libraries (e.g., Docling, Readability-based extraction + Markdown renderer, Pandoc, html2text/markdownify variants, custom parser). The output is a decision document that selects exactly one library to implement in the package. No runtime strategy switching is required post-decision.
+An internal architect runs a research/report command generating a comparative matrix for candidate libraries (e.g., Docling, Readability-based extraction + Markdown renderer, Pandoc, html2text/markdownify variants, custom parser). The output is a decision document that selects exactly one library to implement in the package. This is executed before other user stories and is not a runtime deliverable. No runtime strategy switching is required post-decision.
 
 **Why this priority**: Enables an informed, pre-implementation selection to minimize rework and ensure quality.
 
@@ -119,6 +119,7 @@ An internal architect runs a research/report command generating a comparative ma
 - Interactive scripts provide no essential textual content; safe to strip.
 - Complex tables with merged cells are uncommon; acceptable to approximate with repeated cells or fallback to HTML snippet.
 - License compatibility considered (preference for permissive licenses).
+ - Performance baseline refers to the dev container environment (Debian 13) described in `plan.md`; all timing is measured within that environment.
 
 ## Dependencies
 

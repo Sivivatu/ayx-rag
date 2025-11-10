@@ -62,6 +62,7 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 - [ ] T019 Wire CLI skeleton commands in packages/html-to-markdown/src/html_to_markdown/cli.py (convert, batch, evaluate)
 - [ ] T041 Implement deterministic normalization + body hash generation for idempotency (converter pre-implementation scaffolding) (FR-018)
 - [ ] T042 Add property-based tests verifying idempotent re-run (unchanged HTML → identical Markdown hash) (SC-009)
+ - [ ] T055 Implement encoding detection and normalization to UTF-8 in input pipeline with unit tests and a non-UTF-8 fixture (Edge case)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -83,6 +84,7 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 - [ ] T025 [US1] Add unit tests for converter in packages/html-to-markdown/tests/unit/test_converter.py using fixtures
 - [ ] T026 [US1] Add integration test for single-file CLI in packages/html-to-markdown/tests/integration/test_cli_single.py
 - [ ] T043 Add single-file performance timing test (ensure <2s per standard page) (FR-016)
+ - [ ] T056 [US1] Add test to verify warnings are logged for omitted/unsupported elements (e.g., SVG diagrams) with minimal structured fields (timestamp, file, reason) (FR-015)
 
 **Checkpoint**: US1 independently functional and testable
 
@@ -101,6 +103,9 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 - [ ] T029 [US2] Produce summary JSON with counts in packages/html-to-markdown/src/html_to_markdown/evaluation.py or CLI layer
 - [ ] T030 [US2] Add integration test for batch CLI in packages/html-to-markdown/tests/integration/test_cli_batch.py
 - [ ] T044 Add batch throughput performance test (≥25 pages/min for average 100KB pages) (SC-006, FR-016)
+ - [ ] T052 [US2] Implement checkpoint persistence (e.g., JSONL) recording last processed index, processed files, and failed-items list (Principle IV)
+ - [ ] T053 [US2] Add resume capability in batch CLI (resume from checkpoint); integration test simulating interruption and continuation (Principle IV)
+ - [ ] T054 [US2] Add `--resume` flag and document behavior in CLI help; include checkpoint file path configuration (Principle IV)
 
 **Checkpoint**: US2 independently functional and testable
 

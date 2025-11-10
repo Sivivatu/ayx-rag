@@ -16,6 +16,7 @@ Convert previously downloaded Alteryx help HTML pages into high-fidelity Markdow
 **Storage**: Local filesystem only (HTML input, Markdown output, evaluation JSON/CSV)  
 **Testing**: pytest (unit for converters, integration for batch/evaluation, property-based tests for idempotency)  
 **Target Platform**: Linux (dev container Debian 13) via uv run  
+**Performance Baseline**: Timings measured inside the dev container (Debian 13, default allocated CPU/memory) using `uv run`; thresholds (≤2s single page, ≥25 pages/minute batch) refer to this baseline.
 **Project Type**: Workspace feature package (`packages/html-to-markdown`)  
 **Performance Goals**: ≤2s per standard page (<200KB); throughput ≥25 pages/minute batch; evaluation metrics computed within ≤5 minutes for 500-page sample  
 **Constraints**: Memory-efficient streaming parse for large pages (>2MB), no external network calls during conversion, pure Python (uv_build backend)  
@@ -30,7 +31,7 @@ Unresolved items are restricted to library choice; all other aspects are clear.
 | I. Modular Architecture | PASS | Will create dedicated workspace package with isolated deps. |
 | II. Data Pipeline Integrity | PASS | Front matter retains source path, last modified; evaluation logs preserved. |
 | III. Test-Driven Development (NON-NEGOTIABLE) | PASS | Plan includes writing tests before converter implementation. |
-| IV. Incremental Processing | PASS | Batch conversion with resumable progress via summary JSON; future checkpoint file optional. |
+| IV. Incremental Processing | PASS | Batch conversion with resumable progress via summary JSON and mandatory checkpoint file enabling resume. |
 | V. Observability & Monitoring | PASS | Structured JSON summary + per-file warnings; loguru existing in workspace for logging. |
 | VI. Package Management (NON-NEGOTIABLE) | PASS | uv only; declare deps in package `pyproject.toml`. |
 | VII. Git Commit Standards (NON-NEGOTIABLE) | PASS | Conventional commits enforced in workflow. |
@@ -50,6 +51,7 @@ specs/004-html-to-markdown/
 ├── data-model.md        # Phase 1 output (/speckit.plan command)
 ├── quickstart.md        # Phase 1 output (/speckit.plan command)
 ├── contracts/           # Phase 1 output (/speckit.plan command)
+├── benchmarks/          # Research raw metrics JSON (candidate strategy performance & fidelity)
 └── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
 ```
 
