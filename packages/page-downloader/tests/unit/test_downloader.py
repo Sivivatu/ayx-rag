@@ -471,6 +471,7 @@ class TestForceFlag:
 
         # HTTP request should have been made
         assert len(respx.calls) == 1
+
     @respx.mock
     def test_download_handles_root_url(self, sample_config, temp_output_dir, mock_html_response):
         """Test that downloader can handle root URLs without IsADirectoryError."""
