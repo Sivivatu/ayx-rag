@@ -104,6 +104,91 @@ def sitemap_filter(
     do_filter(sitemap_file, language, product, format, output, dry_run)
 
 
+@app.command("page-downloader")
+def page_downloader(
+    url: str = typer.Argument(..., help="URL to download or path to URL list file"),
+    output_dir: str = typer.Option(
+        "downloads",
+        "--output-dir",
+        "-o",
+        help="Output directory for downloaded pages",
+    ),
+    max_file_size: int = typer.Option(
+        5 * 1024 * 1024,
+        "--max-file-size",
+        help="Maximum file size in bytes (default: 5MB)",
+    ),
+    connection_timeout: float = typer.Option(
+        30.0,
+        "--connection-timeout",
+        help="Connection timeout in seconds",
+    ),
+    read_timeout: float = typer.Option(
+        300.0,
+        "--read-timeout",
+        help="Read timeout in seconds",
+    ),
+    max_retries: int = typer.Option(
+        3,
+        "--max-retries",
+        help="Maximum retry attempts for failed downloads",
+    ),
+    force: bool = typer.Option(
+        False,
+        "--force",
+        "-f",
+        help="Force re-download even if file exists",
+    ),
+    dry_run: bool = typer.Option(
+        False,
+        "--dry-run",
+        help="Preview download without executing",
+    ),
+    no_verify_ssl: bool = typer.Option(
+        False,
+        "--no-verify-ssl",
+        help="Disable SSL certificate verification (use for dev/testing only)",
+    ),
+    verbose: bool = typer.Option(
+        False,
+        "--verbose",
+        "-v",
+        help="Enable verbose output",
+    ),
+    quiet: bool = typer.Option(
+        False,
+        "--quiet",
+        "-q",
+        help="Suppress progress output in batch mode",
+    ),
+    delay: float = typer.Option(
+        0.5,
+        "--delay",
+        help="Delay (seconds) between requests in batch mode",
+    ),
+):
+    """Download HTML pages from URLs for RAG pipeline content collection."""
+    # Import here to avoid circular imports and execution issues
+    from page_downloader.cli import main as do_download
+
+    # Forward to package CLI. The underlying function expects the first positional
+    # argument to be the URL or a path to a file of URLs (batch mode).
+    do_download(
+        url,  # url_or_file positional
+        output_dir=output_dir,
+        max_file_size=max_file_size,
+        connection_timeout=connection_timeout,
+        read_timeout=read_timeout,
+        max_retries=max_retries,
+        force=force,
+        dry_run=dry_run,
+        no_verify_ssl=no_verify_ssl,
+        verbose=verbose,
+        quiet=quiet,
+        delay=delay,
+    )
+
+
 @app.command("sitemap-download")
 def sitemap_download(
     url: str = typer.Option(

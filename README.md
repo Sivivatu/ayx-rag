@@ -16,6 +16,7 @@ A modular RAG system designed to process and query ~35,000 Alteryx help document
 **Active Features**:  
 - sitemap-filter v0.2.0 (complete)  
 - sitemap-download v0.2.0 (complete)  
+- page-downloader v0.3.0 (single + batch)  
 **Stage**: Ready for release
 
 ## Features
@@ -73,6 +74,34 @@ uv run python main.py sitemap-download --force --archive
 - Embedding service (vector generation)
 - Vector store (indexing and search)
 - Query interface (RAG-powered Q&A)
+
+### ✅ Page Downloader (v0.3.0)
+
+Download one or many Alteryx help pages as HTML, preserving URL-based directory structure. Supports batch mode from a URL list file, progress tracking, logging, dry-run, and standard exit codes.
+
+- 🔗 Single URL or file input (batch)
+- 🧭 URL-to-path mapping (e.g., `current/en/designer/tools.html`)
+- 🧪 Content validation (HTML-only)
+- ⏱ Rate limiting via `--delay`
+- 📴 Quiet/verbose modes
+- 🧪 Exit codes: 0 success, 1 download fail, 2 validation/skip, 3 config error
+
+**Quick Examples:**
+```bash
+# Single URL
+uv run python main.py page-downloader https://help.alteryx.com/current/en/designer/tools.html \
+	--output-dir downloads
+
+# Batch from file (one URL per line)
+uv run python main.py page-downloader packages/page-downloader/tests/fixtures/url_lists/batch.txt \
+	--output-dir downloads --delay 0.25 --quiet
+
+# Dry run
+uv run python main.py page-downloader https://help.alteryx.com/current/en/designer/test.html \
+	--dry-run
+```
+
+See also: `packages/page-downloader/README.md`
 
 ## Quick Start
 
@@ -340,6 +369,6 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 ---
 
-**Current Version**: 0.1.0  
-**Last Updated**: 2025-11-03  
-**Status**: Initial Release - sitemap-filter feature complete
+**Current Version**: 0.3.0  
+**Last Updated**: 2025-11-07  
+**Status**: Page Downloader (single + batch) released

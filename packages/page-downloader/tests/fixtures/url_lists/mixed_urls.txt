@@ -1,0 +1,31 @@
+# Mixed URLs test fixture - valid, invalid, and non-HTML URLs
+# This fixture tests error handling and filtering
+
+# Valid HTML URLs
+https://help.alteryx.com/current/en/server/install.html
+https://help.alteryx.com/2023.1/en/designer/workflow.html
+
+# Invalid URLs (malformed)
+not-a-url
+htp://missing-t.com
+https://
+file:///local/path.html
+
+# Valid URLs but non-HTML content types
+https://help.alteryx.com/assets/image.png
+https://help.alteryx.com/downloads/file.pdf
+https://help.alteryx.com/static/script.js
+
+# Valid HTML URL with query parameters
+https://help.alteryx.com/current/en/server/search.html?query=test
+
+# Comment lines should be skipped
+# https://help.alteryx.com/commented-out.html
+
+# Blank lines and whitespace
+
+
+   https://help.alteryx.com/current/en/server/whitespace.html   
+
+# Valid URL at the end
+https://help.alteryx.com/current/en/designer/final.html

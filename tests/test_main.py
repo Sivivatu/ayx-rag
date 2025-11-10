@@ -22,16 +22,27 @@ class TestMainCLI:
         assert "sitemap-filter" in result.stdout
 
     def test_main_version_flag(self):
-        """Test that main.py --version shows the version."""
+        """Test that main.py --version shows the package version (no hardcoding)."""
+        # Import the computed version from main to avoid tomllib/tomli differences
+        root = Path(__file__).parent.parent
+        sys.path.insert(0, str(root))
+        try:
+            import importlib
+
+            main_mod = importlib.import_module("main")
+            expected_version = getattr(main_mod, "__version__", "unknown")
+        finally:
+            sys.path.pop(0)
+
         result = subprocess.run(
             [sys.executable, "main.py", "--version"],
             capture_output=True,
             text=True,
-            cwd=Path(__file__).parent.parent,
+            cwd=root,
         )
 
         assert result.returncode == 0
-        assert "0.1.0" in result.stdout
+        assert f"uv-ayx-rag version {expected_version}" in result.stdout
 
     def test_main_no_args_shows_help(self):
         """Test that main.py with no arguments shows help with available commands."""
