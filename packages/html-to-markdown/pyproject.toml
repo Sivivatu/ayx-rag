@@ -1,0 +1,15 @@
+[project]
+name = "html-to-markdown"
+version = "0.1.0"
+description = "Convert Alteryx help HTML to Markdown with evaluation"
+requires-python = ">=3.10"
+dependencies = [
+    # Final conversion library added after research phase (e.g., docling or pandoc wrapper)
+]
+
+[dependency-groups]
+dev = []
+
+[build-system]
+requires = ["uv_build>=0.9.6,<0.10.0"]
+build-backend = "uv_build"
