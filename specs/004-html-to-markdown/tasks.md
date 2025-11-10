@@ -10,94 +10,146 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 
 **Tests**: TDD is encouraged by the constitution; include unit/integration tests where specified.
 
-**Organization**: Tasks are grouped by user story to enable independent implementation and testing.
+**Organization**: Research (former US4) is a prerequisite phase executed before foundational and user stories. User stories (US1–US3) remain independently testable.
 
 ## Format: `[ID] [P?] [Story] Description`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
+- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3). Research phase has no story label now.
 - Include exact file paths in descriptions
 
 ---
 
 ## Phase 1: Setup (Shared Infrastructure)
+
+**Purpose**: Initialize package structure and dependencies per plan
+
+- [ ] T001 Create workspace package skeleton at packages/html-to-markdown with uv_build backend
+- [ ] T002 Add dependency placeholders in packages/html-to-markdown/pyproject.toml (final library selected post-research)
+- [ ] T003 [P] Add typer app scaffold in packages/html-to-markdown/src/html_to_markdown/cli.py
 - [ ] T004 [P] Export typer app in packages/html-to-markdown/src/html_to_markdown/__init__.py
+- [ ] T005 Register CLI with main dispatcher in main.py (app.add_typer)
 - [ ] T006 Configure logging via loguru in package init (reuse existing pattern)
 
 ---
 
-## Phase 2: Foundational (Blocking Prerequisites)
-- [ ] T011 Add tests for models/config/table handling in packages/html-to-markdown/tests/unit/
-- [ ] T012 Wire CLI skeleton commands in cli.py (convert, batch, evaluate, diff) with no-op stubs
+## Phase 2: Library Research (Prerequisite)
 
+**Purpose**: Select the single conversion library before implementation; enable temporary diff/benchmark tooling
+
+- [ ] T007 [P] Implement strategies/adapter interface in packages/html-to-markdown/src/html_to_markdown/strategies/base.py
+- [ ] T008 [P] Add Docling strategy adapter in packages/html-to-markdown/src/html_to_markdown/strategies/docling_adapter.py
+- [ ] T009 [P] Add Pandoc strategy adapter in packages/html-to-markdown/src/html_to_markdown/strategies/pandoc_adapter.py (if needed for benchmark)
+- [ ] T010 Implement CLI `diff` command (research-only) in packages/html-to-markdown/src/html_to_markdown/cli.py
+- [ ] T011 Add benchmark harness script in packages/html-to-markdown/src/html_to_markdown/benchmark.py
+- [ ] T012 Populate research comparison matrix in specs/004-html-to-markdown/research.md
+- [ ] T013 Remove unselected strategies after decision; keep only chosen library
+
+**Checkpoint**: Library selected; proceed to foundational implementation with chosen dependency
 
 ---
 
-## Phase 3: User Story 1 - Convert Single HTML File (Priority: P1) 🎯 MVP
+## Phase 3: Foundational (Blocking Prerequisites)
 
-- [ ] T013 [P] [US1] Implement HTML parsing and conversion in packages/html-to-markdown/src/html_to_markdown/converter.py (headings, lists, links, images)
-- [ ] T014 [P] [US1] Implement code block handling with language inference in converter.py
-- [ ] T015 [P] [US1] Implement table conversion using table_handler in converter.py
-- [ ] T017 [US1] Implement CLI command `convert` in cli.py to read HTML and write Markdown
-- [ ] T018 [US1] Add unit tests for converter in packages/html-to-markdown/tests/unit/test_converter.py using fixtures
-- [ ] T019 [US1] Add integration test for single-file CLI in packages/html-to-markdown/tests/integration/test_cli_single.py
+**Purpose**: Core models, config, and file utilities used by all stories
+
+- [ ] T014 Create dataclasses in packages/html-to-markdown/src/html_to_markdown/models.py (SourceDocument, ConvertedDocument, ConversionConfig, EvaluationMetrics, EvaluationReport)
+- [ ] T015 Implement configuration loader in packages/html-to-markdown/src/html_to_markdown/config.py (thresholds, exclusions, hybrid_tables, language_map)
+- [ ] T016 [P] Implement file discovery and I/O helpers in packages/html-to-markdown/src/html_to_markdown/io_utils.py
+- [ ] T017 [P] Implement table handling module in packages/html-to-markdown/src/html_to_markdown/table_handler.py (hybrid approach)
+- [ ] T018 Add tests for models/config/table handling in packages/html-to-markdown/tests/unit/
+- [ ] T019 Wire CLI skeleton commands in packages/html-to-markdown/src/html_to_markdown/cli.py (convert, batch, evaluate)
+
+**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+
+---
+
+## Phase 4: User Story 1 - Convert Single HTML File (Priority: P1) 🎯 MVP
+
+**Goal**: Convert one HTML file to Markdown preserving structure and metadata
+
+**Independent Test**: Run `uv run python main.py html-to-markdown convert <file.html> -o out/` and verify acceptance scenarios
+
+### Implementation for User Story 1
+
+- [ ] T020 [P] [US1] Implement HTML parsing and conversion in packages/html-to-markdown/src/html_to_markdown/converter.py (headings, lists, links, images)
+- [ ] T021 [P] [US1] Implement code block handling with language inference in converter.py
+- [ ] T022 [P] [US1] Implement table conversion using table_handler in converter.py
+- [ ] T023 [US1] Add YAML front matter generation in converter.py (source metadata)
+- [ ] T024 [US1] Implement CLI command `convert` in packages/html-to-markdown/src/html_to_markdown/cli.py to read HTML and write Markdown
+- [ ] T025 [US1] Add unit tests for converter in packages/html-to-markdown/tests/unit/test_converter.py using fixtures
+- [ ] T026 [US1] Add integration test for single-file CLI in packages/html-to-markdown/tests/integration/test_cli_single.py
 
 **Checkpoint**: US1 independently functional and testable
 
 ---
 
-## Phase 4: User Story 2 - Batch Conversion with Progress (Priority: P2)
-- [ ] T020 [P] [US2] Implement directory walker and exclusion patterns in io_utils.py
-- [ ] T021 [P] [US2] Add progress indicator and timing in cli.py (batch mode)
-- [ ] T022 [US2] Produce summary JSON with counts in packages/html-to-markdown/src/html_to_markdown/evaluation.py or cli layer
+## Phase 5: User Story 2 - Batch Conversion with Progress (Priority: P2)
+
+**Goal**: Convert directories recursively with progress and summary output
+
+**Independent Test**: Run batch command on fixture directory with mixed files; verify outputs and summary
+
+### Implementation for User Story 2
+
+- [ ] T027 [P] [US2] Implement directory walker and exclusion patterns in packages/html-to-markdown/src/html_to_markdown/io_utils.py
+- [ ] T028 [P] [US2] Add progress indicator and timing in packages/html-to-markdown/src/html_to_markdown/cli.py (batch mode)
+- [ ] T029 [US2] Produce summary JSON with counts in packages/html-to-markdown/src/html_to_markdown/evaluation.py or CLI layer
+- [ ] T030 [US2] Add integration test for batch CLI in packages/html-to-markdown/tests/integration/test_cli_batch.py
 
 **Checkpoint**: US2 independently functional and testable
 
 ---
 
-## Phase 5: User Story 3 - Quality Evaluation & Scoring (Priority: P3)
+## Phase 6: User Story 3 - Quality Evaluation & Scoring (Priority: P3)
 
 **Goal**: Compute metrics and generate per-file and aggregate reports
 
-- [ ] T024 [P] [US3] Implement metrics computation in packages/html-to-markdown/src/html_to_markdown/evaluation.py
-- [ ] T025 [P] [US3] Implement CSV/Markdown report generation in evaluation.py
-- [ ] T026 [US3] Implement CLI `evaluate` command in cli.py with thresholds and failure listing
+**Independent Test**: Run evaluate command on converted outputs; verify metrics and thresholds
+
+### Implementation for User Story 3
+
+- [ ] T031 [P] [US3] Implement metrics computation in packages/html-to-markdown/src/html_to_markdown/evaluation.py
+- [ ] T032 [P] [US3] Implement CSV/Markdown report generation in packages/html-to-markdown/src/html_to_markdown/evaluation.py
+- [ ] T033 [US3] Implement CLI `evaluate` command in packages/html-to-markdown/src/html_to_markdown/cli.py with thresholds and failure listing
+- [ ] T034 [US3] Add integration test for evaluate CLI in packages/html-to-markdown/tests/integration/test_cli_evaluate.py
 
 **Checkpoint**: US3 independently functional and testable
 
 ---
 
-## Phase 6: User Story 4 - Comparative Library Research (Priority: P4)
+## Phase 7: Polish & Cross-Cutting Concerns
 
-**Goal**: Enable research-time diff and multi-strategy benchmark (temporary)
+**Purpose**: Stabilize for merge; ensure documentation and quality gates
 
-- [ ] T028 [P] [US4] Implement strategies/adapter interface in packages/html-to-markdown/src/html_to_markdown/strategies/base.py
-- [ ] T029 [P] [US4] Add docling strategy adapter in strategies/docling_adapter.py
-- [ ] T030 [P] [US4] Add pandoc strategy adapter in strategies/pandoc_adapter.py (if needed for benchmark)
-- [ ] T032 [US4] Add small benchmark harness script in packages/html-to-markdown/src/html_to_markdown/benchmark.py
-- [ ] T033 [US4] Populate research comparison matrix in specs/004-html-to-markdown/research.md
-- [ ] T034 [US4] Remove unselected strategies after decision; keep chosen only
-
-**Checkpoint**: Research completed; single library selected and codebase simplified
-
+- [ ] T035 [P] Update README.md with feature usage and examples
 - [ ] T036 Add CHANGELOG entry for new feature version
 - [ ] T037 Generate release notes per template in .github/RELEASE_NOTES_TEMPLATE.md
 - [ ] T038 Code cleanup, dead code removal (remove strategies if not chosen)
 - [ ] T039 [P] Add extra unit tests for edge cases (deep lists, non-UTF-8, very large HTML)
 - [ ] T040 Validate quickstart steps in specs/004-html-to-markdown/quickstart.md
 
+---
+
 ## Dependencies & Execution Order
 
+### Phase Dependencies
+
+- Setup → Library Research (Prerequisite) → Foundational → US1 → US2 → US3 → Polish
 
 ### User Story Dependencies
+
+- US1 has no dependency on other stories (after Foundational)
+- US2 depends on core I/O from Foundational and converter from US1
+- US3 depends on outputs from US1/US2
 
 ### Parallel Opportunities
 
 - [P] tasks across Setup and Foundational
-- Within US1: T013–T015 can run in parallel, then T016–T017
-- Within US2: T020–T021 in parallel
-- Within US3: T024–T025 in parallel
-- Within US4: T028–T030 in parallel
+- Research: T007–T009 can run in parallel
+- Within US1: T020–T022 can run in parallel, then T023–T024
+- Within US2: T027–T028 in parallel
+- Within US3: T031–T032 in parallel
 
 ---
 
@@ -106,12 +158,13 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 ### MVP First (User Story 1 Only)
 
 1. Complete Phase 1: Setup
-2. Complete Phase 2: Foundational
-3. Complete Phase 3: US1
-4. Validate independently and demo
+2. Complete Phase 2: Library Research (select library)
+3. Complete Phase 3: Foundational
+4. Complete Phase 4: US1
+5. Validate independently and demo
 
 ### Incremental Delivery
 
 - Add US2 → Test → Demo
 - Add US3 → Test → Demo
-- Conduct US4 research → Select library → Remove unselected strategies → Polish
+- Polish & documentation → Finalize
