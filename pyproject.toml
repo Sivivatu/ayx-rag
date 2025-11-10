@@ -7,6 +7,7 @@ dependencies = [
     "sitemap-filter",
     "sitemap-download",
     "page-downloader",
+    "html-to-markdown",
     "httpx>=0.25.0",
     "rich>=13.0.0",
     "typer>=0.20.0",
@@ -21,6 +22,7 @@ members = ["packages/*"]
 sitemap-filter = { workspace = true, editable = true }
 sitemap-download = { workspace = true, editable = true }
 page-downloader = { workspace = true, editable = true }
+html-to-markdown = { workspace = true, editable = true }
 
 [dependency-groups]
 dev = [
