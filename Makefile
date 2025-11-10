@@ -13,12 +13,12 @@ lint:  ## Run ruff linter
 	uv run ruff check .
 
 format:  ## Format code with ruff
-	uv run ruff format .
-
-format-check:  ## Check if code is formatted
 	uv run ruff format --check .
 
-fix:  ## Auto-fix linting issues
+format-fix:  ## Check if code is formatted
+	uv run ruff format .
+
+lint-fix:  ## Auto-fix linting issues
 	uv run ruff check --fix .
 
 test:  ## Run all tests
@@ -35,3 +35,9 @@ clean:  ## Clean temporary files
 	find . -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
 	find . -type f -name "*.pyc" -delete
 	find . -type f -name ".coverage" -delete
+
+server-build:
+	uv run main.py sitemap-download
+	uv run main.py sitemap-filter alteryx-help-current-sitemap.xml --language en --product server -f json --output downloads/urls/sitemap-filtered-server.json
+	uv run main.py page-downloader downloads/urls/sitemap-filtered-server-short.txt --no-verify-ssl
+	
