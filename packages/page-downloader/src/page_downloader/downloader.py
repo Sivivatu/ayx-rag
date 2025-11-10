@@ -78,7 +78,7 @@ class HTTPDownloader:
     def download_page(self, url: str) -> DownloadResult:
         """Download a single page from URL.
 
-        Implements FR-003, FR-011, FR-012, FR-017, FR-020, FR-021, FR-023.
+        Implements FR-003, FR-011, FR-012, FR-013, FR-014, FR-015, FR-017, FR-020, FR-021, FR-023.
 
         Args:
             url: URL to download
@@ -87,6 +87,22 @@ class HTTPDownloader:
             DownloadResult with outcome details
         """
         logger.info(f"Starting download: {url}")
+
+        # Check if file exists and skip if force=False per FR-013, FR-014, FR-015
+        if not self.config.force:
+            # Determine expected file path for this URL
+            sanitized_path = sanitize_url_path(url)
+            file_path = self.config.output_dir / sanitized_path
+
+            if file_path.exists():
+                logger.info(f"Skipping {url}: file already exists at {file_path}")
+                return DownloadResult(
+                    url=url,
+                    success=False,
+                    skipped=True,
+                    file_path=str(file_path),
+                    error_message="File already exists (use --force to re-download)",
+                )
 
         # Attempt download with retry logic
         for attempt in range(self.config.max_retries + 1):

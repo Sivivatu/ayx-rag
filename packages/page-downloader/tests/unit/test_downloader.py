@@ -9,6 +9,7 @@ import respx
 from httpx import ConnectError, ReadTimeout, Response
 from page_downloader.downloader import HTTPDownloader
 from page_downloader.models import DownloadConfig
+from page_downloader.path_utils import sanitize_url_path
 
 
 class TestHTTPDownloaderInit:
@@ -357,6 +358,119 @@ class TestDownloadStreaming:
 
         assert result.success is False
         assert "size" in result.error_message.lower()
+
+
+class TestForceFlag:
+    """Test --force flag behavior per FR-013, FR-014, FR-015."""
+
+    @respx.mock
+    def test_skips_existing_file_when_force_false(self, temp_output_dir):
+        """Test that existing files are skipped when force=False per FR-014."""
+        config = DownloadConfig(output_dir=temp_output_dir, force=False)
+        downloader = HTTPDownloader(config)
+
+        url = "https://help.alteryx.com/current/en/designer/tools.html"
+
+        # Create an existing file at the expected location
+        sanitized_path = sanitize_url_path(url)
+        file_path = temp_output_dir / sanitized_path
+        file_path.parent.mkdir(parents=True, exist_ok=True)
+        existing_content = b"<html><body>existing content</body></html>"
+        file_path.write_bytes(existing_content)
+
+        # Mock a response (should not be called)
+        respx.get(url).mock(
+            return_value=Response(
+                status_code=200,
+                headers={"content-type": "text/html"},
+                content=b"<html><body>new content</body></html>",
+            )
+        )
+
+        result = downloader.download_page(url)
+
+        # Should be skipped
+        assert result.success is False
+        assert result.skipped is True
+        assert "already exists" in result.error_message
+        assert result.file_path == str(file_path)
+
+        # File should still have original content
+        assert file_path.read_bytes() == existing_content
+
+        # HTTP request should not have been made
+        assert len(respx.calls) == 0
+
+    @respx.mock
+    def test_downloads_existing_file_when_force_true(self, temp_output_dir):
+        """Test that existing files are re-downloaded when force=True per FR-015."""
+        config = DownloadConfig(output_dir=temp_output_dir, force=True)
+        downloader = HTTPDownloader(config)
+
+        url = "https://help.alteryx.com/current/en/designer/tools.html"
+
+        # Create an existing file at the expected location
+        sanitized_path = sanitize_url_path(url)
+        file_path = temp_output_dir / sanitized_path
+        file_path.parent.mkdir(parents=True, exist_ok=True)
+        existing_content = b"<html><body>existing content</body></html>"
+        file_path.write_bytes(existing_content)
+
+        # Mock a response with new content
+        new_content = b"<html><body>new content from server</body></html>"
+        respx.get(url).mock(
+            return_value=Response(
+                status_code=200,
+                headers={"content-type": "text/html"},
+                content=new_content,
+            )
+        )
+
+        result = downloader.download_page(url)
+
+        # Should succeed
+        assert result.success is True
+        assert result.skipped is False
+        assert result.file_path == str(file_path)
+
+        # File should have new content
+        assert file_path.read_bytes() == new_content
+
+        # HTTP request should have been made
+        assert len(respx.calls) == 1
+
+    @respx.mock
+    def test_downloads_when_file_does_not_exist(self, temp_output_dir):
+        """Test that download proceeds when file doesn't exist, regardless of force flag."""
+        config = DownloadConfig(output_dir=temp_output_dir, force=False)
+        downloader = HTTPDownloader(config)
+
+        url = "https://help.alteryx.com/current/en/designer/tools.html"
+
+        # Mock a response
+        content = b"<html><body>new content</body></html>"
+        respx.get(url).mock(
+            return_value=Response(
+                status_code=200,
+                headers={"content-type": "text/html"},
+                content=content,
+            )
+        )
+
+        result = downloader.download_page(url)
+
+        # Should succeed
+        assert result.success is True
+        assert result.skipped is False
+
+        # File should be created with content
+        sanitized_path = sanitize_url_path(url)
+        file_path = temp_output_dir / sanitized_path
+        assert file_path.exists()
+        assert file_path.read_bytes() == content
+
+        # HTTP request should have been made
+        assert len(respx.calls) == 1
 
     @respx.mock
     def test_download_handles_root_url(self, sample_config, temp_output_dir, mock_html_response):
