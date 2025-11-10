@@ -13,6 +13,7 @@ def sanitize_url_path(url: str) -> str:
     3. Replacing filesystem-invalid characters with underscores (FR-005)
     4. Preserving forward slashes for directory structure
     5. Preserving Unicode characters
+    6. Using 'index.html' as default for root URLs
 
     Args:
         url: Full URL to sanitize (e.g., "https://help.alteryx.com/current/en/tools.html")
@@ -52,5 +53,9 @@ def sanitize_url_path(url: str) -> str:
     # Note: We preserve / for directory structure
     invalid_chars = r'[<>:"|?*\x00]'
     sanitized = re.sub(invalid_chars, "_", path)
+
+    # Use 'index.html' as default for root URLs to prevent IsADirectoryError
+    if not sanitized:
+        sanitized = "index.html"
 
     return sanitized
