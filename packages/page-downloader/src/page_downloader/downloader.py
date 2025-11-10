@@ -93,7 +93,7 @@ class HTTPDownloader:
             # Determine expected file path for this URL
             sanitized_path = sanitize_url_path(url)
             file_path = self.config.output_dir / sanitized_path
-            
+
             if file_path.exists():
                 logger.info(f"Skipping {url}: file already exists at {file_path}")
                 return DownloadResult(

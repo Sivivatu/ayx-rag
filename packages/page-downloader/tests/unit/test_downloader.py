@@ -370,7 +370,7 @@ class TestForceFlag:
         downloader = HTTPDownloader(config)
 
         url = "https://help.alteryx.com/current/en/designer/tools.html"
-        
+
         # Create an existing file at the expected location
         sanitized_path = sanitize_url_path(url)
         file_path = temp_output_dir / sanitized_path
@@ -394,10 +394,10 @@ class TestForceFlag:
         assert result.skipped is True
         assert "already exists" in result.error_message
         assert result.file_path == str(file_path)
-        
+
         # File should still have original content
         assert file_path.read_bytes() == existing_content
-        
+
         # HTTP request should not have been made
         assert len(respx.calls) == 0
 
@@ -408,7 +408,7 @@ class TestForceFlag:
         downloader = HTTPDownloader(config)
 
         url = "https://help.alteryx.com/current/en/designer/tools.html"
-        
+
         # Create an existing file at the expected location
         sanitized_path = sanitize_url_path(url)
         file_path = temp_output_dir / sanitized_path
@@ -432,10 +432,10 @@ class TestForceFlag:
         assert result.success is True
         assert result.skipped is False
         assert result.file_path == str(file_path)
-        
+
         # File should have new content
         assert file_path.read_bytes() == new_content
-        
+
         # HTTP request should have been made
         assert len(respx.calls) == 1
 
@@ -446,7 +446,7 @@ class TestForceFlag:
         downloader = HTTPDownloader(config)
 
         url = "https://help.alteryx.com/current/en/designer/tools.html"
-        
+
         # Mock a response
         content = b"<html><body>new content</body></html>"
         respx.get(url).mock(
@@ -462,12 +462,12 @@ class TestForceFlag:
         # Should succeed
         assert result.success is True
         assert result.skipped is False
-        
+
         # File should be created with content
         sanitized_path = sanitize_url_path(url)
         file_path = temp_output_dir / sanitized_path
         assert file_path.exists()
         assert file_path.read_bytes() == content
-        
+
         # HTTP request should have been made
         assert len(respx.calls) == 1
