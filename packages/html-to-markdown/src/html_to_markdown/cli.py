@@ -11,6 +11,7 @@ from .strategies.docling_adapter import DoclingStrategy
 from .strategies.markdownify_adapter import MarkdownifyStrategy
 from .strategies.pandoc_adapter import PandocStrategy
 from .metrics import extract_html_stats, score_conversion
+from .evaluator import evaluate as run_evaluation, DEFAULT_THRESHOLDS
 
 
 StrategyType = type[Any]
@@ -95,11 +96,27 @@ def batch(
 
 @app.command("evaluate")
 def evaluate(
-    input_dir: str = typer.Argument(..., help="Directory of converted Markdown files"),
-    report_path: str = typer.Option(..., "--report", help="Path to write evaluation report"),
+    source_dir: str = typer.Option(..., "--source-dir", help="Directory containing original HTML files"),
+    converted_dir: str = typer.Option(..., "--converted-dir", help="Directory containing converted Markdown files"),
+    out_base: str = typer.Option("evaluation", "--out-base", help="Directory to write evaluation artifacts (JSON/CSV/MD)"),
+    heading_threshold: float = typer.Option(DEFAULT_THRESHOLDS["heading_fidelity"], "--thr-headings", help="Heading fidelity threshold"),
+    link_threshold: float = typer.Option(DEFAULT_THRESHOLDS["link_preservation"], "--thr-links", help="Link preservation threshold"),
+    table_threshold: float = typer.Option(DEFAULT_THRESHOLDS["table_preservation"], "--thr-tables", help="Table preservation threshold"),
+    code_threshold: float = typer.Option(DEFAULT_THRESHOLDS["code_block_integrity"], "--thr-code", help="Code block integrity threshold"),
+    image_threshold: float = typer.Option(DEFAULT_THRESHOLDS["image_alt_coverage"], "--thr-images", help="Image alt coverage threshold"),
 ):
-    """Evaluate converted Markdown files (stub)."""
-    typer.echo(f"[stub] Evaluate: {input_dir} -> report={report_path}")
+    """Evaluate converted Markdown against original HTML and generate JSON/CSV/Markdown reports."""
+    thresholds = {
+        "heading_fidelity": heading_threshold,
+        "link_preservation": link_threshold,
+        "table_preservation": table_threshold,
+        "code_block_integrity": code_threshold,
+        "image_alt_coverage": image_threshold,
+    }
+    report = run_evaluation(Path(source_dir), Path(converted_dir), Path(out_base), thresholds)
+    flagged = report.get("flagged_count", 0)
+    total = report.get("file_count", 0)
+    typer.echo(f"Evaluated {total} files. Flagged {flagged} below thresholds. Reports in {out_base}/")
 
 
 @app.command("benchmark")
