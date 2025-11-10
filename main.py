@@ -329,12 +329,18 @@ def sitemap_download(
         raise typer.Exit(code=1)
 
 # Register html-to-markdown CLI (Phase 1 scaffold)
+# Note: This feature exposes multiple nested subcommands (convert, batch, evaluate),
+# so we register it as a Typer sub-app via `app.add_typer(...)` instead of using
+# a single `@app.command` wrapper. Other features here are single top-level commands
+# and thus use `@app.command` for a flatter CLI. This follows Typer's recommended
+# pattern for nested CLIs and aligns with Constitution Principle IX (single main
+# entry point with feature apps registered as subcommands).
 try:
     from html_to_markdown import app as html_to_markdown_app
     app.add_typer(html_to_markdown_app, name="html-to-markdown", help="Convert HTML to Markdown (stub phase)")
 except Exception as e:  # pragma: no cover - safeguard during scaffold
     # Defer import errors until feature fully implemented
-    warnings.warn(f"Failed to load html-to-markdown CLI: {e}")
+    warnings.warn(f"Failed to load html-to-markdown CLI: {e}", stacklevel=2)
 
 
 if __name__ == "__main__":
