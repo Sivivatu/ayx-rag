@@ -39,10 +39,20 @@ def evaluate_pair(html_path: Path, md_path: Path, thresholds: Dict[str, float]) 
 
 
 def find_pairs(source_dir: Path, converted_dir: Path) -> Iterable[tuple[Path, Path]]:
-    for md_file in converted_dir.rglob("*.md"):
-        html_file = source_dir / (md_file.stem + ".html")
-        if html_file.exists():
-            yield html_file, md_file
+    """Yield (html_path, md_path) pairs.
+
+    Primary mapping preserves relative directory structure: foo/bar.html -> foo/bar.md.
+    Fallback mapping supports flat outputs (legacy): bar.html -> bar.md at converted root.
+    """
+    for html_file in source_dir.rglob("*.html"):
+        rel = html_file.relative_to(source_dir)
+        md_candidate = (converted_dir / rel).with_suffix(".md")
+        if md_candidate.exists():
+            yield html_file, md_candidate
+            continue
+        flat_candidate = converted_dir / (html_file.stem + ".md")
+        if flat_candidate.exists():
+            yield html_file, flat_candidate
 
 
 def aggregate(evals: List[FileEvaluation]) -> Dict[str, Any]:

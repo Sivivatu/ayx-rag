@@ -84,7 +84,9 @@ def batch(
     for idx, f in enumerate(html_files, 1):
         html = f.read_text(encoding="utf-8")
         md = strategy.convert(html)
-        out_path = out_dir / (f.stem + ".md")
+        rel = f.relative_to(in_dir)
+        out_path = (out_dir / rel).with_suffix(".md")
+        out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(md, encoding="utf-8")
         converted += 1
         if idx % 10 == 0 or idx == total:
