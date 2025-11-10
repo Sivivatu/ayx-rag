@@ -5,6 +5,7 @@ description = "Convert Alteryx help HTML to Markdown with evaluation"
 requires-python = ">=3.10"
 dependencies = [
     # Final conversion library added after research phase (e.g., docling or pandoc wrapper)
+    "markdownify>=1.2.0",
 ]
 
 [dependency-groups]
