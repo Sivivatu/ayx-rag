@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import time
 from pathlib import Path
 from typing import Any
@@ -9,6 +10,7 @@ import typer
 from .strategies.docling_adapter import DoclingStrategy
 from .strategies.markdownify_adapter import MarkdownifyStrategy
 from .strategies.pandoc_adapter import PandocStrategy
+from .metrics import extract_html_stats, score_conversion
 
 
 StrategyType = type[Any]
@@ -104,8 +106,9 @@ def evaluate(
 def benchmark(
     input_dir: str = typer.Argument(..., help="Directory containing representative HTML files"),
     strategy_name: str | None = typer.Option(None, "--strategy", help="Single strategy to benchmark; defaults to all"),
+    json_out: str | None = typer.Option(None, "--json", help="Path to write JSON benchmark report"),
 ):
-    """Run lightweight timing benchmark for one or all strategies."""
+    """Run timing + fidelity benchmark for one or all strategies and optionally persist JSON."""
     classes = _all_strategy_classes() if strategy_name is None else [
         _get_strategy(strategy_name).__class__  # type: ignore[misc]
     ]
@@ -113,23 +116,47 @@ def benchmark(
     if not files:
         typer.echo("No HTML files found for benchmark.")
         raise typer.Exit(code=1)
+    report: dict[str, Any] = {"total_files": len(files), "strategies": []}
     for cls in classes:
         strategy = cls()
         if not strategy.available():
             typer.echo(f"Strategy {strategy.name}: unavailable")
+            report["strategies"].append({"name": strategy.name, "available": False})
             continue
         timings = []
+        aggregated_scores: dict[str, list[float]] = {}
         for f in files:
             html = f.read_text(encoding="utf-8")
+            stats = extract_html_stats(html)
             start = time.perf_counter()
-            _ = strategy.convert(html)
+            md = strategy.convert(html)
             elapsed_ms = (time.perf_counter() - start) * 1000
             timings.append(elapsed_ms)
+            score = score_conversion(stats, md)
+            for k, v in score.items():
+                aggregated_scores.setdefault(k, []).append(v)
         avg = sum(timings) / len(timings)
         max_t = max(timings)
+        # Aggregate metric means
+        metric_means = {k: (sum(v) / len(v) if v else 0.0) for k, v in aggregated_scores.items()}
+        overall = sum(metric_means.values()) / len(metric_means) if metric_means else 0.0
         typer.echo(
-            f"Benchmark {strategy.name}: files={len(files)} avg={avg:.1f}ms max={max_t:.1f}ms version={strategy.version()}"
+            f"Benchmark {strategy.name}: files={len(files)} avg={avg:.1f}ms max={max_t:.1f}ms overall={overall:.3f} version={strategy.version()}"
         )
+        report["strategies"].append(
+            {
+                "name": strategy.name,
+                "available": True,
+                "version": strategy.version(),
+                "avg_ms": avg,
+                "max_ms": max_t,
+                "metrics": metric_means,
+                "overall": overall,
+            }
+        )
+    if json_out:
+        Path(json_out).write_text(json.dumps(report, indent=2), encoding="utf-8")
+        typer.echo(f"Wrote benchmark JSON report to {json_out}")
 
 @app.command("strategies")
 def strategies():
