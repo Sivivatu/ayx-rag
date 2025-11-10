@@ -25,19 +25,13 @@ class ProgressTracker:
         self._session: DownloadSession | None = None
 
     def _build_progress(self) -> Progress:
-        # Some test shims may not be a real rich Console; fall back to a real Console
-        console_to_use = (
-            self.console
-            if isinstance(self.console, Console) and hasattr(self.console, "get_time")
-            else Console(stderr=True)
-        )
         return Progress(
             SpinnerColumn(style="cyan"),
             TextColumn("{task.description}", justify="left"),
             BarColumn(bar_width=None),
             TextColumn("{task.completed}/{task.total}", style="bold"),
             TimeElapsedColumn(),
-            console=console_to_use,
+            console=self.console,
             transient=True,
         )
 
