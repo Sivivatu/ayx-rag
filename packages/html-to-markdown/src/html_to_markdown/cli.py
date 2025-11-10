@@ -2,10 +2,32 @@ from __future__ import annotations
 
 import time
 from pathlib import Path
+from typing import Any
 
 import typer
 
+from .strategies.docling_adapter import DoclingStrategy
 from .strategies.markdownify_adapter import MarkdownifyStrategy
+from .strategies.pandoc_adapter import PandocStrategy
+
+
+StrategyType = type[Any]
+
+
+def _all_strategy_classes() -> list[StrategyType]:
+    # Order: fast/lightweight first, then external binary, then heavy lib
+    return [
+        MarkdownifyStrategy,
+        PandocStrategy,
+        DoclingStrategy,
+    ]
+
+
+def _get_strategy(name: str):
+    for cls in _all_strategy_classes():
+        if getattr(cls, "name", "") == name:
+            return cls()
+    raise typer.BadParameter(f"Unknown strategy '{name}'")
 
 app = typer.Typer(name="html-to-markdown", help="Convert HTML to Markdown with evaluation tools")
 
@@ -14,9 +36,12 @@ app = typer.Typer(name="html-to-markdown", help="Convert HTML to Markdown with e
 def convert(
     input_path: str = typer.Argument(..., help="Path to input HTML file"),
     output_dir: str | None = typer.Option(None, "--out", help="Output directory for Markdown"),
+    strategy_name: str = typer.Option("markdownify", "--strategy", show_default=True, help="Conversion strategy"),
 ):
-    """Convert a single HTML file to Markdown (markdownify stub)."""
-    strategy = MarkdownifyStrategy()
+    """Convert a single HTML file to Markdown using selected strategy."""
+    strategy = _get_strategy(strategy_name)
+    if not strategy.available():
+        raise typer.Exit(code=2)
     html = Path(input_path).read_text(encoding="utf-8")
     start = time.perf_counter()
     md = strategy.convert(html)
@@ -37,9 +62,12 @@ def batch(
     output_dir: str = typer.Option(..., "--out", help="Output directory for Markdown"),
     summary_path: str | None = typer.Option(None, "--summary", help="Path to write JSON summary"),
     resume: bool = typer.Option(False, "--resume", help="Resume from checkpoint if available"),
+    strategy_name: str = typer.Option("markdownify", "--strategy", show_default=True, help="Conversion strategy"),
 ):
-    """Batch convert HTML files with simple timing (markdownify stub)."""
-    strategy = MarkdownifyStrategy()
+    """Batch convert HTML files with simple timing using selected strategy."""
+    strategy = _get_strategy(strategy_name)
+    if not strategy.available():
+        raise typer.Exit(code=2)
     in_dir = Path(input_dir)
     out_dir = Path(output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -75,23 +103,39 @@ def evaluate(
 @app.command("benchmark")
 def benchmark(
     input_dir: str = typer.Argument(..., help="Directory containing representative HTML files"),
+    strategy_name: str | None = typer.Option(None, "--strategy", help="Single strategy to benchmark; defaults to all"),
 ):
-    """Run a lightweight benchmark on markdownify strategy (timing only)."""
-    strategy = MarkdownifyStrategy()
-    if not strategy.available():
-        typer.echo("markdownify not available")
-        raise typer.Exit(code=2)
+    """Run lightweight timing benchmark for one or all strategies."""
+    classes = _all_strategy_classes() if strategy_name is None else [
+        _get_strategy(strategy_name).__class__  # type: ignore[misc]
+    ]
     files = list(Path(input_dir).rglob("*.html"))
     if not files:
         typer.echo("No HTML files found for benchmark.")
         raise typer.Exit(code=1)
-    timings = []
-    for f in files:
-        html = f.read_text(encoding="utf-8")
-        start = time.perf_counter()
-        _ = strategy.convert(html)
-        elapsed_ms = (time.perf_counter() - start) * 1000
-        timings.append(elapsed_ms)
-    avg = sum(timings) / len(timings)
-    max_t = max(timings)
-    typer.echo(f"Benchmark markdownify: files={len(files)} avg={avg:.1f}ms max={max_t:.1f}ms")
+    for cls in classes:
+        strategy = cls()
+        if not strategy.available():
+            typer.echo(f"Strategy {strategy.name}: unavailable")
+            continue
+        timings = []
+        for f in files:
+            html = f.read_text(encoding="utf-8")
+            start = time.perf_counter()
+            _ = strategy.convert(html)
+            elapsed_ms = (time.perf_counter() - start) * 1000
+            timings.append(elapsed_ms)
+        avg = sum(timings) / len(timings)
+        max_t = max(timings)
+        typer.echo(
+            f"Benchmark {strategy.name}: files={len(files)} avg={avg:.1f}ms max={max_t:.1f}ms version={strategy.version()}"
+        )
+
+@app.command("strategies")
+def strategies():
+    """List all known strategies with availability."""
+    for cls in _all_strategy_classes():
+        s = cls()
+        typer.echo(
+            f"{s.name}: available={s.available()} version={s.version()} tables={s.supports_tables()} code_lang={s.supports_code_lang()}"
+        )
