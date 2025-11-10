@@ -266,6 +266,25 @@ See [constitution.md](.specify/memory/constitution.md) for detailed requirements
 - **CLI Framework**: typer (type-hint based)
 - **Logging**: loguru (structured logging)
 
+## CLI Structure & Registration
+
+This project uses a single entry point (`main.py`) that wires feature CLIs under one umbrella, per Constitution Principle IX.
+
+- Single-action features use `@app.command` wrappers in `main.py` for a flat CLI (e.g., `sitemap-download`, `page-downloader`, `sitemap-filter`).
+- Multi-command features expose a Typer sub-app and are registered with `app.add_typer(...)` to support nested subcommands.
+
+Example:
+
+- `html-to-markdown` is a feature with multiple subcommands (`convert`, `batch`, `evaluate`), so it is registered as a nested Typer app:
+
+```python
+# main.py (excerpt)
+from html_to_markdown import app as html_to_markdown_app
+app.add_typer(html_to_markdown_app, name="html-to-markdown", help="Convert HTML to Markdown")
+```
+
+This follows Typer’s recommended pattern for nested CLIs and keeps the top-level help concise while enabling rich subcommands for complex features.
+
 ## Git Commit Conventions
 
 All commits MUST follow [Conventional Commits](https://www.conventionalcommits.org/) format:
