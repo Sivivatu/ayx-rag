@@ -22,7 +22,7 @@ lint-fix:  ## Auto-fix linting issues
 	uv run ruff check --fix .
 
 test:  ## Run all tests
-	uv run pytest
+	uv run pytest --import-mode=prepend
 
 test-cov:  ## Run tests with coverage
 	uv run pytest --cov=packages/sitemap-filter/src --cov=packages/sitemap-download/src --cov=packages/page-downloader/src --cov-report=term-missing --cov-fail-under=80
