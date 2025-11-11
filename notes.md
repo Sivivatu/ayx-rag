@@ -4,3 +4,4 @@
 3. format of the json file isn't recognised by the page downloader as it expects only a list of urls not the formatted schema that the json output provides. 
 4. should i make the cert check a warning rather than error?
 5. need to reorder the readme quickstart to reflect the proper order of sitemap download -> filter -> page download -> html convert
+6. create a scraper for the alteryx knowledge base at knowledge.alteryx.com
