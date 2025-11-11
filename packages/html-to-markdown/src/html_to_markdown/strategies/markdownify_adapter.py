@@ -4,6 +4,7 @@ from typing import Optional
 
 try:
     import markdownify as md
+
     _MD_AVAILABLE = True
     _MD_VERSION: Optional[str] = getattr(md, "__version__", "unknown")
 except Exception:  # pragma: no cover - optional dep detection

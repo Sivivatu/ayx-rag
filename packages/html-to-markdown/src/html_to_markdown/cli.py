@@ -32,6 +32,7 @@ def _get_strategy(name: str):
             return cls()
     raise typer.BadParameter(f"Unknown strategy '{name}'")
 
+
 app = typer.Typer(name="html-to-markdown", help="Convert HTML to Markdown with evaluation tools")
 
 
@@ -39,7 +40,9 @@ app = typer.Typer(name="html-to-markdown", help="Convert HTML to Markdown with e
 def convert(
     input_path: str = typer.Argument(..., help="Path to input HTML file"),
     output_dir: str | None = typer.Option(None, "--out", help="Output directory for Markdown"),
-    strategy_name: str = typer.Option("markdownify", "--strategy", show_default=True, help="Conversion strategy"),
+    strategy_name: str = typer.Option(
+        "markdownify", "--strategy", show_default=True, help="Conversion strategy"
+    ),
 ):
     """Convert a single HTML file to Markdown using selected strategy."""
     strategy = _get_strategy(strategy_name)
@@ -54,7 +57,9 @@ def convert(
         out_dir.mkdir(parents=True, exist_ok=True)
         out_path = out_dir / (Path(input_path).stem + ".md")
         out_path.write_text(md, encoding="utf-8")
-        typer.echo(f"Converted {input_path} -> {out_path} in {duration:.1f}ms using {strategy.name}")
+        typer.echo(
+            f"Converted {input_path} -> {out_path} in {duration:.1f}ms using {strategy.name}"
+        )
     else:
         typer.echo(md)
 
@@ -65,7 +70,9 @@ def batch(
     output_dir: str = typer.Option(..., "--out", help="Output directory for Markdown"),
     summary_path: str | None = typer.Option(None, "--summary", help="Path to write JSON summary"),
     resume: bool = typer.Option(False, "--resume", help="Resume from checkpoint if available"),
-    strategy_name: str = typer.Option("markdownify", "--strategy", show_default=True, help="Conversion strategy"),
+    strategy_name: str = typer.Option(
+        "markdownify", "--strategy", show_default=True, help="Conversion strategy"
+    ),
 ):
     """Batch convert HTML files with simple timing using selected strategy."""
     strategy = _get_strategy(strategy_name)
@@ -91,21 +98,45 @@ def batch(
         converted += 1
         if idx % 10 == 0 or idx == total:
             elapsed = time.perf_counter() - t_start
-            typer.echo(f"Progress: {idx}/{total} ({(idx/total)*100:.1f}%) elapsed={elapsed:.1f}s")
+            typer.echo(
+                f"Progress: {idx}/{total} ({(idx / total) * 100:.1f}%) elapsed={elapsed:.1f}s"
+            )
     duration = time.perf_counter() - t_start
     typer.echo(f"Batch complete: {converted}/{total} in {duration:.2f}s (strategy={strategy.name})")
 
 
 @app.command("evaluate")
 def evaluate(
-    source_dir: str = typer.Option(..., "--source-dir", help="Directory containing original HTML files"),
-    converted_dir: str = typer.Option(..., "--converted-dir", help="Directory containing converted Markdown files"),
-    out_base: str = typer.Option("evaluation", "--out-base", help="Directory to write evaluation artifacts (JSON/CSV/MD)"),
-    heading_threshold: float = typer.Option(DEFAULT_THRESHOLDS["heading_fidelity"], "--thr-headings", help="Heading fidelity threshold"),
-    link_threshold: float = typer.Option(DEFAULT_THRESHOLDS["link_preservation"], "--thr-links", help="Link preservation threshold"),
-    table_threshold: float = typer.Option(DEFAULT_THRESHOLDS["table_preservation"], "--thr-tables", help="Table preservation threshold"),
-    code_threshold: float = typer.Option(DEFAULT_THRESHOLDS["code_block_integrity"], "--thr-code", help="Code block integrity threshold"),
-    image_threshold: float = typer.Option(DEFAULT_THRESHOLDS["image_alt_coverage"], "--thr-images", help="Image alt coverage threshold"),
+    source_dir: str = typer.Option(
+        ..., "--source-dir", help="Directory containing original HTML files"
+    ),
+    converted_dir: str = typer.Option(
+        ..., "--converted-dir", help="Directory containing converted Markdown files"
+    ),
+    out_base: str = typer.Option(
+        "evaluation", "--out-base", help="Directory to write evaluation artifacts (JSON/CSV/MD)"
+    ),
+    heading_threshold: float = typer.Option(
+        DEFAULT_THRESHOLDS["heading_fidelity"], "--thr-headings", help="Heading fidelity threshold"
+    ),
+    link_threshold: float = typer.Option(
+        DEFAULT_THRESHOLDS["link_preservation"], "--thr-links", help="Link preservation threshold"
+    ),
+    table_threshold: float = typer.Option(
+        DEFAULT_THRESHOLDS["table_preservation"],
+        "--thr-tables",
+        help="Table preservation threshold",
+    ),
+    code_threshold: float = typer.Option(
+        DEFAULT_THRESHOLDS["code_block_integrity"],
+        "--thr-code",
+        help="Code block integrity threshold",
+    ),
+    image_threshold: float = typer.Option(
+        DEFAULT_THRESHOLDS["image_alt_coverage"],
+        "--thr-images",
+        help="Image alt coverage threshold",
+    ),
 ):
     """Evaluate converted Markdown against original HTML and generate JSON/CSV/Markdown reports."""
     thresholds = {
@@ -118,19 +149,27 @@ def evaluate(
     report = run_evaluation(Path(source_dir), Path(converted_dir), Path(out_base), thresholds)
     flagged = report.get("flagged_count", 0)
     total = report.get("file_count", 0)
-    typer.echo(f"Evaluated {total} files. Flagged {flagged} below thresholds. Reports in {out_base}/")
+    typer.echo(
+        f"Evaluated {total} files. Flagged {flagged} below thresholds. Reports in {out_base}/"
+    )
 
 
 @app.command("benchmark")
 def benchmark(
     input_dir: str = typer.Argument(..., help="Directory containing representative HTML files"),
-    strategy_name: str | None = typer.Option(None, "--strategy", help="Single strategy to benchmark; defaults to all"),
+    strategy_name: str | None = typer.Option(
+        None, "--strategy", help="Single strategy to benchmark; defaults to all"
+    ),
     json_out: str | None = typer.Option(None, "--json", help="Path to write JSON benchmark report"),
 ):
     """Run timing + fidelity benchmark for one or all strategies and optionally persist JSON."""
-    classes = _all_strategy_classes() if strategy_name is None else [
-        _get_strategy(strategy_name).__class__  # type: ignore[misc]
-    ]
+    classes = (
+        _all_strategy_classes()
+        if strategy_name is None
+        else [
+            _get_strategy(strategy_name).__class__  # type: ignore[misc]
+        ]
+    )
     files = list(Path(input_dir).rglob("*.html"))
     if not files:
         typer.echo("No HTML files found for benchmark.")
@@ -176,6 +215,7 @@ def benchmark(
     if json_out:
         Path(json_out).write_text(json.dumps(report, indent=2), encoding="utf-8")
         typer.echo(f"Wrote benchmark JSON report to {json_out}")
+
 
 @app.command("strategies")
 def strategies():

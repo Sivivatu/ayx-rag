@@ -21,12 +21,7 @@ def test_evaluate_cli_generates_reports(tmp_path: Path):
         "<pre><code>print('hi')</code></pre>"
         "</body></html>"
     )
-    md = (
-        "# T\n## S\n[x](/x)\n"
-        "| c1 |\n| --- |\n| 1 |\n"
-        "![A](a.png)\n"
-        "```python\nprint('hi')\n```\n"
-    )
+    md = "# T\n## S\n[x](/x)\n| c1 |\n| --- |\n| 1 |\n![A](a.png)\n```python\nprint('hi')\n```\n"
     (source_dir / "doc.html").write_text(html, encoding="utf-8")
     (converted_dir / "doc.md").write_text(md, encoding="utf-8")
 

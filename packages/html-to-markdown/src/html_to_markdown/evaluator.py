@@ -35,7 +35,13 @@ def evaluate_pair(html_path: Path, md_path: Path, thresholds: Dict[str, float]) 
     metrics = score_conversion(stats, md)
     overall = sum(metrics.values()) / len(metrics) if metrics else 0.0
     failed = [m for m, v in metrics.items() if v < thresholds.get(m, 0.0)]
-    return FileEvaluation(source_path=html_path, markdown_path=md_path, metrics=metrics, overall=overall, failed_metrics=failed)
+    return FileEvaluation(
+        source_path=html_path,
+        markdown_path=md_path,
+        metrics=metrics,
+        overall=overall,
+        failed_metrics=failed,
+    )
 
 
 def find_pairs(source_dir: Path, converted_dir: Path) -> Iterable[tuple[Path, Path]]:
@@ -72,7 +78,13 @@ def write_json(report_path: Path, data: Dict[str, Any]) -> None:
 
 
 def write_csv(csv_path: Path, evals: List[FileEvaluation]) -> None:
-    fieldnames = ["source_path", "markdown_path", "overall"] + list(evals[0].metrics.keys()) + ["failed_metrics"] if evals else []
+    fieldnames = (
+        ["source_path", "markdown_path", "overall"]
+        + list(evals[0].metrics.keys())
+        + ["failed_metrics"]
+        if evals
+        else []
+    )
     with csv_path.open("w", newline="", encoding="utf-8") as f:
         if not evals:
             f.write("source_path,markdown_path,overall\n")
@@ -91,7 +103,9 @@ def write_csv(csv_path: Path, evals: List[FileEvaluation]) -> None:
             writer.writerow(row)
 
 
-def write_markdown(md_path: Path, evals: List[FileEvaluation], agg: Dict[str, Any], thresholds: Dict[str, float]) -> None:
+def write_markdown(
+    md_path: Path, evals: List[FileEvaluation], agg: Dict[str, Any], thresholds: Dict[str, float]
+) -> None:
     lines = ["# Evaluation Report", "", f"Generated: {datetime.utcnow().isoformat()}Z", ""]
     if not evals:
         lines.append("No files evaluated.")
@@ -118,7 +132,12 @@ def write_markdown(md_path: Path, evals: List[FileEvaluation], agg: Dict[str, An
     md_path.write_text("\n".join(lines), encoding="utf-8")
 
 
-def evaluate(source_dir: Path, converted_dir: Path, out_base: Path, thresholds: Dict[str, float] | None = None) -> Dict[str, Any]:
+def evaluate(
+    source_dir: Path,
+    converted_dir: Path,
+    out_base: Path,
+    thresholds: Dict[str, float] | None = None,
+) -> Dict[str, Any]:
     thresholds = thresholds or DEFAULT_THRESHOLDS
     out_base.mkdir(parents=True, exist_ok=True)
     pairs = list(find_pairs(source_dir, converted_dir))
