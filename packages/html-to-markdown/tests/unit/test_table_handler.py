@@ -1,7 +1,5 @@
 """Unit tests for table handling."""
 
-import pytest
-
 from html_to_markdown.table_handler import (
     TableAnalyzer,
     extract_table_cells,

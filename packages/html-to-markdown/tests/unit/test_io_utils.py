@@ -3,7 +3,6 @@
 from pathlib import Path
 
 import pytest
-
 from html_to_markdown.io_utils import (
     compute_hash,
     discover_html_files,

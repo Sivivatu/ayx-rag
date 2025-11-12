@@ -3,15 +3,13 @@
 from __future__ import annotations
 
 import hashlib
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Iterator
 
 from .models import SourceDocument
 
 
-def discover_html_files(
-    source_dir: Path, exclusions: list[str] | None = None
-) -> Iterator[Path]:
+def discover_html_files(source_dir: Path, exclusions: list[str] | None = None) -> Iterator[Path]:
     """
     Discover HTML files in directory, respecting exclusions.
 

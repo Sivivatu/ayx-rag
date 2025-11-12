@@ -146,7 +146,9 @@ class EvaluationReport:
             "avg_heading_fidelity": sum(m.heading_fidelity_pct for m in self.metrics) / total,
             "avg_link_preservation": sum(m.link_preservation_pct for m in self.metrics) / total,
             "avg_table_preservation": sum(
-                m.table_preservation_pct for m in self.metrics if m.table_preservation_pct is not None
+                m.table_preservation_pct
+                for m in self.metrics
+                if m.table_preservation_pct is not None
             )
             / sum(1 for m in self.metrics if m.table_preservation_pct is not None)
             if any(m.table_preservation_pct is not None for m in self.metrics)
@@ -160,7 +162,9 @@ class EvaluationReport:
             if any(m.code_block_integrity_pct is not None for m in self.metrics)
             else None,
             "avg_image_alt_coverage": sum(
-                m.image_alt_coverage_pct for m in self.metrics if m.image_alt_coverage_pct is not None
+                m.image_alt_coverage_pct
+                for m in self.metrics
+                if m.image_alt_coverage_pct is not None
             )
             / sum(1 for m in self.metrics if m.image_alt_coverage_pct is not None)
             if any(m.image_alt_coverage_pct is not None for m in self.metrics)

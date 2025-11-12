@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 
 import pytest
-
 from html_to_markdown.config import DEFAULT_CONFIG, load_config, save_config
 from html_to_markdown.models import ConversionConfig
 

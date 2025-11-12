@@ -8,7 +8,6 @@ from typing import Any
 
 from .models import ConversionConfig
 
-
 DEFAULT_CONFIG = ConversionConfig()
 
 
