@@ -9,7 +9,6 @@ import typer
 
 from .strategies.docling_adapter import DoclingStrategy
 from .strategies.markdownify_adapter import MarkdownifyStrategy
-from .strategies.pandoc_adapter import PandocStrategy
 from .metrics import extract_html_stats, score_conversion
 from .evaluator import evaluate as run_evaluation, DEFAULT_THRESHOLDS
 
@@ -18,10 +17,9 @@ StrategyType = type[Any]
 
 
 def _all_strategy_classes() -> list[StrategyType]:
-    # Order: fast/lightweight first, then external binary, then heavy lib
+    # Order: fast/lightweight first, then heavy lib
     return [
         MarkdownifyStrategy,
-        PandocStrategy,
         DoclingStrategy,
     ]
 

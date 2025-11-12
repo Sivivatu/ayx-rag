@@ -395,14 +395,12 @@ source = { editable = "packages/html-to-markdown" }
 dependencies = [
     { name = "docling" },
     { name = "markdownify" },
-    { name = "pypandoc" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "docling", specifier = ">=2.61.2,<3.0.0" },
     { name = "markdownify", specifier = ">=0.13.0" },
-    { name = "pypandoc", specifier = ">=1.13" },
 ]
 
 [package.metadata.requires-dev]
@@ -1257,14 +1255,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/0f/5a/07cdead5adb77d074
 wheels = [
     { url = "https://files.pythonhosted.org/packages/36/22/b2962283d4d90efee7ecee0712963810ac02fd08646f6f0ec11fb2e23c47/pyobjc_framework_vision-12.0-cp314-cp314-macosx_10_15_universal2.whl", hash = "sha256:56aae4cb8dd72838c22450c1adc8b5acd2bba9138e116a651e910c4e24293ad9", size = 16623, upload-time = "2025-10-21T08:24:27.463Z" },
     { url = "https://files.pythonhosted.org/packages/94/d2/bc004c6c0a16b2a4eef6a7964ea3f712014c0a94c4ceb9ddaba0c6e2d72c/pyobjc_framework_vision-12.0-cp314-cp314t-macosx_10_15_universal2.whl", hash = "sha256:177c996e547a581f7c3ac2502325c1af6db1edbe5f85e9297f5a76df2e33efbf", size = 16780, upload-time = "2025-10-21T08:24:29.75Z" },
-]
-
-[[package]]
-name = "pypandoc"
-version = "1.16"
-source = { registry = "https://pypi.org/simple" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/24/77/af1fc54740a0712988f9518e629d38edc7b8ffccd7549203f19c3d8a2db6/pypandoc-1.16-py3-none-any.whl", hash = "sha256:868f390d48388743e7a5885915cbbaa005dea36a825ecdfd571f8c523416c822", size = 19425, upload-time = "2025-11-08T15:44:38.429Z" },
 ]
 
 [[package]]
