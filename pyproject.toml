@@ -12,7 +12,7 @@ dependencies = [
     "rich>=14.2.0",
     "typer>=0.19.2",
     "loguru>=0.7.3",
-    "tomli>=2.0.1; python_version < '3.11'", # TODO: is this actually locked to the new python? docs say 3.8+
+    "tomli>=2.0.1; python_version < '3.11'",
 ]
 
 [tool.uv.workspace]
