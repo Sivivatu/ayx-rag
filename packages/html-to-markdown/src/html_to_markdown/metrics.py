@@ -77,3 +77,37 @@ def score_conversion(original: HtmlStats, converted_md: str) -> dict[str, float]
         "image_alt_coverage": ratio(image_md, original.images),
         "code_block_integrity": ratio(fence_md, original.code_blocks),
     }
+
+
+DEFAULT_WEIGHTS = {
+    "heading_fidelity": 0.25,
+    "link_preservation": 0.25,
+    "table_preservation": 0.20,
+    "code_block_integrity": 0.15,
+    "image_alt_coverage": 0.15,
+}
+
+
+def compute_weighted_score(metrics: dict[str, float], weights: dict[str, float] | None = None) -> float:
+    """Compute weighted overall score from individual metrics.
+    
+    Args:
+        metrics: Individual metric scores (0.0-1.0)
+        weights: Weight for each metric (must sum to 1.0)
+    
+    Returns:
+        Weighted score between 0.0 and 1.0
+    """
+    weights = weights or DEFAULT_WEIGHTS
+    
+    # Normalize weights if they don't sum to 1.0
+    total_weight = sum(weights.values())
+    if abs(total_weight - 1.0) > 0.001:
+        weights = {k: v / total_weight for k, v in weights.items()}
+    
+    score = 0.0
+    for metric, value in metrics.items():
+        weight = weights.get(metric, 0.0)
+        score += value * weight
+    
+    return score
