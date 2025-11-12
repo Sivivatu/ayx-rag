@@ -38,6 +38,11 @@ clean:  ## Clean temporary files
 
 server-build:
 	uv run main.py sitemap-download
-	uv run main.py sitemap-filter alteryx-help-current-sitemap.xml --language en --product server -f json --output downloads/urls/sitemap-filtered-server.json
-	uv run main.py page-downloader downloads/urls/sitemap-filtered-server-short.txt --no-verify-ssl
-	
+	uv run main.py sitemap-filter alteryx-help-current-sitemap.xml --language en --product server --output downloads/urls/sitemap-filtered-server.txt
+	uv run main.py page-downloader downloads/urls/sitemap-filtered-server.txt --no-verify-ssl
+	uv run python main.py html-to-markdown batch downloads/current/en/server/ --out converted/
+
+server-no-update:
+	uv run main.py sitemap-filter alteryx-help-current-sitemap.xml --language en --product server --output downloads/urls/sitemap-filtered-server.txt
+	uv run main.py page-downloader downloads/urls/sitemap-filtered-server.txt --no-verify-ssl
+	uv run python main.py html-to-markdown batch downloads/current/en/server/ --out converted/
