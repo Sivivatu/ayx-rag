@@ -284,6 +284,7 @@ def batch(
 
 
 @app.command("evaluate")
+@app.command("evaluate")
 def evaluate(
     source_dir: str = typer.Option(
         ..., "--source-dir", help="Directory containing original HTML files"
@@ -293,6 +294,9 @@ def evaluate(
     ),
     out_base: str = typer.Option(
         "evaluation", "--out-base", help="Directory to write evaluation artifacts (JSON/CSV/MD)"
+    ),
+    timestamped: bool = typer.Option(
+        False, "--timestamped", help="Add timestamp suffix to output filenames"
     ),
     heading_threshold: float = typer.Option(
         DEFAULT_THRESHOLDS["heading_fidelity"], "--thr-headings", help="Heading fidelity threshold"
@@ -324,7 +328,9 @@ def evaluate(
         "code_block_integrity": code_threshold,
         "image_alt_coverage": image_threshold,
     }
-    report = run_evaluation(Path(source_dir), Path(converted_dir), Path(out_base), thresholds)
+    report = run_evaluation(
+        Path(source_dir), Path(converted_dir), Path(out_base), thresholds, timestamped
+    )
     flagged = report.get("flagged_count", 0)
     total = report.get("file_count", 0)
     typer.echo(

@@ -8,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from .metrics import extract_html_stats, score_conversion
+from .metrics import extract_html_stats, score_conversion, compute_weighted_score, DEFAULT_WEIGHTS
 
 DEFAULT_THRESHOLDS = {
     "heading_fidelity": 0.95,
@@ -33,7 +33,7 @@ def evaluate_pair(html_path: Path, md_path: Path, thresholds: dict[str, float]) 
     md = md_path.read_text(encoding="utf-8")
     stats = extract_html_stats(html)
     metrics = score_conversion(stats, md)
-    overall = sum(metrics.values()) / len(metrics) if metrics else 0.0
+    overall = compute_weighted_score(metrics)  # Use weighted score
     failed = [m for m, v in metrics.items() if v < thresholds.get(m, 0.0)]
     return FileEvaluation(
         source_path=html_path,
@@ -106,7 +106,7 @@ def write_csv(csv_path: Path, evals: list[FileEvaluation]) -> None:
 def write_markdown(
     md_path: Path, evals: list[FileEvaluation], agg: dict[str, Any], thresholds: dict[str, float]
 ) -> None:
-    lines = ["# Evaluation Report", "", f"Generated: {datetime.utcnow().isoformat()}Z", ""]
+    lines = ["# Evaluation Report", "", f"Generated: {datetime.now().isoformat()}Z", ""]
     if not evals:
         lines.append("No files evaluated.")
         md_path.write_text("\n".join(lines), encoding="utf-8")
@@ -137,6 +137,7 @@ def evaluate(
     converted_dir: Path,
     out_base: Path,
     thresholds: dict[str, float] | None = None,
+    timestamped: bool = False,
 ) -> dict[str, Any]:
     thresholds = thresholds or DEFAULT_THRESHOLDS
     out_base.mkdir(parents=True, exist_ok=True)
@@ -145,8 +146,9 @@ def evaluate(
     agg = aggregate(evals)
     flagged = sum(1 for e in evals if e.failed_metrics)
     percent_flagged = (flagged / len(evals) * 100) if evals else 0.0
+    now = datetime.now()
     report = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": now.isoformat() + "Z",
         "thresholds": thresholds,
         "file_count": len(evals),
         "flagged_count": flagged,
@@ -163,10 +165,16 @@ def evaluate(
             for e in evals
         ],
     }
-    # Write artifacts
-    json_path = out_base / "evaluation.json"
-    md_path = out_base / "evaluation.md"
-    csv_path = out_base / "evaluation.csv"
+    # Write artifacts with optional timestamps
+    if timestamped:
+        timestamp_suffix = now.strftime("%Y%m%d_%H%M%S")
+        json_path = out_base / f"evaluation_{timestamp_suffix}.json"
+        md_path = out_base / f"evaluation_{timestamp_suffix}.md"
+        csv_path = out_base / f"evaluation_{timestamp_suffix}.csv"
+    else:
+        json_path = out_base / "evaluation.json"
+        md_path = out_base / "evaluation.md"
+        csv_path = out_base / "evaluation.csv"
     write_json(json_path, report)
     write_markdown(md_path, evals, agg, thresholds)
     write_csv(csv_path, evals)
