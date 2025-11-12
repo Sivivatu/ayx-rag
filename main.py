@@ -336,9 +336,7 @@ def sitemap_download(
 try:
     from html_to_markdown import app as html_to_markdown_app
 
-    app.add_typer(
-        html_to_markdown_app, name="html-to-markdown", help="Convert HTML to Markdown"
-    )
+    app.add_typer(html_to_markdown_app, name="html-to-markdown", help="Convert HTML to Markdown")
 except Exception as e:  # pragma: no cover - safeguard during scaffold
     # Defer import errors until feature fully implemented
     warnings.warn(f"Failed to load html-to-markdown CLI: {e}", stacklevel=2)
