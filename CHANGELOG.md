@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2025-11-12
+
+### Performance
+- **Fixed Critical Startup Performance Issue** (html-to-markdown)
+  - Reduced CLI startup time from 3+ minutes to ~6 seconds (95-97% improvement)
+  - Implemented lazy loading for heavy dependencies (DoclingStrategy, MarkdownifyStrategy)
+  - Added deferred imports in all CLI commands (convert, batch, evaluate, benchmark)
+  - Implemented `__getattr__` in package `__init__.py` for lazy app export
+  - Changed evaluate command threshold parameters to optional with lazy loading
+  - Heavy ML/document libraries now only load when commands are executed
+  - Simple commands like `--help` now respond in ~6s instead of 3+ minutes
+
 ## [0.4.0] - 2025-11-12
 
 ### Added

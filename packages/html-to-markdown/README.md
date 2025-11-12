@@ -287,6 +287,9 @@ Multiple conversion libraries supported through adapter interface:
 
 ## Performance Characteristics
 
+- **CLI Startup**: ~6 seconds (includes uv run overhead and module imports)
+  - Heavy dependencies lazy-loaded only when commands execute
+  - Simple commands like `--help` respond quickly
 - **Single file**: <2s per standard page (<200KB), <1s average
 - **Batch throughput**: ≥25 files/min validated with 30-file test
 - **Memory efficiency**: Streaming parse for large HTML files
