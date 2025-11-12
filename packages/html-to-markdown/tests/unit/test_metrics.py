@@ -1,9 +1,9 @@
 from html_to_markdown.metrics import (
+    DEFAULT_WEIGHTS,
     HtmlStats,
+    compute_weighted_score,
     extract_html_stats,
     score_conversion,
-    compute_weighted_score,
-    DEFAULT_WEIGHTS,
 )
 
 

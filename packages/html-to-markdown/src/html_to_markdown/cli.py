@@ -284,7 +284,6 @@ def batch(
 
 
 @app.command("evaluate")
-@app.command("evaluate")
 def evaluate(
     source_dir: str = typer.Option(
         ..., "--source-dir", help="Directory containing original HTML files"

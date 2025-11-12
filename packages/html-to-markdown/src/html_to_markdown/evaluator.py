@@ -8,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from .metrics import extract_html_stats, score_conversion, compute_weighted_score, DEFAULT_WEIGHTS
+from .metrics import DEFAULT_WEIGHTS, compute_weighted_score, extract_html_stats, score_conversion
 
 DEFAULT_THRESHOLDS = {
     "heading_fidelity": 0.95,
