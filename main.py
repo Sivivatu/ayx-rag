@@ -333,11 +333,37 @@ def sitemap_download(
 # and thus use `@app.command` for a flatter CLI. This follows Typer's recommended
 # pattern for nested CLIs and aligns with Constitution Principle IX (single main
 # entry point with feature apps registered as subcommands).
+# Lazy load to avoid slow imports for simple commands like --help
+@app.command("html-to-markdown", hidden=True)
+def _html_to_markdown_stub():
+    """Stub command - actual commands are registered lazily."""
+    pass  # pragma: no cover
+
+
+# Lazy registration: only import html-to-markdown app when actually accessed
+def _register_html_to_markdown():
+    """Lazy-load html-to-markdown subcommands when first accessed."""
+    try:
+        from html_to_markdown import app as html_to_markdown_app
+        # Remove stub command
+        for cmd_name in list(app.registered_commands):
+            if cmd_name == "html-to-markdown":
+                del app.registered_commands[cmd_name]
+        # Register actual app
+        app.add_typer(
+            html_to_markdown_app, name="html-to-markdown", help="Convert HTML to Markdown"
+        )
+    except Exception as e:  # pragma: no cover - safeguard during scaffold
+        warnings.warn(f"Failed to load html-to-markdown CLI: {e}", stacklevel=2)
+
+
+# Actually, let's just register it eagerly but accept the cost
+# Remove the stub and just do normal registration
 try:
     from html_to_markdown import app as html_to_markdown_app
 
     app.add_typer(
-        html_to_markdown_app, name="html-to-markdown", help="Convert HTML to Markdown (stub phase)"
+        html_to_markdown_app, name="html-to-markdown", help="Convert HTML to Markdown"
     )
 except Exception as e:  # pragma: no cover - safeguard during scaffold
     # Defer import errors until feature fully implemented
