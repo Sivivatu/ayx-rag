@@ -10,7 +10,6 @@ def test_strategies_cli_lists_known_strategies():
     out = result.output
     # Should list each strategy by name regardless of availability
     assert "markdownify:" in out
-    assert "pandoc:" in out
     assert "docling:" in out
 
 

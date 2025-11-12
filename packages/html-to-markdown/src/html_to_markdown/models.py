@@ -40,6 +40,7 @@ class ConvertedDocument:
     converted_at: datetime
     front_matter: dict[str, Any] = field(default_factory=dict)
     body_hash: str | None = None  # Hash of Markdown body for idempotency
+    markdown_content: str | None = None  # Full Markdown content with front matter
 
     def to_front_matter_dict(self) -> dict[str, Any]:
         """Generate YAML front matter dictionary."""
