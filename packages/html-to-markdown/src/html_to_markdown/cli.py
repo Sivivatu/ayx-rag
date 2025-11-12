@@ -137,10 +137,7 @@ def batch(
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # Setup checkpoint path
-    if checkpoint_path:
-        chkpt_file = Path(checkpoint_path)
-    else:
-        chkpt_file = out_dir / ".checkpoint.json"
+    chkpt_file = Path(checkpoint_path) if checkpoint_path else out_dir / ".checkpoint.json"
 
     # Discover HTML files
     html_files = list(discover_html_files(in_dir, exclusion_patterns))
