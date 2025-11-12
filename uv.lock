@@ -395,12 +395,14 @@ source = { editable = "packages/html-to-markdown" }
 dependencies = [
     { name = "docling" },
     { name = "markdownify" },
+    { name = "pyyaml" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "docling", specifier = ">=2.61.2,<3.0.0" },
     { name = "markdownify", specifier = ">=0.13.0" },
+    { name = "pyyaml", specifier = ">=6.0" },
 ]
 
 [package.metadata.requires-dev]
