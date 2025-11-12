@@ -3,14 +3,9 @@ from __future__ import annotations
 import json
 import time
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 import typer
-
-# Lazy imports - only import heavy dependencies when commands are actually called
-if TYPE_CHECKING:
-    from .converter import HtmlConverter
-    from .strategies.base import StrategyInterface
 
 StrategyType = type[Any]
 
@@ -158,16 +153,16 @@ def batch(
         checkpoint = Checkpoint.load(chkpt_file)
         if checkpoint:
             typer.echo(f"Resuming from checkpoint: {chkpt_file}")
-            typer.echo(f"Previously processed: {checkpoint.processed_count}/{checkpoint.total_files}")
+            typer.echo(
+                f"Previously processed: {checkpoint.processed_count}/{checkpoint.total_files}"
+            )
             typer.echo(f"Started at: {checkpoint.started_at}")
             typer.echo(f"Last updated: {checkpoint.last_updated}")
             typer.echo("")
 
             # Filter to only unprocessed files
             remaining_paths = checkpoint.get_remaining_files(file_paths)
-            files_to_process = [
-                html_files[file_paths.index(p)] for p in remaining_paths
-            ]
+            files_to_process = [html_files[file_paths.index(p)] for p in remaining_paths]
             typer.echo(f"Remaining files to process: {len(files_to_process)}")
         else:
             typer.echo(f"Warning: Could not load checkpoint from {chkpt_file}", err=True)
@@ -180,8 +175,7 @@ def batch(
     converted = checkpoint.processed_count
     failed = len(checkpoint.failed_files)
     errors = [
-        {"file": f.file_path, "error": f.error, "type": "Error"}
-        for f in checkpoint.failed_files
+        {"file": f.file_path, "error": f.error, "type": "Error"} for f in checkpoint.failed_files
     ]
     t_start = time.perf_counter()
 
@@ -270,7 +264,8 @@ def batch(
             "duration_seconds": round(duration, 2),
             "rate_files_per_second": round(rate, 2),
             "rate_files_per_minute": round(rate * 60, 1),
-            "resumed_from_checkpoint": resume and checkpoint.processed_count > len(files_to_process),
+            "resumed_from_checkpoint": resume
+            and checkpoint.processed_count > len(files_to_process),
             "errors": errors,
         }
 
@@ -328,11 +323,21 @@ def evaluate(
     from .evaluator import evaluate as run_evaluation
 
     thresholds = {
-        "heading_fidelity": heading_threshold if heading_threshold is not None else DEFAULT_THRESHOLDS["heading_fidelity"],
-        "link_preservation": link_threshold if link_threshold is not None else DEFAULT_THRESHOLDS["link_preservation"],
-        "table_preservation": table_threshold if table_threshold is not None else DEFAULT_THRESHOLDS["table_preservation"],
-        "code_block_integrity": code_threshold if code_threshold is not None else DEFAULT_THRESHOLDS["code_block_integrity"],
-        "image_alt_coverage": image_threshold if image_threshold is not None else DEFAULT_THRESHOLDS["image_alt_coverage"],
+        "heading_fidelity": heading_threshold
+        if heading_threshold is not None
+        else DEFAULT_THRESHOLDS["heading_fidelity"],
+        "link_preservation": link_threshold
+        if link_threshold is not None
+        else DEFAULT_THRESHOLDS["link_preservation"],
+        "table_preservation": table_threshold
+        if table_threshold is not None
+        else DEFAULT_THRESHOLDS["table_preservation"],
+        "code_block_integrity": code_threshold
+        if code_threshold is not None
+        else DEFAULT_THRESHOLDS["code_block_integrity"],
+        "image_alt_coverage": image_threshold
+        if image_threshold is not None
+        else DEFAULT_THRESHOLDS["image_alt_coverage"],
     }
     report = run_evaluation(
         Path(source_dir), Path(converted_dir), Path(out_base), thresholds, timestamped
