@@ -7,6 +7,8 @@ from typing import Any
 
 import typer
 
+# Import new converter
+from .converter import HtmlConverter
 from .evaluator import DEFAULT_THRESHOLDS
 from .evaluator import evaluate as run_evaluation
 from .metrics import extract_html_stats, score_conversion
@@ -41,25 +43,45 @@ def convert(
     strategy_name: str = typer.Option(
         "markdownify", "--strategy", show_default=True, help="Conversion strategy"
     ),
+    config_file: str | None = typer.Option(None, "--config", help="Path to configuration JSON"),
 ):
-    """Convert a single HTML file to Markdown using selected strategy."""
+    """Convert a single HTML file to Markdown with front matter and metadata."""
+    from .config import load_config
+
+    # Load configuration
+    config = load_config(Path(config_file) if config_file else None)
+
+    # Get strategy and create converter
     strategy = _get_strategy(strategy_name)
     if not strategy.available():
+        typer.echo(f"Strategy '{strategy_name}' is not available", err=True)
         raise typer.Exit(code=2)
-    html = Path(input_path).read_text(encoding="utf-8")
+
+    converter = HtmlConverter(strategy=strategy, config=config)
+
+    # Convert file
+    input_file = Path(input_path)
+    if not input_file.exists():
+        typer.echo(f"Input file not found: {input_path}", err=True)
+        raise typer.Exit(code=1)
+
     start = time.perf_counter()
-    md = strategy.convert(html)
-    duration = (time.perf_counter() - start) * 1000
+
     if output_dir:
         out_dir = Path(output_dir)
-        out_dir.mkdir(parents=True, exist_ok=True)
-        out_path = out_dir / (Path(input_path).stem + ".md")
-        out_path.write_text(md, encoding="utf-8")
+        result = converter.convert_file(input_file, out_dir / input_file.with_suffix(".md").name)
+        duration = (time.perf_counter() - start) * 1000
         typer.echo(
-            f"Converted {input_path} -> {out_path} in {duration:.1f}ms using {strategy.name}"
+            f"Converted {input_path} -> {result.path} in {duration:.1f}ms using {strategy.name}"
         )
+        typer.echo(f"Title: {result.front_matter.get('title', 'N/A')}")
+        if result.front_matter.get("original_url"):
+            typer.echo(f"URL: {result.front_matter['original_url']}")
     else:
-        typer.echo(md)
+        result = converter.convert_file(input_file, None)
+        duration = (time.perf_counter() - start) * 1000
+        typer.echo(result.markdown_content)
+        typer.echo(f"\n# Converted in {duration:.1f}ms using {strategy.name}", err=True)
 
 
 @app.command("batch")
@@ -68,39 +90,197 @@ def batch(
     output_dir: str = typer.Option(..., "--out", help="Output directory for Markdown"),
     summary_path: str | None = typer.Option(None, "--summary", help="Path to write JSON summary"),
     resume: bool = typer.Option(False, "--resume", help="Resume from checkpoint if available"),
+    checkpoint_path: str | None = typer.Option(
+        None, "--checkpoint", help="Path to checkpoint file (default: output_dir/.checkpoint.json)"
+    ),
     strategy_name: str = typer.Option(
         "markdownify", "--strategy", show_default=True, help="Conversion strategy"
     ),
+    config_file: str | None = typer.Option(None, "--config", help="Path to configuration JSON"),
+    exclusions: str | None = typer.Option(
+        None, "--exclude", help="Comma-separated glob patterns to exclude"
+    ),
 ):
-    """Batch convert HTML files with simple timing using selected strategy."""
+    """Batch convert HTML files with progress tracking, error handling, and resume capability."""
+    from .checkpoint import Checkpoint
+    from .config import load_config
+    from .io_utils import discover_html_files
+
+    # Load configuration
+    config = load_config(Path(config_file) if config_file else None)
+
+    # Get strategy and create converter
     strategy = _get_strategy(strategy_name)
     if not strategy.available():
+        typer.echo(f"Strategy '{strategy_name}' is not available", err=True)
         raise typer.Exit(code=2)
+
+    converter = HtmlConverter(strategy=strategy, config=config)
+
+    # Parse exclusion patterns
+    exclusion_patterns = exclusions.split(",") if exclusions else []
+
+    # Setup directories
     in_dir = Path(input_dir)
     out_dir = Path(output_dir)
+
+    if not in_dir.exists():
+        typer.echo(f"Input directory not found: {input_dir}", err=True)
+        raise typer.Exit(code=1)
+
     out_dir.mkdir(parents=True, exist_ok=True)
-    html_files = list(in_dir.rglob("*.html"))
+
+    # Setup checkpoint path
+    if checkpoint_path:
+        chkpt_file = Path(checkpoint_path)
+    else:
+        chkpt_file = out_dir / ".checkpoint.json"
+
+    # Discover HTML files
+    html_files = list(discover_html_files(in_dir, exclusion_patterns))
     total = len(html_files)
+
     if total == 0:
         typer.echo("No HTML files found.")
         raise typer.Exit(code=0)
-    converted = 0
+
+    # Convert to relative paths for checkpoint tracking
+    file_paths = [str(f.relative_to(in_dir)) for f in html_files]
+
+    # Load or create checkpoint
+    checkpoint = None
+    files_to_process = html_files
+
+    if resume and chkpt_file.exists():
+        checkpoint = Checkpoint.load(chkpt_file)
+        if checkpoint:
+            typer.echo(f"Resuming from checkpoint: {chkpt_file}")
+            typer.echo(f"Previously processed: {checkpoint.processed_count}/{checkpoint.total_files}")
+            typer.echo(f"Started at: {checkpoint.started_at}")
+            typer.echo(f"Last updated: {checkpoint.last_updated}")
+            typer.echo("")
+
+            # Filter to only unprocessed files
+            remaining_paths = checkpoint.get_remaining_files(file_paths)
+            files_to_process = [
+                html_files[file_paths.index(p)] for p in remaining_paths
+            ]
+            typer.echo(f"Remaining files to process: {len(files_to_process)}")
+        else:
+            typer.echo(f"Warning: Could not load checkpoint from {chkpt_file}", err=True)
+            typer.echo("Starting fresh conversion")
+
+    if checkpoint is None:
+        checkpoint = Checkpoint.create_new(total)
+
+    # Initialize counters
+    converted = checkpoint.processed_count
+    failed = len(checkpoint.failed_files)
+    errors = [
+        {"file": f.file_path, "error": f.error, "type": "Error"}
+        for f in checkpoint.failed_files
+    ]
     t_start = time.perf_counter()
-    for idx, f in enumerate(html_files, 1):
-        html = f.read_text(encoding="utf-8")
-        md = strategy.convert(html)
-        rel = f.relative_to(in_dir)
-        out_path = (out_dir / rel).with_suffix(".md")
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        out_path.write_text(md, encoding="utf-8")
-        converted += 1
-        if idx % 10 == 0 or idx == total:
+
+    typer.echo(f"Starting batch conversion...")
+    typer.echo(f"Strategy: {strategy_name}")
+    typer.echo(f"Input: {in_dir}")
+    typer.echo(f"Output: {out_dir}")
+    typer.echo(f"Total files: {total}")
+    typer.echo(f"Files to process: {len(files_to_process)}")
+    typer.echo("")
+
+    # Process files with progress updates
+    for idx, html_file in enumerate(files_to_process, 1):
+        rel_path = str(html_file.relative_to(in_dir))
+
+        try:
+            # Calculate output path maintaining directory structure
+            out_path = (out_dir / Path(rel_path)).with_suffix(".md")
+
+            # Convert file
+            result = converter.convert_file(html_file, out_path)
+            converted += 1
+
+            # Update checkpoint
+            checkpoint.mark_processed(rel_path, success=True)
+
+        except Exception as e:
+            failed += 1
+            error_info = {
+                "file": rel_path,
+                "error": str(e),
+                "type": type(e).__name__,
+            }
+            errors.append(error_info)
+
+            # Update checkpoint with failure
+            checkpoint.mark_processed(rel_path, success=False, error=str(e))
+
+            typer.echo(f"ERROR: {html_file.name}: {e}", err=True)
+
+        # Save checkpoint every 10 files or at completion
+        if idx % 10 == 0 or idx == len(files_to_process):
+            checkpoint.save(chkpt_file)
+
+        # Progress update
+        if idx % 10 == 0 or idx == len(files_to_process):
             elapsed = time.perf_counter() - t_start
+            rate = idx / elapsed if elapsed > 0 else 0
+            overall_progress = checkpoint.processed_count
             typer.echo(
-                f"Progress: {idx}/{total} ({(idx / total) * 100:.1f}%) elapsed={elapsed:.1f}s"
+                f"Progress: {overall_progress}/{total} ({(overall_progress / total) * 100:.1f}%) | "
+                f"Converted: {converted} | Failed: {failed} | "
+                f"Rate: {rate:.1f} files/s | Elapsed: {elapsed:.1f}s"
             )
+
+    # Final timing
     duration = time.perf_counter() - t_start
-    typer.echo(f"Batch complete: {converted}/{total} in {duration:.2f}s (strategy={strategy.name})")
+    rate = len(files_to_process) / duration if duration > 0 else 0
+
+    typer.echo("")
+    typer.echo("=" * 60)
+    typer.echo("Batch Conversion Complete")
+    typer.echo("=" * 60)
+    typer.echo(f"Total files: {total}")
+    typer.echo(f"Converted: {converted}")
+    typer.echo(f"Failed: {failed}")
+    typer.echo(f"Duration: {duration:.2f}s")
+    typer.echo(f"Rate: {rate:.2f} files/s ({rate * 60:.1f} files/min)")
+    typer.echo(f"Strategy: {strategy_name}")
+
+    # Clean up checkpoint on successful completion
+    if failed == 0 and chkpt_file.exists():
+        chkpt_file.unlink()
+        typer.echo(f"\nCheckpoint removed (all files processed successfully)")
+
+    # Generate summary JSON if requested
+    if summary_path:
+        summary = {
+            "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "input_dir": str(in_dir),
+            "output_dir": str(out_dir),
+            "strategy": strategy_name,
+            "total_files": total,
+            "converted": converted,
+            "failed": failed,
+            "duration_seconds": round(duration, 2),
+            "rate_files_per_second": round(rate, 2),
+            "rate_files_per_minute": round(rate * 60, 1),
+            "resumed_from_checkpoint": resume and checkpoint.processed_count > len(files_to_process),
+            "errors": errors,
+        }
+
+        summary_file = Path(summary_path)
+        summary_file.parent.mkdir(parents=True, exist_ok=True)
+        summary_file.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+        typer.echo(f"\nSummary written to: {summary_path}")
+
+    # Exit with error code if any failures
+    if failed > 0:
+        typer.echo(f"\nWarning: {failed} file(s) failed to convert", err=True)
+        typer.echo(f"Checkpoint saved to: {chkpt_file} (use --resume to retry)", err=True)
+        raise typer.Exit(code=1)
 
 
 @app.command("evaluate")
