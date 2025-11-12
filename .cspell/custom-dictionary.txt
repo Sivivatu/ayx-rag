@@ -4,6 +4,7 @@ alteryx
 Alteryx
 dataclass
 docling
+evals
 isort
 loguru
 Markdownify
