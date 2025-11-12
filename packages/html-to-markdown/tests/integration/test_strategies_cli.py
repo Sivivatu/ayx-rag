@@ -1,7 +1,5 @@
-from typer.testing import CliRunner
-
 from html_to_markdown.cli import app
-
+from typer.testing import CliRunner
 
 runner = CliRunner()
 

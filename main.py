@@ -7,16 +7,13 @@ organized as workspace packages with isolated dependencies.
 """
 
 import sys
+
+# Version from pyproject.toml
+import tomllib
 import warnings
 from pathlib import Path
 
 import typer
-
-# Version from pyproject.toml
-if sys.version_info >= (3, 11):
-    import tomllib
-else:
-    import tomli as tomllib
 
 
 def _get_version() -> str:

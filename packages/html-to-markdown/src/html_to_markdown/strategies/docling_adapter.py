@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import tempfile
 from pathlib import Path
-from typing import Optional
 
 try:
     # Docling has a high-level API; fall back if not installed.
@@ -20,7 +19,7 @@ class DoclingStrategy:
     name = "docling"
 
     def __init__(self) -> None:
-        self._converter: Optional[DocumentConverter] = None
+        self._converter: DocumentConverter | None = None
         if _DOCLING_AVAILABLE:
             try:  # Lazy init
                 self._converter = DocumentConverter()

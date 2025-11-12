@@ -1,5 +1,4 @@
 import pytest
-
 from html_to_markdown.strategies.docling_adapter import DoclingStrategy
 
 

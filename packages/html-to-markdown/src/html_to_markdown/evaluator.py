@@ -2,13 +2,13 @@ from __future__ import annotations
 
 import csv
 import json
+from collections.abc import Iterable
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Iterable, List, Dict, Any
+from typing import Any
 
 from .metrics import extract_html_stats, score_conversion
-
 
 DEFAULT_THRESHOLDS = {
     "heading_fidelity": 0.95,
@@ -23,12 +23,12 @@ DEFAULT_THRESHOLDS = {
 class FileEvaluation:
     source_path: Path
     markdown_path: Path
-    metrics: Dict[str, float]
+    metrics: dict[str, float]
     overall: float
-    failed_metrics: List[str]
+    failed_metrics: list[str]
 
 
-def evaluate_pair(html_path: Path, md_path: Path, thresholds: Dict[str, float]) -> FileEvaluation:
+def evaluate_pair(html_path: Path, md_path: Path, thresholds: dict[str, float]) -> FileEvaluation:
     html = html_path.read_text(encoding="utf-8")
     md = md_path.read_text(encoding="utf-8")
     stats = extract_html_stats(html)
@@ -61,11 +61,11 @@ def find_pairs(source_dir: Path, converted_dir: Path) -> Iterable[tuple[Path, Pa
             yield html_file, flat_candidate
 
 
-def aggregate(evals: List[FileEvaluation]) -> Dict[str, Any]:
+def aggregate(evals: list[FileEvaluation]) -> dict[str, Any]:
     if not evals:
         return {"count": 0}
     metric_names = list(evals[0].metrics.keys())
-    agg: Dict[str, Any] = {"count": len(evals), "metrics": {}, "overall_mean": 0.0}
+    agg: dict[str, Any] = {"count": len(evals), "metrics": {}, "overall_mean": 0.0}
     for name in metric_names:
         vals = [e.metrics[name] for e in evals]
         agg["metrics"][name] = sum(vals) / len(vals)
@@ -73,11 +73,11 @@ def aggregate(evals: List[FileEvaluation]) -> Dict[str, Any]:
     return agg
 
 
-def write_json(report_path: Path, data: Dict[str, Any]) -> None:
+def write_json(report_path: Path, data: dict[str, Any]) -> None:
     report_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
 
-def write_csv(csv_path: Path, evals: List[FileEvaluation]) -> None:
+def write_csv(csv_path: Path, evals: list[FileEvaluation]) -> None:
     fieldnames = (
         ["source_path", "markdown_path", "overall"]
         + list(evals[0].metrics.keys())
@@ -104,7 +104,7 @@ def write_csv(csv_path: Path, evals: List[FileEvaluation]) -> None:
 
 
 def write_markdown(
-    md_path: Path, evals: List[FileEvaluation], agg: Dict[str, Any], thresholds: Dict[str, float]
+    md_path: Path, evals: list[FileEvaluation], agg: dict[str, Any], thresholds: dict[str, float]
 ) -> None:
     lines = ["# Evaluation Report", "", f"Generated: {datetime.utcnow().isoformat()}Z", ""]
     if not evals:
@@ -136,8 +136,8 @@ def evaluate(
     source_dir: Path,
     converted_dir: Path,
     out_base: Path,
-    thresholds: Dict[str, float] | None = None,
-) -> Dict[str, Any]:
+    thresholds: dict[str, float] | None = None,
+) -> dict[str, Any]:
     thresholds = thresholds or DEFAULT_THRESHOLDS
     out_base.mkdir(parents=True, exist_ok=True)
     pairs = list(find_pairs(source_dir, converted_dir))

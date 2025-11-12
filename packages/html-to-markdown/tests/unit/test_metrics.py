@@ -1,4 +1,4 @@
-from html_to_markdown.metrics import extract_html_stats, score_conversion, HtmlStats
+from html_to_markdown.metrics import HtmlStats, extract_html_stats, score_conversion
 
 
 def test_extract_html_stats_counts_expected_elements():
@@ -30,7 +30,7 @@ def test_score_conversion_ratios_capped_at_one():
         "```python\nprint('hi')\n```\n"
     )
     scores = score_conversion(original, md)
-    for k, v in scores.items():
+    for _k, v in scores.items():
         assert 0.0 <= v <= 1.0
         assert v == 1.0  # All should cap at 1
 

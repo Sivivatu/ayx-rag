@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-from typing import Optional
-
 try:
     import markdownify as md
 
     _MD_AVAILABLE = True
-    _MD_VERSION: Optional[str] = getattr(md, "__version__", "unknown")
+    _MD_VERSION: str | None = getattr(md, "__version__", "unknown")
 except Exception:  # pragma: no cover - optional dep detection
     md = None  # type: ignore
     _MD_AVAILABLE = False

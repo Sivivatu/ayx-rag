@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from html.parser import HTMLParser
-from typing import List, Dict
 
 
 @dataclass
@@ -23,7 +22,7 @@ class _StatsParser(HTMLParser):
         self.images = 0
         self.code_blocks = 0
 
-    def handle_starttag(self, tag: str, attrs: List[tuple[str, str | None]]) -> None:  # noqa: D401
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:  # noqa: D401
         if tag in {"h1", "h2", "h3", "h4", "h5", "h6"}:
             self.headings += 1
         elif tag == "a":
@@ -48,7 +47,7 @@ def extract_html_stats(html: str) -> HtmlStats:
     )
 
 
-def score_conversion(original: HtmlStats, converted_md: str) -> Dict[str, float]:
+def score_conversion(original: HtmlStats, converted_md: str) -> dict[str, float]:
     """Heuristic fidelity scoring comparing counts in Markdown vs original HTML.
 
     Simplistic approach: count markers in Markdown and compare ratios.

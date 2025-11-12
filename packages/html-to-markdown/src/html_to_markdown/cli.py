@@ -7,11 +7,11 @@ from typing import Any
 
 import typer
 
+from .evaluator import DEFAULT_THRESHOLDS
+from .evaluator import evaluate as run_evaluation
+from .metrics import extract_html_stats, score_conversion
 from .strategies.docling_adapter import DoclingStrategy
 from .strategies.markdownify_adapter import MarkdownifyStrategy
-from .metrics import extract_html_stats, score_conversion
-from .evaluator import evaluate as run_evaluation, DEFAULT_THRESHOLDS
-
 
 StrategyType = type[Any]
 
