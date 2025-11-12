@@ -202,7 +202,7 @@ def batch(
             out_path = (out_dir / Path(rel_path)).with_suffix(".md")
 
             # Convert file
-            result = converter.convert_file(html_file, out_path)
+            converter.convert_file(html_file, out_path)
             converted += 1
 
             # Update checkpoint
