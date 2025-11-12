@@ -7,6 +7,64 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2025-11-12
+
+### Added
+- **HTML to Markdown Conversion CLI** - Complete conversion pipeline with 132 tests
+  - **Single-File Conversion** (US1):
+    - Structure preservation (headings, lists, links, images with alt text, code blocks, tables)
+    - YAML front matter generation (source URL, title, last modified timestamp)
+    - Code language detection from CSS classes (`language-*`, `lang-*`, etc.)
+    - Hybrid table handling (Markdown pipes for simple, HTML for complex spans)
+    - Multiple strategy support (Markdownify default, Docling, Pandoc)
+    - Performance: <2s per standard page, <1s average
+  - **Batch Conversion** (US2):
+    - Recursive directory processing with structure preservation
+    - Progress tracking every 10 files with rate calculation
+    - Error handling continuing after failures with complete error tracking
+    - Summary JSON output with timing, rates, and error details
+    - Checkpoint/resume capability with automatic saves every 10 files
+    - Custom checkpoint paths via `--checkpoint` flag
+    - Exclusion patterns for skipping unwanted files/directories
+    - External JSON configuration support
+    - Performance: ≥25 files/min throughput validated
+  - **Quality Evaluation** (US3):
+    - Comprehensive metrics: heading fidelity, link preservation, table preservation, code block integrity, image alt coverage
+    - Weighted scoring with configurable weights and automatic normalization
+    - Multiple report formats: JSON (detailed), CSV (tabular), Markdown (human-readable)
+    - Customizable per-metric thresholds with failure flagging
+    - Aggregate statistics and per-file breakdowns
+    - Manual review percentage calculation (<5% target)
+    - Timestamped output option for persistent history tracking
+
+### Changed
+- Main CLI now includes `html-to-markdown` nested app with 5 subcommands (convert, batch, evaluate, benchmark, strategies)
+
+### Performance
+- Single-file conversion: <2s per standard page (<200KB), <1s average
+- Batch throughput: ≥25 files/min validated with 30-file realistic test
+- Memory efficient: streaming parse for large HTML files
+- Progress updates: every 10 files with rate calculation
+- Checkpoint frequency: every 10 files during batch processing
+
+### Testing
+- 132 comprehensive tests (94 unit + 38 integration)
+- Unit tests: checkpoint, config, converter, I/O utilities, metrics, models, table handler
+- Integration tests: CLI workflows, performance validation, strategy benchmarking
+- Performance tests: single-file <2s requirement, batch ≥25 files/min throughput
+
+### Documentation
+- Complete package README with feature overview, usage examples, configuration guide
+- Updated root README with html-to-markdown feature summary
+- Comprehensive inline documentation and docstrings
+- Design decisions documented (nested CLI, strategy pattern, hybrid tables, checkpoint resume, weighted scoring)
+
+### Research
+- Benchmarked 3 conversion strategies (Markdownify, Docling, Pandoc)
+- Selected Markdownify as default (100% fidelity, 28ms avg, lightweight)
+- Retained all strategies for future document type expansion
+- Documented comparison matrix in `specs/004-html-to-markdown/research.md`
+
 ## [0.3.0] - 2025-11-07
 
 ### Added
