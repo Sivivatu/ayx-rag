@@ -173,3 +173,92 @@ class TestConvertHtmlToMarkdownFunction:
         assert isinstance(result, ConvertedDocument)
         assert "# Title" in result.markdown_content
         assert "Content" in result.markdown_content
+
+
+class TestTableProcessing:
+    """Test hybrid table processing."""
+
+    @pytest.fixture
+    def converter(self):
+        """Create converter with hybrid tables enabled."""
+        config = ConversionConfig(hybrid_tables=True)
+        return HtmlConverter(config)
+
+    @pytest.fixture
+    def converter_no_hybrid(self):
+        """Create converter with hybrid tables disabled."""
+        config = ConversionConfig(hybrid_tables=False)
+        return HtmlConverter(config)
+
+    def test_simple_table_left_for_conversion(self, converter):
+        """Should leave simple tables for strategy conversion."""
+        html = """
+        <table>
+            <tr><th>A</th><th>B</th></tr>
+            <tr><td>1</td><td>2</td></tr>
+        </table>
+        """
+        result = converter._process_tables(html)
+        # Simple table should not be wrapped
+        assert '<div class="complex-table">' not in result
+
+    def test_complex_table_with_rowspan_preserved(self, converter):
+        """Should preserve complex table with rowspan as HTML."""
+        html = """
+        <table>
+            <tr><th>A</th><th>B</th></tr>
+            <tr><td rowspan="2">1</td><td>2</td></tr>
+            <tr><td>3</td></tr>
+        </table>
+        """
+        result = converter._process_tables(html)
+        # Complex table should be wrapped
+        assert '<div class="complex-table">' in result
+
+    def test_complex_table_with_colspan_preserved(self, converter):
+        """Should preserve complex table with colspan as HTML."""
+        html = """
+        <table>
+            <tr><th colspan="2">Header</th></tr>
+            <tr><td>1</td><td>2</td></tr>
+        </table>
+        """
+        result = converter._process_tables(html)
+        # Complex table should be wrapped
+        assert '<div class="complex-table">' in result
+
+    def test_hybrid_disabled_leaves_all_tables(self, converter_no_hybrid):
+        """Should not process tables when hybrid mode disabled."""
+        html = """
+        <table>
+            <tr><th>A</th><th>B</th></tr>
+            <tr><td rowspan="2">1</td><td>2</td></tr>
+        </table>
+        """
+        result = converter_no_hybrid._process_tables(html)
+        # Should return original HTML
+        assert result == html
+
+    def test_multiple_tables_processed_independently(self, converter):
+        """Should process multiple tables independently."""
+        html = """
+        <table>
+            <tr><th>Simple</th></tr>
+            <tr><td>1</td></tr>
+        </table>
+        <p>Text</p>
+        <table>
+            <tr><th colspan="2">Complex</th></tr>
+            <tr><td>1</td><td>2</td></tr>
+        </table>
+        """
+        result = converter._process_tables(html)
+        # Only complex table should be wrapped
+        assert result.count('<div class="complex-table">') == 1
+
+    def test_no_tables_returns_unchanged(self, converter):
+        """Should return unchanged HTML when no tables present."""
+        html = "<h1>Title</h1><p>Content</p>"
+        result = converter._process_tables(html)
+        assert result == html
+

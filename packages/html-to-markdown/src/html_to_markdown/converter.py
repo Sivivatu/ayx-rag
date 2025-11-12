@@ -12,6 +12,7 @@ import yaml
 from .io_utils import compute_hash, normalize_content, read_html
 from .models import ConversionConfig, ConvertedDocument, SourceDocument
 from .strategies.markdownify_adapter import MarkdownifyStrategy
+from .table_handler import should_use_html_fallback
 
 
 def detect_code_language(css_class: str) -> str | None:
@@ -135,6 +136,38 @@ class HtmlConverter:
 
         return converted_doc
 
+    def _process_tables(self, html: str) -> str:
+        """
+        Process tables for hybrid conversion (simple→Markdown, complex→HTML).
+
+        Args:
+            html: HTML content
+
+        Returns:
+            HTML with complex tables preserved, simple tables left for conversion
+        """
+        if not self.config.hybrid_tables:
+            return html
+
+        # Find all table tags
+        table_pattern = re.compile(r"(<table[^>]*>.*?</table>)", re.DOTALL | re.IGNORECASE)
+        tables = table_pattern.findall(html)
+
+        if not tables:
+            return html
+
+        # Process each table
+        processed_html = html
+        for table in tables:
+            # Check if table is complex and needs HTML fallback
+            if should_use_html_fallback(table, self.config.hybrid_tables):
+                # Wrap complex tables in a marker to preserve them
+                # Use a code block with language 'html' to preserve formatting
+                wrapped = f'<div class="complex-table">\n{table}\n</div>'
+                processed_html = processed_html.replace(table, wrapped, 1)
+
+        return processed_html
+
     def _convert_html(self, html: str) -> str:
         """
         Convert HTML to Markdown using strategy.
@@ -146,7 +179,9 @@ class HtmlConverter:
             Markdown content
         """
         try:
-            markdown = self.strategy.convert(html)
+            # Apply hybrid table handling if enabled
+            processed_html = self._process_tables(html)
+            markdown = self.strategy.convert(processed_html)
             return markdown
         except Exception as e:
             raise RuntimeError(f"Conversion failed: {e}") from e
