@@ -3,22 +3,23 @@ from __future__ import annotations
 import json
 import time
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import typer
 
-# Import new converter
-from .converter import HtmlConverter
-from .evaluator import DEFAULT_THRESHOLDS
-from .evaluator import evaluate as run_evaluation
-from .metrics import extract_html_stats, score_conversion
-from .strategies.docling_adapter import DoclingStrategy
-from .strategies.markdownify_adapter import MarkdownifyStrategy
+# Lazy imports - only import heavy dependencies when commands are actually called
+if TYPE_CHECKING:
+    from .converter import HtmlConverter
+    from .strategies.base import StrategyInterface
 
 StrategyType = type[Any]
 
 
 def _all_strategy_classes() -> list[StrategyType]:
+    """Lazy load strategy classes only when needed."""
+    from .strategies.docling_adapter import DoclingStrategy
+    from .strategies.markdownify_adapter import MarkdownifyStrategy
+
     # Order: fast/lightweight first, then heavy lib
     return [
         MarkdownifyStrategy,
@@ -27,6 +28,7 @@ def _all_strategy_classes() -> list[StrategyType]:
 
 
 def _get_strategy(name: str):
+    """Lazy load strategy by name."""
     for cls in _all_strategy_classes():
         if getattr(cls, "name", "") == name:
             return cls()
@@ -46,7 +48,9 @@ def convert(
     config_file: str | None = typer.Option(None, "--config", help="Path to configuration JSON"),
 ):
     """Convert a single HTML file to Markdown with front matter and metadata."""
+    # Lazy imports - only load when command is actually run
     from .config import load_config
+    from .converter import HtmlConverter
 
     # Load configuration
     config = load_config(Path(config_file) if config_file else None)
@@ -102,8 +106,10 @@ def batch(
     ),
 ):
     """Batch convert HTML files with progress tracking, error handling, and resume capability."""
+    # Lazy imports
     from .checkpoint import Checkpoint
     from .config import load_config
+    from .converter import HtmlConverter
     from .io_utils import discover_html_files
 
     # Load configuration
@@ -131,7 +137,10 @@ def batch(
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # Setup checkpoint path
-    chkpt_file = Path(checkpoint_path) if checkpoint_path else out_dir / ".checkpoint.json"
+    if checkpoint_path:
+        chkpt_file = Path(checkpoint_path)
+    else:
+        chkpt_file = out_dir / ".checkpoint.json"
 
     # Discover HTML files
     html_files = list(discover_html_files(in_dir, exclusion_patterns))
@@ -152,16 +161,16 @@ def batch(
         checkpoint = Checkpoint.load(chkpt_file)
         if checkpoint:
             typer.echo(f"Resuming from checkpoint: {chkpt_file}")
-            typer.echo(
-                f"Previously processed: {checkpoint.processed_count}/{checkpoint.total_files}"
-            )
+            typer.echo(f"Previously processed: {checkpoint.processed_count}/{checkpoint.total_files}")
             typer.echo(f"Started at: {checkpoint.started_at}")
             typer.echo(f"Last updated: {checkpoint.last_updated}")
             typer.echo("")
 
             # Filter to only unprocessed files
             remaining_paths = checkpoint.get_remaining_files(file_paths)
-            files_to_process = [html_files[file_paths.index(p)] for p in remaining_paths]
+            files_to_process = [
+                html_files[file_paths.index(p)] for p in remaining_paths
+            ]
             typer.echo(f"Remaining files to process: {len(files_to_process)}")
         else:
             typer.echo(f"Warning: Could not load checkpoint from {chkpt_file}", err=True)
@@ -174,11 +183,12 @@ def batch(
     converted = checkpoint.processed_count
     failed = len(checkpoint.failed_files)
     errors = [
-        {"file": f.file_path, "error": f.error, "type": "Error"} for f in checkpoint.failed_files
+        {"file": f.file_path, "error": f.error, "type": "Error"}
+        for f in checkpoint.failed_files
     ]
     t_start = time.perf_counter()
 
-    typer.echo("Starting batch conversion...")
+    typer.echo(f"Starting batch conversion...")
     typer.echo(f"Strategy: {strategy_name}")
     typer.echo(f"Input: {in_dir}")
     typer.echo(f"Output: {out_dir}")
@@ -195,7 +205,7 @@ def batch(
             out_path = (out_dir / Path(rel_path)).with_suffix(".md")
 
             # Convert file
-            converter.convert_file(html_file, out_path)
+            result = converter.convert_file(html_file, out_path)
             converted += 1
 
             # Update checkpoint
@@ -248,7 +258,7 @@ def batch(
     # Clean up checkpoint on successful completion
     if failed == 0 and chkpt_file.exists():
         chkpt_file.unlink()
-        typer.echo("\nCheckpoint removed (all files processed successfully)")
+        typer.echo(f"\nCheckpoint removed (all files processed successfully)")
 
     # Generate summary JSON if requested
     if summary_path:
@@ -263,8 +273,7 @@ def batch(
             "duration_seconds": round(duration, 2),
             "rate_files_per_second": round(rate, 2),
             "rate_files_per_minute": round(rate * 60, 1),
-            "resumed_from_checkpoint": resume
-            and checkpoint.processed_count > len(files_to_process),
+            "resumed_from_checkpoint": resume and checkpoint.processed_count > len(files_to_process),
             "errors": errors,
         }
 
@@ -294,35 +303,39 @@ def evaluate(
     timestamped: bool = typer.Option(
         False, "--timestamped", help="Add timestamp suffix to output filenames"
     ),
-    heading_threshold: float = typer.Option(
-        DEFAULT_THRESHOLDS["heading_fidelity"], "--thr-headings", help="Heading fidelity threshold"
+    heading_threshold: float | None = typer.Option(
+        None, "--thr-headings", help="Heading fidelity threshold"
     ),
-    link_threshold: float = typer.Option(
-        DEFAULT_THRESHOLDS["link_preservation"], "--thr-links", help="Link preservation threshold"
+    link_threshold: float | None = typer.Option(
+        None, "--thr-links", help="Link preservation threshold"
     ),
-    table_threshold: float = typer.Option(
-        DEFAULT_THRESHOLDS["table_preservation"],
+    table_threshold: float | None = typer.Option(
+        None,
         "--thr-tables",
         help="Table preservation threshold",
     ),
-    code_threshold: float = typer.Option(
-        DEFAULT_THRESHOLDS["code_block_integrity"],
+    code_threshold: float | None = typer.Option(
+        None,
         "--thr-code",
         help="Code block integrity threshold",
     ),
-    image_threshold: float = typer.Option(
-        DEFAULT_THRESHOLDS["image_alt_coverage"],
+    image_threshold: float | None = typer.Option(
+        None,
         "--thr-images",
         help="Image alt coverage threshold",
     ),
 ):
     """Evaluate converted Markdown against original HTML and generate JSON/CSV/Markdown reports."""
+    # Lazy imports
+    from .evaluator import DEFAULT_THRESHOLDS
+    from .evaluator import evaluate as run_evaluation
+
     thresholds = {
-        "heading_fidelity": heading_threshold,
-        "link_preservation": link_threshold,
-        "table_preservation": table_threshold,
-        "code_block_integrity": code_threshold,
-        "image_alt_coverage": image_threshold,
+        "heading_fidelity": heading_threshold if heading_threshold is not None else DEFAULT_THRESHOLDS["heading_fidelity"],
+        "link_preservation": link_threshold if link_threshold is not None else DEFAULT_THRESHOLDS["link_preservation"],
+        "table_preservation": table_threshold if table_threshold is not None else DEFAULT_THRESHOLDS["table_preservation"],
+        "code_block_integrity": code_threshold if code_threshold is not None else DEFAULT_THRESHOLDS["code_block_integrity"],
+        "image_alt_coverage": image_threshold if image_threshold is not None else DEFAULT_THRESHOLDS["image_alt_coverage"],
     }
     report = run_evaluation(
         Path(source_dir), Path(converted_dir), Path(out_base), thresholds, timestamped
@@ -343,6 +356,9 @@ def benchmark(
     json_out: str | None = typer.Option(None, "--json", help="Path to write JSON benchmark report"),
 ):
     """Run timing + fidelity benchmark for one or all strategies and optionally persist JSON."""
+    # Lazy imports
+    from .metrics import extract_html_stats, score_conversion
+
     classes = (
         _all_strategy_classes()
         if strategy_name is None
