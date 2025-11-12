@@ -103,6 +103,23 @@ The confusion may have been from:
 - Not clearly seeing the folder path in examples
 - Possibly confusing with page-downloader (which requires a URL list file)
 
+### 7. Linting Fix: Remove Unused TYPE_CHECKING Imports
+**Problem**: After implementing lazy loading, ruff linter reported 3 unused imports:
+1. `typer.Typer` in `__init__.py`
+2. `HtmlConverter` in `cli.py`
+3. `StrategyInterface` in `cli.py`
+
+**Root Cause**: TYPE_CHECKING imports were added for type hints but never used for annotations
+
+**Solution**: Removed the unused TYPE_CHECKING imports
+- `__init__.py`: Removed `from typing import TYPE_CHECKING` and `if TYPE_CHECKING:` block with `Typer` import
+- `cli.py`: Removed `TYPE_CHECKING` from typing import and `if TYPE_CHECKING:` block with converter/strategy imports
+- The actual imports are already inside functions where they're used (lazy loading pattern)
+
+**Result**: All linting errors resolved, code cleaner without redundant imports
+
+**Commit**: `refactor(html-to-markdown): remove unused TYPE_CHECKING imports`
+
 ## Technical Details
 
 ### Package Structure
@@ -153,6 +170,7 @@ packages/html-to-markdown/
 4. `238dc84` - chore(html-to-markdown): bump version to v0.4.1
 5. `eb76d59` - docs(html-to-markdown): create release notes for v0.4.1
 6. `7aee1ee` - docs(tasks): mark all core tasks complete
+7. `refactor(html-to-markdown): remove unused TYPE_CHECKING imports`
 
 ## Lessons Learned
 
@@ -176,13 +194,20 @@ packages/html-to-markdown/
 - Document both the problem and solution in release notes
 - Include impact metrics (3min → 6s = 95% improvement)
 
+### 5. Code Quality
+- Ruff linter catches unused imports even in TYPE_CHECKING blocks
+- TYPE_CHECKING imports should only exist if used for type annotations
+- When using lazy loading pattern with imports inside functions, TYPE_CHECKING imports become redundant
+- Always run linting checks before pushing to catch these issues
+
 ## Status
 - **Feature**: Complete (all 3 user stories)
 - **Tests**: 132/132 passing
 - **Performance**: Fixed (95% improvement)
 - **Documentation**: Complete
-- **PR**: Created and ready for review
+- **PR**: Created (#14) and updated with linting fixes
 - **Branch**: 004-html-to-markdown ready for merge
+- **Code Quality**: All linting checks passing
 
 ## Next Steps
 1. Review and merge PR #14
