@@ -188,7 +188,7 @@ def batch(
     ]
     t_start = time.perf_counter()
 
-    typer.echo(f"Starting batch conversion...")
+    typer.echo("Starting batch conversion...")
     typer.echo(f"Strategy: {strategy_name}")
     typer.echo(f"Input: {in_dir}")
     typer.echo(f"Output: {out_dir}")
@@ -258,7 +258,7 @@ def batch(
     # Clean up checkpoint on successful completion
     if failed == 0 and chkpt_file.exists():
         chkpt_file.unlink()
-        typer.echo(f"\nCheckpoint removed (all files processed successfully)")
+        typer.echo("\nCheckpoint removed (all files processed successfully)")
 
     # Generate summary JSON if requested
     if summary_path:
