@@ -56,17 +56,17 @@ description: "Tasks for implementing HTML→Markdown conversion and evaluation"
 
 **Purpose**: Core models, config, and file utilities used by all stories
 
-- [ ] T014 Create dataclasses in packages/html-to-markdown/src/html_to_markdown/models.py (SourceDocument, ConvertedDocument, ConversionConfig, EvaluationMetrics, EvaluationReport)
-- [ ] T015 Implement configuration loader in packages/html-to-markdown/src/html_to_markdown/config.py (thresholds, exclusions, hybrid_tables, language_map)
-- [ ] T016 [P] Implement file discovery and I/O helpers in packages/html-to-markdown/src/html_to_markdown/io_utils.py
-- [ ] T017 [P] Implement table handling module in packages/html-to-markdown/src/html_to_markdown/table_handler.py (hybrid approach)
-- [ ] T018 Add tests for models/config/table handling in packages/html-to-markdown/tests/unit/
+- [x] T014 Create dataclasses in packages/html-to-markdown/src/html_to_markdown/models.py (SourceDocument, ConvertedDocument, ConversionConfig, EvaluationMetrics, EvaluationReport)
+- [x] T015 Implement configuration loader in packages/html-to-markdown/src/html_to_markdown/config.py (thresholds, exclusions, hybrid_tables, language_map)
+- [x] T016 [P] Implement file discovery and I/O helpers in packages/html-to-markdown/src/html_to_markdown/io_utils.py
+- [x] T017 [P] Implement table handling module in packages/html-to-markdown/src/html_to_markdown/table_handler.py (hybrid approach)
+- [x] T018 Add tests for models/config/table handling in packages/html-to-markdown/tests/unit/ (61 tests passing)
 - [ ] T019 Wire CLI skeleton commands in packages/html-to-markdown/src/html_to_markdown/cli.py (convert, batch, evaluate)
 - [ ] T041 Implement deterministic normalization + body hash generation for idempotency (converter pre-implementation scaffolding) (FR-018)
 - [ ] T042 Add property-based tests verifying idempotent re-run (unchanged HTML → identical Markdown hash) (SC-009)
  - [ ] T055 Implement encoding detection and normalization to UTF-8 in input pipeline with unit tests and a non-UTF-8 fixture (Edge case)
 
-**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+**Checkpoint**: ✅ Foundation ready (T014-T018 complete) - user story implementation can now begin in parallel
 
 ---
 
