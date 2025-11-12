@@ -13,7 +13,10 @@
     "dictionaries": [
         "custom-dictionary"
     ],
-    "words": [],
+    "words": [
+        "ONNX",
+        "Trafilatura"
+    ],
     "ignoreWords": [],
     "import": []
 }
