@@ -390,7 +390,7 @@ wheels = [
 
 [[package]]
 name = "html-to-markdown"
-version = "0.1.0"
+version = "0.4.1"
 source = { editable = "packages/html-to-markdown" }
 dependencies = [
     { name = "docling" },
