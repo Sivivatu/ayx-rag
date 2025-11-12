@@ -2,11 +2,11 @@
 
 Convert Alteryx help HTML into clean, semantically-structured Markdown suitable for LLM ingestion, with batch processing, checkpoint/resume capability, and quality evaluation.
 
-**Status**: ??? Complete - All three user stories implemented with 132 tests passing
+**Status**: > Complete - All three user stories implemented with 132 tests passing
 
 ## Features
 
-### ??? Single-File Conversion (US1)
+### > Single-File Conversion (US1)
 - **Structure Preservation**: Headings, lists, links, images (with alt text), code blocks, tables
 - **YAML Front Matter**: Source URL, title, last modified timestamp
 - **Code Language Detection**: Automatic inference from CSS classes (`language-python`, `lang-js`, etc.)
@@ -14,7 +14,7 @@ Convert Alteryx help HTML into clean, semantically-structured Markdown suitable 
 - **Multiple Strategies**: Markdownify (default), Docling, Pandoc support
 - **Performance**: <2s per standard page, <1s average
 
-### ??? Batch Conversion (US2)
+### > Batch Conversion (US2)
 - **Directory Processing**: Recursive conversion with structure preservation
 - **Progress Tracking**: Updates every 10 files with rate calculation (files/min)
 - **Error Handling**: Continues processing after individual failures, tracks all errors
@@ -23,9 +23,9 @@ Convert Alteryx help HTML into clean, semantically-structured Markdown suitable 
 - **Custom Checkpoint Path**: `--checkpoint` flag for custom checkpoint locations
 - **Exclusion Patterns**: Glob patterns to skip unwanted files/directories
 - **Configuration Support**: External JSON config for thresholds and settings
-- **Performance**: ???25 files/min throughput validated
+- **Performance**: >25 files/min throughput validated
 
-### ??? Quality Evaluation (US3)
+### > Quality Evaluation (US3)
 - **Comprehensive Metrics**: Heading fidelity, link preservation, table preservation, code block integrity, image alt coverage
 - **Weighted Scoring**: Configurable weights with automatic normalization
 - **Multiple Report Formats**: JSON (detailed), CSV (tabular), Markdown (human-readable)
@@ -38,10 +38,10 @@ Convert Alteryx help HTML into clean, semantically-structured Markdown suitable 
 
 This package is part of the uv-ayx-rag workspace:
 
-\`\`\`bash
+```bash
 # Sync workspace packages
 uv sync
-\`\`\`
+```
 
 ## CLI Usage
 
@@ -49,7 +49,7 @@ All commands are accessible through the main CLI entry point:
 
 ### Convert Single File
 
-\`\`\`bash
+```bash
 # Basic conversion with front matter
 uv run python main.py html-to-markdown convert \\
   downloads/current/en/server/install.html \\
@@ -58,11 +58,11 @@ uv run python main.py html-to-markdown convert \\
 # With specific strategy
 uv run python main.py html-to-markdown convert \\
   input.html --out converted/ --strategy docling
-\`\`\`
+```
 
 ### Batch Convert Directory
 
-\`\`\`bash
+```bash
 # Basic batch conversion
 uv run python main.py html-to-markdown batch \\
   downloads/current/en/server/ \\
@@ -83,11 +83,11 @@ uv run python main.py html-to-markdown batch \\
   downloads/current/en/server/ \\
   --out converted/ \\
   --resume
-\`\`\`
+```
 
 ### Evaluate Quality
 
-\`\`\`bash
+```bash
 # Basic evaluation with default thresholds
 uv run python main.py html-to-markdown evaluate \\
   --source-dir downloads/current/en/server/ \\
@@ -103,17 +103,17 @@ uv run python main.py html-to-markdown evaluate \\
   --thr-links 0.99 \\
   --thr-tables 0.95 \\
   --timestamped
-\`\`\`
+```
 
 ### List Available Strategies
 
-\`\`\`bash
+```bash
 uv run python main.py html-to-markdown strategies
-\`\`\`
+```
 
 ### Benchmark Strategies
 
-\`\`\`bash
+```bash
 # Benchmark all strategies
 uv run python main.py html-to-markdown benchmark \\
   downloads/current/en/server/ \\
@@ -123,7 +123,7 @@ uv run python main.py html-to-markdown benchmark \\
 uv run python main.py html-to-markdown benchmark \\
   downloads/current/en/server/ \\
   --strategy markdownify
-\`\`\`
+```
 
 ## Configuration
 
@@ -131,7 +131,7 @@ uv run python main.py html-to-markdown benchmark \\
 
 Create a JSON configuration file for batch conversion settings:
 
-\`\`\`json
+```json
 {
   "thresholds": {
     "heading_fidelity": 0.95,
@@ -152,7 +152,7 @@ Create a JSON configuration file for batch conversion settings:
     "sh": "bash"
   }
 }
-\`\`\`
+```
 
 Use with `--config config.json` flag.
 
@@ -160,10 +160,10 @@ Use with `--config config.json` flag.
 
 Batch processing automatically creates checkpoints every 10 files at `{output_dir}/.checkpoint.json`. To resume an interrupted batch:
 
-\`\`\`bash
+```bash
 uv run python main.py html-to-markdown batch \\
   input/ --out output/ --resume
-\`\`\`
+```
 
 The checkpoint tracks:
 - Total files discovered
@@ -199,47 +199,47 @@ Files falling below thresholds are flagged for manual review.
 
 ## Package Architecture
 
-\`\`\`text
+```text
 packages/html-to-markdown/
-????????? pyproject.toml
-????????? README.md               # This file
-????????? src/html_to_markdown/
-???   ????????? __init__.py         # Exports Typer app
-???   ????????? cli.py              # CLI commands (convert, batch, evaluate, benchmark, strategies)
-???   ????????? converter.py        # Core HTML???Markdown conversion logic
-???   ????????? evaluator.py        # Quality evaluation and report generation
-???   ????????? metrics.py          # Metric computation and weighted scoring
-???   ????????? checkpoint.py       # Checkpoint persistence for batch resume
-???   ????????? config.py           # Configuration loading and validation
-???   ????????? models.py           # Dataclasses (SourceDocument, ConvertedDocument, etc.)
-???   ????????? io_utils.py         # File discovery, I/O helpers, path mapping
-???   ????????? table_handler.py    # Hybrid table conversion (Markdown/HTML)
-???   ????????? strategies/         # Conversion strategy adapters
-???       ????????? base.py         # Strategy interface
-???       ????????? markdownify_adapter.py  # Markdownify (default)
-???       ????????? docling_adapter.py      # Docling
-???       ????????? pandoc_adapter.py       # Pandoc (via pypandoc)
-????????? tests/
-    ????????? unit/               # 94 unit tests
-    ???   ????????? test_checkpoint.py
-    ???   ????????? test_config.py
-    ???   ????????? test_converter.py
-    ???   ????????? test_io_utils.py
-    ???   ????????? test_metrics.py
-    ???   ????????? test_models.py
-    ???   ????????? test_table_handler.py
-    ????????? integration/        # 38 integration tests
-    ???   ????????? test_batch_cli.py
-    ???   ????????? test_convert_cli.py
-    ???   ????????? test_evaluate_cli.py
-    ???   ????????? test_performance.py
-    ???   ????????? test_strategies_cli.py
-    ????????? fixtures/           # Test data (HTML samples, expected Markdown)
-\`\`\`
+>>> pyproject.toml
+>>> README.md               # This file
+>>> src/html_to_markdown/
+>   >>> __init__.py         # Exports Typer app
+>   >>> cli.py              # CLI commands (convert, batch, evaluate, benchmark, strategies)
+>   >>> converter.py        # Core HTML>Markdown conversion logic
+>   >>> evaluator.py        # Quality evaluation and report generation
+>   >>> metrics.py          # Metric computation and weighted scoring
+>   >>> checkpoint.py       # Checkpoint persistence for batch resume
+>   >>> config.py           # Configuration loading and validation
+>   >>> models.py           # Dataclasses (SourceDocument, ConvertedDocument, etc.)
+>   >>> io_utils.py         # File discovery, I/O helpers, path mapping
+>   >>> table_handler.py    # Hybrid table conversion (Markdown/HTML)
+>   >>> strategies/         # Conversion strategy adapters
+>       >>> base.py         # Strategy interface
+>       >>> markdownify_adapter.py  # Markdownify (default)
+>       >>> docling_adapter.py      # Docling
+>       >>> pandoc_adapter.py       # Pandoc (via pypandoc)
+>>> tests/
+    >>> unit/               # 94 unit tests
+    >   >>> test_checkpoint.py
+    >   >>> test_config.py
+    >   >>> test_converter.py
+    >   >>> test_io_utils.py
+    >   >>> test_metrics.py
+    >   >>> test_models.py
+    >   >>> test_table_handler.py
+    >>> integration/        # 38 integration tests
+    >   >>> test_batch_cli.py
+    >   >>> test_convert_cli.py
+    >   >>> test_evaluate_cli.py
+    >   >>> test_performance.py
+    >   >>> test_strategies_cli.py
+    >>> fixtures/           # Test data (HTML samples, expected Markdown)
+```
 
 ## Testing
 
-\`\`\`bash
+```bash
 # Run all tests
 cd packages/html-to-markdown
 uv run pytest
@@ -251,12 +251,12 @@ uv run pytest --cov=html_to_markdown --cov-report=term-missing
 uv run pytest tests/unit/
 uv run pytest tests/integration/
 uv run pytest tests/integration/test_batch_cli.py -v
-\`\`\`
+```
 
 **Test Coverage**: 132 tests passing
 - 94 unit tests (checkpoint, config, converter, I/O, metrics, models, tables)
 - 38 integration tests (CLI workflows, performance validation)
-- Performance tests validate <2s single file, ???25 files/min batch
+- Performance tests validate <2s single file, >25 files/min batch
 
 ## Design Decisions
 
@@ -270,8 +270,8 @@ Multiple conversion libraries supported through adapter interface:
 - **Pandoc**: Industry standard, mature conversion library
 
 ### Hybrid Table Handling
-- Simple tables ??? Markdown pipe tables (readable, version control friendly)
-- Complex tables (rowspan/colspan) ??? Embedded HTML (preserves fidelity)
+- Simple tables > Markdown pipe tables (readable, version control friendly)
+- Complex tables (rowspan/colspan) > Embedded HTML (preserves fidelity)
 - Configurable complexity threshold
 
 ### Checkpoint-Based Resume
@@ -288,7 +288,7 @@ Multiple conversion libraries supported through adapter interface:
 ## Performance Characteristics
 
 - **Single file**: <2s per standard page (<200KB), <1s average
-- **Batch throughput**: ???25 files/min validated with 30-file test
+- **Batch throughput**: >25 files/min validated with 30-file test
 - **Memory efficiency**: Streaming parse for large HTML files
 - **Progress updates**: Every 10 files with rate calculation
 - **Checkpoint frequency**: Every 10 files during batch processing
