@@ -5,6 +5,7 @@ Alteryx
 dataclass
 docling
 isort
+Markdownify
 pathlib
 pycache
 pycodestyle
