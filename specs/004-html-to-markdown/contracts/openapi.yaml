@@ -1,0 +1,170 @@
+openapi: 3.1.0
+info:
+  title: HTML to Markdown Conversion Service (Design Contract)
+  version: 0.1.0
+  description: Hypothetical service interface derived from CLI actions for future service deployment.
+servers:
+  - url: https://example.local
+paths:
+  /convert:
+    post:
+      summary: Convert a single HTML document to Markdown
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [html_content, source_path]
+              properties:
+                html_content:
+                  type: string
+                  description: Raw HTML content
+                source_path:
+                  type: string
+                  description: Filesystem path or identifier
+                strategy_override:
+                  type: string
+                  description: Library name (research phase only)
+      responses:
+        '200':
+          description: Conversion successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  markdown:
+                    type: string
+                  front_matter:
+                    type: object
+                  warnings:
+                    type: array
+                    items:
+                      type: string
+        '400': {description: Invalid HTML}
+  /batch/convert:
+    post:
+      summary: Batch convert multiple HTML documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [documents]
+              properties:
+                documents:
+                  type: array
+                  items:
+                    type: object
+                    required: [html_content, source_path]
+                    properties:
+                      html_content: {type: string}
+                      source_path: {type: string}
+                exclusions:
+                  type: array
+                  items: {type: string}
+      responses:
+        '200':
+          description: Batch conversion summary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  converted_count: {type: integer}
+                  error_count: {type: integer}
+                  summary:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        source_path: {type: string}
+                        status: {type: string}
+                        warnings:
+                          type: array
+                          items: {type: string}
+  /evaluate:
+    post:
+      summary: Evaluate converted Markdown documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [documents]
+              properties:
+                documents:
+                  type: array
+                  items:
+                    type: object
+                    required: [markdown, source_path]
+                    properties:
+                      markdown: {type: string}
+                      source_path: {type: string}
+                thresholds:
+                  type: object
+                  properties:
+                    headings: {type: integer}
+                    links: {type: integer}
+                    tables: {type: integer}
+                    code: {type: integer}
+                    images: {type: integer}
+      responses:
+        '200':
+          description: Evaluation metrics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metrics:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        source_path: {type: string}
+                        heading_fidelity_pct: {type: number}
+                        link_preservation_pct: {type: number}
+                        table_preservation_pct: {type: number}
+                        code_block_integrity_pct: {type: number}
+                        image_alt_coverage_pct: {type: number}
+                        overall_score_pct: {type: number}
+                  failures:
+                    type: array
+                    items: {type: string}
+  /diff:
+    post:
+      summary: Compare two conversion strategies for a document (research phase only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [html_content, strategy_a, strategy_b]
+              properties:
+                html_content: {type: string}
+                strategy_a: {type: string}
+                strategy_b: {type: string}
+      responses:
+        '200':
+          description: Diff result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  added_lines: {type: integer}
+                  removed_lines: {type: integer}
+                  changed_sections:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        section: {type: string}
+                        a_excerpt: {type: string}
+                        b_excerpt: {type: string}
+components: {}

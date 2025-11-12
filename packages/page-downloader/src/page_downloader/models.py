@@ -108,7 +108,7 @@ class URLList:
     invalid_count: int
 
     @classmethod
-    def from_file(cls, path: Path) -> "URLList":
+    def from_file(cls, path: Path) -> URLList:
         """Parse a text file into a URLList instance.
 
         Args:

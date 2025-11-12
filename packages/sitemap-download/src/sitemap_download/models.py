@@ -75,7 +75,7 @@ class DownloadResult:
     skipped: bool
     remote_modified: datetime | None = None
     local_modified: datetime | None = None
-    validation_result: "ValidationResult | None" = None
+    validation_result: ValidationResult | None = None
 
     @staticmethod
     def success_result(
@@ -86,8 +86,8 @@ class DownloadResult:
         skipped: bool = False,
         remote_modified: datetime | None = None,
         local_modified: datetime | None = None,
-        validation_result: "ValidationResult | None" = None,
-    ) -> "DownloadResult":
+        validation_result: ValidationResult | None = None,
+    ) -> DownloadResult:
         """Create a successful download result."""
         return DownloadResult(
             success=True,
@@ -103,7 +103,7 @@ class DownloadResult:
         )
 
     @staticmethod
-    def failure_result(error: str, duration: float, retry_count: int = 0) -> "DownloadResult":
+    def failure_result(error: str, duration: float, retry_count: int = 0) -> DownloadResult:
         """Create a failed download result."""
         return DownloadResult(
             success=False,
@@ -127,7 +127,7 @@ class ValidationResult:
     validation_duration: float
 
     @staticmethod
-    def valid_result(url_count: int, file_size: int, duration: float) -> "ValidationResult":
+    def valid_result(url_count: int, file_size: int, duration: float) -> ValidationResult:
         """Create a successful validation result."""
         return ValidationResult(
             valid=True,
@@ -138,7 +138,7 @@ class ValidationResult:
         )
 
     @staticmethod
-    def invalid_result(error: str, file_size: int, duration: float) -> "ValidationResult":
+    def invalid_result(error: str, file_size: int, duration: float) -> ValidationResult:
         """Create a failed validation result."""
         return ValidationResult(
             valid=False,

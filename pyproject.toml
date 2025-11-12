@@ -7,9 +7,10 @@ dependencies = [
     "sitemap-filter",
     "sitemap-download",
     "page-downloader",
-    "httpx>=0.25.0",
-    "rich>=13.0.0",
-    "typer>=0.20.0",
+    "html-to-markdown",
+    "httpx>=0.28.1",
+    "rich>=14.2.0",
+    "typer>=0.19.2",
     "loguru>=0.7.3",
     "tomli>=2.0.1; python_version < '3.11'",
 ]
@@ -21,19 +22,20 @@ members = ["packages/*"]
 sitemap-filter = { workspace = true, editable = true }
 sitemap-download = { workspace = true, editable = true }
 page-downloader = { workspace = true, editable = true }
+html-to-markdown = { workspace = true, editable = true }
 
 [dependency-groups]
 dev = [
-    "pytest>=8.4.2",
+    "pytest>=9.0.0",
     "pytest-cov>=7.0.0",
-    "ruff>=0.14.3",
-    "respx>=0.20.0",
+    "ruff>=0.14.4",
+    "respx>=0.22.0",
 ]
 
 [tool.ruff]
 # Set the maximum line length
 line-length = 100
-target-version = "py310"
+target-version = "py314"
 
 # Exclude common directories
 exclude = [
@@ -74,6 +76,7 @@ unfixable = []
 # Per-file ignores
 [tool.ruff.lint.per-file-ignores]
 "**/parser.py" = ["N806"]  # Allow uppercase constants in functions
+"main.py" = ["UP036"]
 
 [tool.ruff.format]
 # Use double quotes for strings

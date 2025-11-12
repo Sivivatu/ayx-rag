@@ -230,7 +230,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/workflows/enterprise-utilities.html</loc>
-    <lastmod>2025-07-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/workflows/enterprise-utilities/active-directory-sync.html</loc>
@@ -247,6 +247,10 @@
   <url>
     <loc>https://help.alteryx.com/current/de/designer/workflows/enterprise-utilities/customer-managed-telemetry-enterprise-utility.html</loc>
     <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://help.alteryx.com/current/de/designer/workflows/enterprise-utilities/server-automation-tracking-report.html</loc>
+    <lastmod>2025-11-04</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/workflows/enterprise-utilities/server-usage-report.html</loc>
@@ -386,39 +390,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/computer-vision/barcode.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/computer-vision/image-input.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/computer-vision/image-output.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/computer-vision/image-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/computer-vision/image-profile.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/computer-vision/image-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/computer-vision/image-template.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/computer-vision/image-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/computer-vision/pdf-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning.html</loc>
@@ -426,7 +430,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool/assisted-modeling.html</loc>
@@ -446,23 +450,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/build-features.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/classification-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/data-health.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/feature-types.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-dcm-setup.html</loc>
@@ -470,23 +474,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-predict.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-send.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/predict-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/regression-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/machine-learning/transformation-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/text-mining.html</loc>
@@ -494,39 +498,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/text-mining/named-entity-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/text-mining/part-of-speech-tagger.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/text-mining/sentiment-analysis.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/text-mining/text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/text-mining/text-pre-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/text-mining/text-summary.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/text-mining/topic-modeling.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/text-mining/word-cloud.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/alteryx-intelligence-suite/text-mining/zero-shot-text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/genai.html</loc>
@@ -534,27 +538,27 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/genai/create-llm-connections.html</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/genai/llm-override-tool.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/genai/precision-match-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/genai/prompt-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/genai/schema-fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/genai/synthetic-input-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/tools/in-out-tools.html</loc>
@@ -2122,7 +2126,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/data-sources.html</loc>
-    <lastmod>2025-10-27</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/data-sources/designer-compatibility-with-data-connectors.html</loc>
@@ -2362,7 +2366,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/data-sources/microsoft-dataverse.html</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/data-sources/microsoft-dynamics-crm.html</loc>
@@ -2550,7 +2554,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/file-types-support/alteryx-file-types.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/designer/file-types-support/file-format-options.html</loc>
@@ -2662,7 +2666,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/server/install/install-or-upgrade-server/server-upgrade-checklist.html</loc>
-    <lastmod>2025-02-13</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/server/install/install-or-upgrade-server/version-to-version-server-upgrade-guide-supported-versions.html</loc>
@@ -3390,7 +3394,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/dcme-endpoints.html</loc>
-    <lastmod>2025-09-17</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/de/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/subscription-endpoints.html</loc>
@@ -4662,7 +4666,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/workflows/enterprise-utilities.html</loc>
-    <lastmod>2025-07-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/workflows/enterprise-utilities/active-directory-sync.html</loc>
@@ -4679,6 +4683,10 @@
   <url>
     <loc>https://help.alteryx.com/current/en/designer/workflows/enterprise-utilities/customer-managed-telemetry-enterprise-utility.html</loc>
     <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://help.alteryx.com/current/en/designer/workflows/enterprise-utilities/server-automation-tracking-report.html</loc>
+    <lastmod>2025-11-04</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/workflows/enterprise-utilities/server-usage-report.html</loc>
@@ -4818,39 +4826,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/computer-vision/barcode.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/computer-vision/image-input.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/computer-vision/image-output.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/computer-vision/image-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/computer-vision/image-profile.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/computer-vision/image-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/computer-vision/image-template.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/computer-vision/image-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/computer-vision/pdf-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning.html</loc>
@@ -4858,7 +4866,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool/assisted-modeling.html</loc>
@@ -4878,23 +4886,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/build-features.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/classification-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/data-health.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/feature-types.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-dcm-setup.html</loc>
@@ -4902,23 +4910,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-predict.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-send.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/predict-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/regression-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/machine-learning/transformation-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/text-mining.html</loc>
@@ -4926,39 +4934,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/text-mining/named-entity-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/text-mining/part-of-speech-tagger.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/text-mining/sentiment-analysis.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/text-mining/text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/text-mining/text-pre-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/text-mining/text-summary.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/text-mining/topic-modeling.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/text-mining/word-cloud.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/alteryx-intelligence-suite/text-mining/zero-shot-text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/genai.html</loc>
@@ -4966,27 +4974,27 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/genai/create-llm-connections.html</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/genai/llm-override-tool.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/genai/precision-match-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/genai/prompt-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/genai/schema-fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/genai/synthetic-input-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/tools/in-out-tools.html</loc>
@@ -6554,7 +6562,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/data-sources.html</loc>
-    <lastmod>2025-10-27</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/data-sources/designer-compatibility-with-data-connectors.html</loc>
@@ -6794,7 +6802,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/data-sources/microsoft-dataverse.html</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/data-sources/microsoft-dynamics-crm.html</loc>
@@ -6982,7 +6990,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/file-types-support/alteryx-file-types.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/designer/file-types-support/file-format-options.html</loc>
@@ -7094,7 +7102,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/server/install/install-or-upgrade-server/server-upgrade-checklist.html</loc>
-    <lastmod>2025-02-13</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/server/install/install-or-upgrade-server/version-to-version-server-upgrade-guide-supported-versions.html</loc>
@@ -7822,7 +7830,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/dcme-endpoints.html</loc>
-    <lastmod>2025-09-17</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/en/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/subscription-endpoints.html</loc>
@@ -9094,7 +9102,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/workflows/enterprise-utilities.html</loc>
-    <lastmod>2025-07-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/workflows/enterprise-utilities/active-directory-sync.html</loc>
@@ -9111,6 +9119,10 @@
   <url>
     <loc>https://help.alteryx.com/current/es/designer/workflows/enterprise-utilities/customer-managed-telemetry-enterprise-utility.html</loc>
     <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://help.alteryx.com/current/es/designer/workflows/enterprise-utilities/server-automation-tracking-report.html</loc>
+    <lastmod>2025-11-04</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/workflows/enterprise-utilities/server-usage-report.html</loc>
@@ -9250,39 +9262,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/computer-vision/barcode.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/computer-vision/image-input.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/computer-vision/image-output.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/computer-vision/image-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/computer-vision/image-profile.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/computer-vision/image-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/computer-vision/image-template.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/computer-vision/image-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/computer-vision/pdf-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning.html</loc>
@@ -9290,7 +9302,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool/assisted-modeling.html</loc>
@@ -9310,23 +9322,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/build-features.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/classification-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/data-health.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/feature-types.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-dcm-setup.html</loc>
@@ -9334,23 +9346,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-predict.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-send.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/predict-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/regression-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/machine-learning/transformation-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/text-mining.html</loc>
@@ -9358,39 +9370,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/text-mining/named-entity-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/text-mining/part-of-speech-tagger.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/text-mining/sentiment-analysis.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/text-mining/text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/text-mining/text-pre-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/text-mining/text-summary.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/text-mining/topic-modeling.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/text-mining/word-cloud.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/alteryx-intelligence-suite/text-mining/zero-shot-text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/genai.html</loc>
@@ -9398,27 +9410,27 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/genai/create-llm-connections.html</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/genai/llm-override-tool.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/genai/precision-match-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/genai/prompt-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/genai/schema-fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/genai/synthetic-input-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/tools/in-out-tools.html</loc>
@@ -10986,7 +10998,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/data-sources.html</loc>
-    <lastmod>2025-10-27</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/data-sources/designer-compatibility-with-data-connectors.html</loc>
@@ -11226,7 +11238,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/data-sources/microsoft-dataverse.html</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/data-sources/microsoft-dynamics-crm.html</loc>
@@ -11414,7 +11426,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/file-types-support/alteryx-file-types.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/designer/file-types-support/file-format-options.html</loc>
@@ -11526,7 +11538,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/server/install/install-or-upgrade-server/server-upgrade-checklist.html</loc>
-    <lastmod>2025-02-13</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/server/install/install-or-upgrade-server/version-to-version-server-upgrade-guide-supported-versions.html</loc>
@@ -12254,7 +12266,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/dcme-endpoints.html</loc>
-    <lastmod>2025-09-17</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/es/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/subscription-endpoints.html</loc>
@@ -13526,7 +13538,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/workflows/enterprise-utilities.html</loc>
-    <lastmod>2025-07-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/workflows/enterprise-utilities/active-directory-sync.html</loc>
@@ -13543,6 +13555,10 @@
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/workflows/enterprise-utilities/customer-managed-telemetry-enterprise-utility.html</loc>
     <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://help.alteryx.com/current/fr/designer/workflows/enterprise-utilities/server-automation-tracking-report.html</loc>
+    <lastmod>2025-11-04</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/workflows/enterprise-utilities/server-usage-report.html</loc>
@@ -13682,39 +13698,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/computer-vision/barcode.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/computer-vision/image-input.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/computer-vision/image-output.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/computer-vision/image-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/computer-vision/image-profile.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/computer-vision/image-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/computer-vision/image-template.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/computer-vision/image-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/computer-vision/pdf-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning.html</loc>
@@ -13722,7 +13738,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool/assisted-modeling.html</loc>
@@ -13742,23 +13758,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/build-features.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/classification-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/data-health.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/feature-types.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-dcm-setup.html</loc>
@@ -13766,23 +13782,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-predict.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-send.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/predict-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/regression-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/machine-learning/transformation-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/text-mining.html</loc>
@@ -13790,39 +13806,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/text-mining/named-entity-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/text-mining/part-of-speech-tagger.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/text-mining/sentiment-analysis.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/text-mining/text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/text-mining/text-pre-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/text-mining/text-summary.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/text-mining/topic-modeling.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/text-mining/word-cloud.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/alteryx-intelligence-suite/text-mining/zero-shot-text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/genai.html</loc>
@@ -13830,27 +13846,27 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/genai/create-llm-connections.html</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/genai/llm-override-tool.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/genai/precision-match-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/genai/prompt-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/genai/schema-fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/genai/synthetic-input-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/tools/in-out-tools.html</loc>
@@ -15418,7 +15434,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/data-sources.html</loc>
-    <lastmod>2025-10-27</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/data-sources/designer-compatibility-with-data-connectors.html</loc>
@@ -15658,7 +15674,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/data-sources/microsoft-dataverse.html</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/data-sources/microsoft-dynamics-crm.html</loc>
@@ -15846,7 +15862,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/file-types-support/alteryx-file-types.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/designer/file-types-support/file-format-options.html</loc>
@@ -15958,7 +15974,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/server/install/install-or-upgrade-server/server-upgrade-checklist.html</loc>
-    <lastmod>2025-02-13</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/server/install/install-or-upgrade-server/version-to-version-server-upgrade-guide-supported-versions.html</loc>
@@ -16686,7 +16702,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/dcme-endpoints.html</loc>
-    <lastmod>2025-09-17</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/fr/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/subscription-endpoints.html</loc>
@@ -17958,7 +17974,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/workflows/enterprise-utilities.html</loc>
-    <lastmod>2025-07-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/workflows/enterprise-utilities/active-directory-sync.html</loc>
@@ -17975,6 +17991,10 @@
   <url>
     <loc>https://help.alteryx.com/current/it/designer/workflows/enterprise-utilities/customer-managed-telemetry-enterprise-utility.html</loc>
     <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://help.alteryx.com/current/it/designer/workflows/enterprise-utilities/server-automation-tracking-report.html</loc>
+    <lastmod>2025-11-04</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/workflows/enterprise-utilities/server-usage-report.html</loc>
@@ -18114,39 +18134,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/computer-vision/barcode.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/computer-vision/image-input.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/computer-vision/image-output.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/computer-vision/image-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/computer-vision/image-profile.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/computer-vision/image-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/computer-vision/image-template.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/computer-vision/image-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/computer-vision/pdf-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning.html</loc>
@@ -18154,7 +18174,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool/assisted-modeling.html</loc>
@@ -18174,23 +18194,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/build-features.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/classification-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/data-health.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/feature-types.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-dcm-setup.html</loc>
@@ -18198,23 +18218,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-predict.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-send.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/predict-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/regression-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/machine-learning/transformation-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/text-mining.html</loc>
@@ -18222,39 +18242,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/text-mining/named-entity-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/text-mining/part-of-speech-tagger.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/text-mining/sentiment-analysis.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/text-mining/text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/text-mining/text-pre-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/text-mining/text-summary.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/text-mining/topic-modeling.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/text-mining/word-cloud.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/alteryx-intelligence-suite/text-mining/zero-shot-text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/genai.html</loc>
@@ -18262,27 +18282,27 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/genai/create-llm-connections.html</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/genai/llm-override-tool.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/genai/precision-match-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/genai/prompt-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/genai/schema-fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/genai/synthetic-input-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/tools/in-out-tools.html</loc>
@@ -19850,7 +19870,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/data-sources.html</loc>
-    <lastmod>2025-10-27</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/data-sources/designer-compatibility-with-data-connectors.html</loc>
@@ -20090,7 +20110,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/data-sources/microsoft-dataverse.html</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/data-sources/microsoft-dynamics-crm.html</loc>
@@ -20278,7 +20298,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/file-types-support/alteryx-file-types.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/designer/file-types-support/file-format-options.html</loc>
@@ -20390,7 +20410,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/server/install/install-or-upgrade-server/server-upgrade-checklist.html</loc>
-    <lastmod>2025-02-13</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/server/install/install-or-upgrade-server/version-to-version-server-upgrade-guide-supported-versions.html</loc>
@@ -21118,7 +21138,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/dcme-endpoints.html</loc>
-    <lastmod>2025-09-17</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/it/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/subscription-endpoints.html</loc>
@@ -22390,7 +22410,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/workflows/enterprise-utilities.html</loc>
-    <lastmod>2025-07-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/workflows/enterprise-utilities/active-directory-sync.html</loc>
@@ -22407,6 +22427,10 @@
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/workflows/enterprise-utilities/customer-managed-telemetry-enterprise-utility.html</loc>
     <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://help.alteryx.com/current/pt/designer/workflows/enterprise-utilities/server-automation-tracking-report.html</loc>
+    <lastmod>2025-11-04</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/workflows/enterprise-utilities/server-usage-report.html</loc>
@@ -22546,39 +22570,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/computer-vision/barcode.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/computer-vision/image-input.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/computer-vision/image-output.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/computer-vision/image-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/computer-vision/image-profile.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/computer-vision/image-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/computer-vision/image-template.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/computer-vision/image-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/computer-vision/pdf-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning.html</loc>
@@ -22586,7 +22610,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool/assisted-modeling.html</loc>
@@ -22606,23 +22630,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/build-features.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/classification-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/data-health.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/feature-types.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-dcm-setup.html</loc>
@@ -22630,23 +22654,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-predict.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-send.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/predict-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/regression-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/machine-learning/transformation-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/text-mining.html</loc>
@@ -22654,39 +22678,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/text-mining/named-entity-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/text-mining/part-of-speech-tagger.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/text-mining/sentiment-analysis.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/text-mining/text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/text-mining/text-pre-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/text-mining/text-summary.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/text-mining/topic-modeling.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/text-mining/word-cloud.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/alteryx-intelligence-suite/text-mining/zero-shot-text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/genai.html</loc>
@@ -22694,27 +22718,27 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/genai/create-llm-connections.html</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/genai/llm-override-tool.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/genai/precision-match-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/genai/prompt-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/genai/schema-fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/genai/synthetic-input-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/tools/in-out-tools.html</loc>
@@ -24282,7 +24306,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/data-sources.html</loc>
-    <lastmod>2025-10-27</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/data-sources/designer-compatibility-with-data-connectors.html</loc>
@@ -24522,7 +24546,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/data-sources/microsoft-dataverse.html</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/data-sources/microsoft-dynamics-crm.html</loc>
@@ -24710,7 +24734,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/file-types-support/alteryx-file-types.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/designer/file-types-support/file-format-options.html</loc>
@@ -24822,7 +24846,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/server/install/install-or-upgrade-server/server-upgrade-checklist.html</loc>
-    <lastmod>2025-02-13</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/server/install/install-or-upgrade-server/version-to-version-server-upgrade-guide-supported-versions.html</loc>
@@ -25550,7 +25574,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/dcme-endpoints.html</loc>
-    <lastmod>2025-09-17</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/pt/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/subscription-endpoints.html</loc>
@@ -26822,7 +26846,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/workflows/enterprise-utilities.html</loc>
-    <lastmod>2025-07-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/workflows/enterprise-utilities/active-directory-sync.html</loc>
@@ -26839,6 +26863,10 @@
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/workflows/enterprise-utilities/customer-managed-telemetry-enterprise-utility.html</loc>
     <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://help.alteryx.com/current/zh-CHS/designer/workflows/enterprise-utilities/server-automation-tracking-report.html</loc>
+    <lastmod>2025-11-04</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/workflows/enterprise-utilities/server-usage-report.html</loc>
@@ -26978,39 +27006,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/computer-vision/barcode.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/computer-vision/image-input.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/computer-vision/image-output.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/computer-vision/image-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/computer-vision/image-profile.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/computer-vision/image-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/computer-vision/image-template.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/computer-vision/image-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/computer-vision/pdf-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning.html</loc>
@@ -27018,7 +27046,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool/assisted-modeling.html</loc>
@@ -27038,23 +27066,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/build-features.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/classification-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/data-health.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/feature-types.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-dcm-setup.html</loc>
@@ -27062,23 +27090,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-predict.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-send.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/predict-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/regression-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/machine-learning/transformation-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/text-mining.html</loc>
@@ -27086,39 +27114,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/text-mining/named-entity-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/text-mining/part-of-speech-tagger.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/text-mining/sentiment-analysis.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/text-mining/text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/text-mining/text-pre-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/text-mining/text-summary.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/text-mining/topic-modeling.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/text-mining/word-cloud.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/alteryx-intelligence-suite/text-mining/zero-shot-text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/genai.html</loc>
@@ -27126,27 +27154,27 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/genai/create-llm-connections.html</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/genai/llm-override-tool.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/genai/precision-match-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/genai/prompt-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/genai/schema-fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/genai/synthetic-input-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/tools/in-out-tools.html</loc>
@@ -28714,7 +28742,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/data-sources.html</loc>
-    <lastmod>2025-10-27</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/data-sources/designer-compatibility-with-data-connectors.html</loc>
@@ -28954,7 +28982,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/data-sources/microsoft-dataverse.html</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/data-sources/microsoft-dynamics-crm.html</loc>
@@ -29142,7 +29170,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/file-types-support/alteryx-file-types.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/designer/file-types-support/file-format-options.html</loc>
@@ -29254,7 +29282,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/server/install/install-or-upgrade-server/server-upgrade-checklist.html</loc>
-    <lastmod>2025-02-13</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/server/install/install-or-upgrade-server/version-to-version-server-upgrade-guide-supported-versions.html</loc>
@@ -29982,7 +30010,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/dcme-endpoints.html</loc>
-    <lastmod>2025-09-17</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/zh-CHS/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/subscription-endpoints.html</loc>
@@ -31254,7 +31282,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/workflows/enterprise-utilities.html</loc>
-    <lastmod>2025-07-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/workflows/enterprise-utilities/active-directory-sync.html</loc>
@@ -31271,6 +31299,10 @@
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/workflows/enterprise-utilities/customer-managed-telemetry-enterprise-utility.html</loc>
     <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://help.alteryx.com/current/ja/designer/workflows/enterprise-utilities/server-automation-tracking-report.html</loc>
+    <lastmod>2025-11-04</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/workflows/enterprise-utilities/server-usage-report.html</loc>
@@ -31410,39 +31442,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/computer-vision/barcode.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/computer-vision/image-input.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/computer-vision/image-output.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/computer-vision/image-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/computer-vision/image-profile.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/computer-vision/image-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/computer-vision/image-template.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/computer-vision/image-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/computer-vision/pdf-to-text.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning.html</loc>
@@ -31450,7 +31482,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/assisted-modeling-tool/assisted-modeling.html</loc>
@@ -31470,23 +31502,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/build-features.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/classification-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/data-health.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/feature-types.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-dcm-setup.html</loc>
@@ -31494,23 +31526,23 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-predict.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/machine-learning-send.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/predict-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/regression-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/machine-learning/transformation-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/text-mining.html</loc>
@@ -31518,39 +31550,39 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/text-mining/named-entity-recognition.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/text-mining/part-of-speech-tagger.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/text-mining/sentiment-analysis.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/text-mining/text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/text-mining/text-pre-processing.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/text-mining/text-summary.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/text-mining/topic-modeling.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/text-mining/word-cloud.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/alteryx-intelligence-suite/text-mining/zero-shot-text-classification.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/genai.html</loc>
@@ -31558,27 +31590,27 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/genai/create-llm-connections.html</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/genai/llm-override-tool.html</loc>
-    <lastmod>2025-08-26</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/genai/precision-match-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/genai/prompt-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/genai/schema-fit-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/genai/synthetic-input-tool.html</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/tools/in-out-tools.html</loc>
@@ -33146,7 +33178,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/data-sources.html</loc>
-    <lastmod>2025-10-27</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/data-sources/designer-compatibility-with-data-connectors.html</loc>
@@ -33386,7 +33418,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/data-sources/microsoft-dataverse.html</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/data-sources/microsoft-dynamics-crm.html</loc>
@@ -33574,7 +33606,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/file-types-support/alteryx-file-types.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2025-10-31</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/designer/file-types-support/file-format-options.html</loc>
@@ -33686,7 +33718,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/server/install/install-or-upgrade-server/server-upgrade-checklist.html</loc>
-    <lastmod>2025-02-13</lastmod>
+    <lastmod>2025-11-06</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/server/install/install-or-upgrade-server/version-to-version-server-upgrade-guide-supported-versions.html</loc>
@@ -34414,7 +34446,7 @@
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/dcme-endpoints.html</loc>
-    <lastmod>2025-09-17</lastmod>
+    <lastmod>2025-11-05</lastmod>
   </url>
   <url>
     <loc>https://help.alteryx.com/current/ja/server/api-overview/alteryx-server-api-v3/server-api-v3-objects/subscription-endpoints.html</loc>

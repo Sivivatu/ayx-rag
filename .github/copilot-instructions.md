@@ -171,6 +171,8 @@ When implementing features, prioritize incremental development with clear separa
 - Local filesystem (default: `alteryx-help-current-sitemap.xml` at project root) (002-sitemap-download)
 - Python >=3.10 (aligned with project requirements) + httpx>=0.25.0 (HTTP client with streaming), typer>=0.20.0 (CLI framework), loguru>=0.7.3 (logging), robotexclusionrulesparser or urllib.robotparser (robots.txt) (003-page-downloader)
 - Local filesystem (nested directories matching URL path structure) (003-page-downloader)
+- Python 3.10+ (workspace standard) (004-html-to-markdown)
+- Local filesystem only (HTML input, Markdown output, evaluation JSON/CSV) (004-html-to-markdown)
 
 ## Current Package Status
 - **sitemap-filter** (v0.2.0): Complete with 57 passing tests
@@ -181,6 +183,6 @@ When implementing features, prioritize incremental development with clear separa
   - File output support
 
 ## Recent Changes
+- 004-html-to-markdown: Added Python 3.10+ (workspace standard)
 - 003-page-downloader: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 - 003-page-downloader: Added Python >=3.10 (aligned with project requirements) + httpx>=0.25.0 (HTTP client with streaming), typer>=0.20.0 (CLI framework), loguru>=0.7.3 (logging), robotexclusionrulesparser or urllib.robotparser (robots.txt)
-- 002-sitemap-download: Added Python 3.10+

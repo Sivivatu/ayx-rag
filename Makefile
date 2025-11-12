@@ -13,16 +13,16 @@ lint:  ## Run ruff linter
 	uv run ruff check .
 
 format:  ## Format code with ruff
-	uv run ruff format .
-
-format-check:  ## Check if code is formatted
 	uv run ruff format --check .
 
-fix:  ## Auto-fix linting issues
+format-fix:  ## Check if code is formatted
+	uv run ruff format .
+
+lint-fix:  ## Auto-fix linting issues
 	uv run ruff check --fix .
 
 test:  ## Run all tests
-	uv run pytest
+	uv run pytest --import-mode=prepend
 
 test-cov:  ## Run tests with coverage
 	uv run pytest --cov=packages/sitemap-filter/src --cov=packages/sitemap-download/src --cov=packages/page-downloader/src --cov-report=term-missing --cov-fail-under=80
@@ -35,3 +35,14 @@ clean:  ## Clean temporary files
 	find . -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
 	find . -type f -name "*.pyc" -delete
 	find . -type f -name ".coverage" -delete
+
+server-build:
+	uv run main.py sitemap-download
+	uv run main.py sitemap-filter alteryx-help-current-sitemap.xml --language en --product server --output downloads/urls/sitemap-filtered-server.txt
+	uv run main.py page-downloader downloads/urls/sitemap-filtered-server.txt --no-verify-ssl
+	uv run python main.py html-to-markdown batch downloads/current/en/server/ --out converted/
+
+server-no-update:
+	uv run main.py sitemap-filter alteryx-help-current-sitemap.xml --language en --product server --output downloads/urls/sitemap-filtered-server.txt
+	uv run main.py page-downloader downloads/urls/sitemap-filtered-server.txt --no-verify-ssl
+	uv run python main.py html-to-markdown batch downloads/current/en/server/ --out converted/

@@ -74,3 +74,18 @@ dmypy.json
 *.swp
 .env*
 !.env.example
+
+# Generated conversion outputs
+converted/
+**/converted/
+
+# Evaluation artifacts (can be regenerated)
+evaluation/
+**/evaluation/
+
+# Benchmark artifacts (can be regenerated)
+specs/004-html-to-markdown/benchmarks/*.json
+
+# Temporary test files
+tmp_*.html
+**/tmp_*.html
