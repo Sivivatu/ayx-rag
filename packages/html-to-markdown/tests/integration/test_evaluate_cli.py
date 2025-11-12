@@ -72,12 +72,12 @@ def test_evaluate_cli_with_timestamped_output(tmp_path: Path):
         ],
     )
     assert result.exit_code == 0, result.output
-    
+
     # Check for timestamped files (pattern: evaluation_YYYYMMDD_HHMMSS.*)
     json_files = list(out_base.glob("evaluation_*.json"))
     csv_files = list(out_base.glob("evaluation_*.csv"))
     md_files = list(out_base.glob("evaluation_*.md"))
-    
+
     assert len(json_files) == 1, f"Expected 1 JSON file, found {len(json_files)}"
     assert len(csv_files) == 1, f"Expected 1 CSV file, found {len(csv_files)}"
     assert len(md_files) == 1, f"Expected 1 MD file, found {len(md_files)}"

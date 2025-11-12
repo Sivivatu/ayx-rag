@@ -131,10 +131,7 @@ def batch(
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # Setup checkpoint path
-    if checkpoint_path:
-        chkpt_file = Path(checkpoint_path)
-    else:
-        chkpt_file = out_dir / ".checkpoint.json"
+    chkpt_file = Path(checkpoint_path) if checkpoint_path else out_dir / ".checkpoint.json"
 
     # Discover HTML files
     html_files = list(discover_html_files(in_dir, exclusion_patterns))
@@ -155,16 +152,16 @@ def batch(
         checkpoint = Checkpoint.load(chkpt_file)
         if checkpoint:
             typer.echo(f"Resuming from checkpoint: {chkpt_file}")
-            typer.echo(f"Previously processed: {checkpoint.processed_count}/{checkpoint.total_files}")
+            typer.echo(
+                f"Previously processed: {checkpoint.processed_count}/{checkpoint.total_files}"
+            )
             typer.echo(f"Started at: {checkpoint.started_at}")
             typer.echo(f"Last updated: {checkpoint.last_updated}")
             typer.echo("")
 
             # Filter to only unprocessed files
             remaining_paths = checkpoint.get_remaining_files(file_paths)
-            files_to_process = [
-                html_files[file_paths.index(p)] for p in remaining_paths
-            ]
+            files_to_process = [html_files[file_paths.index(p)] for p in remaining_paths]
             typer.echo(f"Remaining files to process: {len(files_to_process)}")
         else:
             typer.echo(f"Warning: Could not load checkpoint from {chkpt_file}", err=True)
@@ -177,12 +174,11 @@ def batch(
     converted = checkpoint.processed_count
     failed = len(checkpoint.failed_files)
     errors = [
-        {"file": f.file_path, "error": f.error, "type": "Error"}
-        for f in checkpoint.failed_files
+        {"file": f.file_path, "error": f.error, "type": "Error"} for f in checkpoint.failed_files
     ]
     t_start = time.perf_counter()
 
-    typer.echo(f"Starting batch conversion...")
+    typer.echo("Starting batch conversion...")
     typer.echo(f"Strategy: {strategy_name}")
     typer.echo(f"Input: {in_dir}")
     typer.echo(f"Output: {out_dir}")
@@ -199,7 +195,7 @@ def batch(
             out_path = (out_dir / Path(rel_path)).with_suffix(".md")
 
             # Convert file
-            result = converter.convert_file(html_file, out_path)
+            converter.convert_file(html_file, out_path)
             converted += 1
 
             # Update checkpoint
@@ -252,7 +248,7 @@ def batch(
     # Clean up checkpoint on successful completion
     if failed == 0 and chkpt_file.exists():
         chkpt_file.unlink()
-        typer.echo(f"\nCheckpoint removed (all files processed successfully)")
+        typer.echo("\nCheckpoint removed (all files processed successfully)")
 
     # Generate summary JSON if requested
     if summary_path:
@@ -267,7 +263,8 @@ def batch(
             "duration_seconds": round(duration, 2),
             "rate_files_per_second": round(rate, 2),
             "rate_files_per_minute": round(rate * 60, 1),
-            "resumed_from_checkpoint": resume and checkpoint.processed_count > len(files_to_process),
+            "resumed_from_checkpoint": resume
+            and checkpoint.processed_count > len(files_to_process),
             "errors": errors,
         }
 

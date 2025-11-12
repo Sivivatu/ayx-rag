@@ -1,6 +1,6 @@
 """Integration tests for batch CLI command."""
+
 import json
-from pathlib import Path
 
 import pytest
 from html_to_markdown.cli import app
@@ -30,9 +30,7 @@ def html_files(tmp_path):
     # Create nested directory structure
     nested = input_dir / "subfolder"
     nested.mkdir()
-    (nested / "nested.html").write_text(
-        "<h1>Nested</h1><p>Content</p>", encoding="utf-8"
-    )
+    (nested / "nested.html").write_text("<h1>Nested</h1><p>Content</p>", encoding="utf-8")
 
     return input_dir
 
@@ -41,9 +39,7 @@ def test_batch_converts_multiple_files(html_files, tmp_path):
     """Should convert all HTML files in directory."""
     out_dir = tmp_path / "output"
 
-    result = runner.invoke(
-        app, ["batch", str(html_files), "--out", str(out_dir)]
-    )
+    result = runner.invoke(app, ["batch", str(html_files), "--out", str(out_dir)])
 
     assert result.exit_code == 0
     assert "Batch Conversion Complete" in result.stdout
@@ -60,9 +56,7 @@ def test_batch_preserves_directory_structure(html_files, tmp_path):
     """Should maintain directory structure in output."""
     out_dir = tmp_path / "output"
 
-    result = runner.invoke(
-        app, ["batch", str(html_files), "--out", str(out_dir)]
-    )
+    result = runner.invoke(app, ["batch", str(html_files), "--out", str(out_dir)])
 
     assert result.exit_code == 0
 
@@ -77,9 +71,7 @@ def test_batch_shows_progress_updates(html_files, tmp_path):
     """Should show progress during conversion."""
     out_dir = tmp_path / "output"
 
-    result = runner.invoke(
-        app, ["batch", str(html_files), "--out", str(out_dir)]
-    )
+    result = runner.invoke(app, ["batch", str(html_files), "--out", str(out_dir)])
 
     assert result.exit_code == 0
     assert "Progress:" in result.stdout
@@ -122,24 +114,18 @@ def test_batch_handles_malformed_html(tmp_path):
     input_dir.mkdir()
 
     # Valid file
-    (input_dir / "valid.html").write_text(
-        "<h1>Valid</h1><p>Content</p>", encoding="utf-8"
-    )
+    (input_dir / "valid.html").write_text("<h1>Valid</h1><p>Content</p>", encoding="utf-8")
 
     # Malformed file (invalid encoding trigger)
-    (input_dir / "invalid.html").write_text(
-        "<<>>Not properly formed<<", encoding="utf-8"
-    )
+    (input_dir / "invalid.html").write_text("<<>>Not properly formed<<", encoding="utf-8")
 
     # Another valid file
-    (input_dir / "valid2.html").write_text(
-        "<h1>Valid 2</h1>", encoding="utf-8"
-    )
+    (input_dir / "valid2.html").write_text("<h1>Valid 2</h1>", encoding="utf-8")
 
     out_dir = tmp_path / "output"
     summary_path = tmp_path / "summary.json"
 
-    result = runner.invoke(
+    runner.invoke(
         app,
         [
             "batch",
@@ -201,9 +187,7 @@ def test_batch_no_files_found(tmp_path):
     empty_dir.mkdir()
     out_dir = tmp_path / "output"
 
-    result = runner.invoke(
-        app, ["batch", str(empty_dir), "--out", str(out_dir)]
-    )
+    result = runner.invoke(app, ["batch", str(empty_dir), "--out", str(out_dir)])
 
     assert result.exit_code == 0
     assert "No HTML files found" in result.stdout
@@ -213,9 +197,7 @@ def test_batch_calculates_conversion_rate(html_files, tmp_path):
     """Should calculate and display conversion rate."""
     out_dir = tmp_path / "output"
 
-    result = runner.invoke(
-        app, ["batch", str(html_files), "--out", str(out_dir)]
-    )
+    result = runner.invoke(app, ["batch", str(html_files), "--out", str(out_dir)])
 
     assert result.exit_code == 0
     assert "files/min" in result.stdout
@@ -252,11 +234,9 @@ def test_batch_creates_checkpoint_on_failure(tmp_path):
     (input_dir / "file2.html").write_text("<h1>OK</h1>", encoding="utf-8")
 
     out_dir = tmp_path / "output"
-    checkpoint_path = out_dir / ".checkpoint.json"
+    out_dir / ".checkpoint.json"
 
-    result = runner.invoke(
-        app, ["batch", str(input_dir), "--out", str(out_dir)]
-    )
+    result = runner.invoke(app, ["batch", str(input_dir), "--out", str(out_dir)])
 
     # Should succeed without errors in this case
     assert result.exit_code == 0
@@ -269,9 +249,7 @@ def test_batch_resume_from_checkpoint(tmp_path):
 
     # Create multiple files
     for i in range(5):
-        (input_dir / f"page{i}.html").write_text(
-            f"<h1>Page {i}</h1>", encoding="utf-8"
-        )
+        (input_dir / f"page{i}.html").write_text(f"<h1>Page {i}</h1>", encoding="utf-8")
 
     out_dir = tmp_path / "output"
     out_dir.mkdir()
@@ -348,11 +326,9 @@ def test_batch_checkpoint_removed_on_success(tmp_path):
     (input_dir / "file2.html").write_text("<h1>Test 2</h1>", encoding="utf-8")
 
     out_dir = tmp_path / "output"
-    checkpoint_path = out_dir / ".checkpoint.json"
+    out_dir / ".checkpoint.json"
 
-    result = runner.invoke(
-        app, ["batch", str(input_dir), "--out", str(out_dir)]
-    )
+    result = runner.invoke(app, ["batch", str(input_dir), "--out", str(out_dir)])
 
     assert result.exit_code == 0
     # Checkpoint should be removed on success

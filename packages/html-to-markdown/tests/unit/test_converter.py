@@ -261,4 +261,3 @@ class TestTableProcessing:
         html = "<h1>Title</h1><p>Content</p>"
         result = converter._process_tables(html)
         assert result == html
-

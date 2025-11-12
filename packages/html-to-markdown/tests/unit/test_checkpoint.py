@@ -1,7 +1,5 @@
 """Unit tests for checkpoint module."""
-from pathlib import Path
 
-import pytest
 from html_to_markdown.checkpoint import Checkpoint, CheckpointEntry
 
 

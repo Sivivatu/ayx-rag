@@ -1,4 +1,5 @@
 """Performance tests for HTML to Markdown conversion."""
+
 import time
 from pathlib import Path
 
@@ -19,9 +20,9 @@ def standard_page_html():
 </head>
 <body>
     <h1>Getting Started with the Application</h1>
-    
+
     <p>This guide will help you understand the basics of using the application effectively.</p>
-    
+
     <h2>Installation</h2>
     <p>To install the application, follow these steps:</p>
     <ol>
@@ -30,17 +31,17 @@ def standard_page_html():
         <li>Follow the on-screen instructions</li>
         <li>Restart your computer when prompted</li>
     </ol>
-    
+
     <h2>Configuration</h2>
     <p>After installation, you'll need to configure the application:</p>
-    
+
     <h3>Basic Settings</h3>
     <ul>
         <li><strong>Username:</strong> Enter your username</li>
         <li><strong>Password:</strong> Create a secure password</li>
         <li><strong>Email:</strong> Provide your email address</li>
     </ul>
-    
+
     <h3>Advanced Settings</h3>
     <table>
         <tr>
@@ -64,10 +65,10 @@ def standard_page_html():
             <td>Size of the local cache</td>
         </tr>
     </table>
-    
+
     <h2>Usage Examples</h2>
     <p>Here are some common usage patterns:</p>
-    
+
     <h3>Example 1: Basic Workflow</h3>
     <pre><code class="language-python">
 import application
@@ -85,7 +86,7 @@ app.configure({
 result = app.run()
 print(result)
     </code></pre>
-    
+
     <h3>Example 2: Advanced Features</h3>
     <pre><code class="language-javascript">
 const app = require('application');
@@ -102,22 +103,22 @@ const result = await app.execute({
     data: inputData
 });
     </code></pre>
-    
+
     <h2>Troubleshooting</h2>
     <p>If you encounter issues, try these solutions:</p>
-    
+
     <h3>Common Problems</h3>
     <dl>
         <dt>Application won't start</dt>
         <dd>Check that all prerequisites are installed and your system meets the minimum requirements.</dd>
-        
+
         <dt>Performance is slow</dt>
         <dd>Increase the memory allocation in advanced settings or clear the cache.</dd>
-        
+
         <dt>Connection errors</dt>
         <dd>Verify your network settings and firewall configuration.</dd>
     </dl>
-    
+
     <h2>Next Steps</h2>
     <p>Now that you've completed the basic setup:</p>
     <ul>
@@ -126,7 +127,7 @@ const result = await app.execute({
         <li>Join the <a href="/community">community forum</a></li>
         <li>Check out <a href="/examples">example projects</a></li>
     </ul>
-    
+
     <h2>Additional Resources</h2>
     <p>For more information, see:</p>
     <ul>
@@ -292,7 +293,7 @@ print(result)
 
     <h2>Additional Information</h2>
     <ul>
-        <li><a href="/page{i+1}">Next page</a></li>
+        <li><a href="/page{i + 1}">Next page</a></li>
         <li><a href="/related">Related documentation</a></li>
         <li><a href="/api">API reference</a></li>
     </ul>
@@ -307,9 +308,7 @@ print(result)
     runner = CliRunner()
     output_dir = tmp_path / "batch_output"
 
-    result = runner.invoke(
-        app, ["batch", str(input_dir), "--out", str(output_dir)]
-    )
+    result = runner.invoke(app, ["batch", str(input_dir), "--out", str(output_dir)])
 
     assert result.exit_code == 0
 
@@ -323,9 +322,9 @@ print(result)
     files_per_min = float(rate_match.group(1))
 
     # Verify throughput meets requirement
-    assert (
-        files_per_min >= 25.0
-    ), f"Throughput {files_per_min:.1f} files/min does not meet requirement of ≥25 files/min"
+    assert files_per_min >= 25.0, (
+        f"Throughput {files_per_min:.1f} files/min does not meet requirement of ≥25 files/min"
+    )
 
     # Verify all files were converted
     assert len(list(output_dir.glob("*.md"))) == 30

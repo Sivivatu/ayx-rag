@@ -42,7 +42,9 @@ class Checkpoint:
             failed_files=[],
         )
 
-    def mark_processed(self, file_path: str, success: bool = True, error: str | None = None) -> None:
+    def mark_processed(
+        self, file_path: str, success: bool = True, error: str | None = None
+    ) -> None:
         """Mark a file as processed."""
         self.processed_files.append(file_path)
         self.processed_count = len(self.processed_files)
@@ -97,7 +99,7 @@ class Checkpoint:
                 processed_files=data["processed_files"],
                 failed_files=failed_files,
             )
-        except (json.JSONDecodeError, KeyError, TypeError) as e:
+        except (json.JSONDecodeError, KeyError, TypeError):
             # Return None if checkpoint is corrupted
             return None
 

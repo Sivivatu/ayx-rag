@@ -152,4 +152,3 @@ def test_convert_nonexistent_file(tmp_path: Path):
 
     # Just verify it exits with error code
     assert result.exit_code == 1
-
